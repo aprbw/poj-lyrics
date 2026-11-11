@@ -1,6 +1,6 @@
 # Repository Documentation — Sounds of Joy (`poj-lyrics`)
 
-> Looking for the song list, lyrics, chords, and recordings? See the **[Song Directory (`README.md`)](./README.md)**.
+> Looking for the song list, lyrics, chords, and recordings? See **[`README.md`](./README.md)** (compact index) or **[`DIRECTORY.md`](./DIRECTORY.md)** (full metadata table).
 
 This document covers the technical architecture, file structure, Markdown + YAML song format, build pipeline, and deployment setup for the **Place of Joy (POJ) Melbourne Original Songbook** (`soundsofjoy.vercel.app`).
 
@@ -10,7 +10,8 @@ This document covers the technical architecture, file structure, Markdown + YAML
 
 ```text
 poj-lyrics/
-├── README.md                   # Master POJ Song Directory (2013–2026)
+├── README.md                   # Compact POJ Song Index (Year, Song, Camp/Release)
+├── DIRECTORY.md                # Full Song Directory Table (keys, credits, audio & sources)
 ├── DOCS.md                     # Technical & repository documentation (this file)
 ├── songs/                      # 16 individual POJ song files (.md with YAML frontmatter)
 │   ├── 2013-who-is-he.md
