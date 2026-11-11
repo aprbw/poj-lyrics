@@ -571,6 +571,16 @@
         audioEl.controls = true;
         audioEl.preload = 'metadata';
         audioEl.className = 'w-full h-9 mt-1';
+        audioEl.addEventListener('error', function () {
+          var fallback = document.createElement('div');
+          fallback.className = 'text-[11px] text-slate-500 dark:text-slate-400';
+          fallback.textContent = tr.driveUrl
+            ? 'Local audio/ not present — stream directly from POJ Google Drive above.'
+            : 'Local audio file not present.';
+          if (audioEl.parentNode) {
+            audioEl.parentNode.replaceChild(fallback, audioEl);
+          }
+        });
         audioEl.setAttribute('src', tr.path);
         card.appendChild(audioEl);
       } else if (tr.path && IS_CANVAS) {
