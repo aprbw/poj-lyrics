@@ -1,9 +1,9 @@
 ---
 id: "jesus-not-the-crowd"
-title: "Jesus Not The Crowd"
+title: "Jesus, not the crowd"
 alt_title: ""
 year: 2015
-camp: "CCM15: Jesus Not The Crowd"
+camp: "CCM15: Jesus > Crowd"
 language: "English"
 scripture: "Jeremiah 23:16"
 credits: "Lyrics & Music: Jocelyn Victoria"

@@ -65,7 +65,7 @@
       { songId: 'rooted', targetKeyIndex: 7 },
       { songId: 'cerminan-mu', targetKeyIndex: 4 },
       { songId: 'i-am-free', targetKeyIndex: 0 },
-      { songId: 'here-is-my-broken-heart', targetKeyIndex: 7 }
+      { songId: 'made-worthy', targetKeyIndex: 7 }
     ]),
     customMd: safeLoad(STORAGE_KEYS.customMd, {})
   };

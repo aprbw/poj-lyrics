@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-11T05:56:40.020Z",
-  "count": 16,
+  "generatedAt": "2026-11-11T06:08:45.672Z",
+  "count": 13,
   "songs": [
     {
       "id": "who-is-he",
@@ -16,33 +16,15 @@
     },
     {
       "id": "jesus-not-the-crowd",
-      "title": "Jesus Not The Crowd",
+      "title": "Jesus, not the crowd",
       "year": 2015,
       "file": "songs/2015-jesus-not-the-crowd.md"
-    },
-    {
-      "id": "kusadari",
-      "title": "Kusadari",
-      "year": 2015,
-      "file": "songs/2015-kusadari.md"
     },
     {
       "id": "painter",
       "title": "Painter",
       "year": 2016,
       "file": "songs/2016-painter.md"
-    },
-    {
-      "id": "a-song-for-you",
-      "title": "A Song for You",
-      "year": 2018,
-      "file": "songs/2018-a-song-for-you.md"
-    },
-    {
-      "id": "how-i-love-you-lord",
-      "title": "How I love You Lord",
-      "year": 2018,
-      "file": "songs/2018-how-i-love-you-lord.md"
     },
     {
       "id": "i-am-free",
@@ -63,22 +45,22 @@
       "file": "songs/2019-embraced.md"
     },
     {
-      "id": "sesuai-dengan-rencanamu",
-      "title": "Sesuai Dengan RencanaMu",
-      "year": 2020,
-      "file": "songs/2020-sesuai-dengan-rencanamu.md"
+      "id": "sesuai-dengan-rencana-mu",
+      "title": "Sesuai Dengan Rencana-Mu",
+      "year": 2021,
+      "file": "songs/2021-sesuai-dengan-rencana-mu.md"
     },
     {
       "id": "uno",
-      "title": "UNO",
+      "title": "Uno",
       "year": 2021,
       "file": "songs/2021-uno.md"
     },
     {
-      "id": "here-is-my-broken-heart",
-      "title": "Here is My Broken Heart",
+      "id": "made-worthy",
+      "title": "Made Worthy",
       "year": 2023,
-      "file": "songs/2023-here-is-my-broken-heart.md"
+      "file": "songs/2023-made-worthy.md"
     },
     {
       "id": "my-declaration",

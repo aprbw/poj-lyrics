@@ -1,9 +1,9 @@
 ---
-id: "here-is-my-broken-heart"
-title: "Here is My Broken Heart"
-alt_title: "Camp Song 2023"
+id: "made-worthy"
+title: "Made Worthy"
+alt_title: "Here is My Broken Heart"
 year: 2023
-camp: "CCM23: nevertheless,"
+camp: "CCM23: Nevertheless"
 language: "English"
 scripture: "Psalm 51:16–17"
 credits: "Lyrics & Music: Abraham Wiraguna, Clarissa Tedy Angelita, Hans Anastasius Kurniawan & POJ CCM23 Songwriting Team"

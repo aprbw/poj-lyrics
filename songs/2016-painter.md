@@ -3,7 +3,7 @@ id: "painter"
 title: "Painter"
 alt_title: "Colour Me"
 year: 2016
-camp: "CCM16: Colours"
+camp: "CCM16: Colour"
 language: "English"
 scripture: "Ephesians 5:13 • Matthew 5:14–16"
 credits: "Lyrics & Music: Kevin Tedy & Ingrid Kurniawan"

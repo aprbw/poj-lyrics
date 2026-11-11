@@ -13,20 +13,17 @@ poj-lyrics/
 ├── README.md                   # Compact POJ Song Index (Year, Song, Camp/Release)
 ├── DIRECTORY.md                # Full Song Directory Table (keys, credits, audio & sources)
 ├── DOCS.md                     # Technical & repository documentation (this file)
-├── songs/                      # 16 individual POJ song files (.md with YAML frontmatter)
+├── songs/                      # 13 archived POJ song files (.md with YAML frontmatter)
 │   ├── 2013-who-is-he.md
 │   ├── 2014-let-go-let-god.md
 │   ├── 2015-jesus-not-the-crowd.md
-│   ├── 2015-kusadari.md
 │   ├── 2016-painter.md
-│   ├── 2018-a-song-for-you.md
-│   ├── 2018-how-i-love-you-lord.md
 │   ├── 2018-i-am-free.md
 │   ├── 2019-cerminan-mu.md
 │   ├── 2019-embraced.md
-│   ├── 2020-sesuai-dengan-rencanamu.md
+│   ├── 2021-sesuai-dengan-rencana-mu.md
 │   ├── 2021-uno.md
-│   ├── 2023-here-is-my-broken-heart.md
+│   ├── 2023-made-worthy.md
 │   ├── 2024-my-declaration.md
 │   ├── 2025-within.md
 │   ├── 2026-rooted.md

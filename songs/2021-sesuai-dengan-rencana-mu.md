@@ -1,9 +1,9 @@
 ---
-id: "sesuai-dengan-rencanamu"
-title: "Sesuai Dengan RencanaMu"
+id: "sesuai-dengan-rencana-mu"
+title: "Sesuai Dengan Rencana-Mu"
 alt_title: ""
-year: 2020
-camp: "Living Room Session • CCM21: UNO"
+year: 2021
+camp: "CCM21: Uno"
 language: "Indonesian"
 scripture: ""
 credits: "Lyrics & Music: Claudia Lesmana, Hans Anastasius Kurniawan, Phoebe Calista, Nathan Prajogo Djuanda, Eril Levana, Valentina Trisha"
