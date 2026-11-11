@@ -34,12 +34,12 @@ poj-lyrics/
 ├── audio/                      # Local-only MP3/M4A recordings (gitignored; not pushed to GitHub)
 ├── video/                      # Local-only 1080p MP4 YouTube upload renders (gitignored; not pushed to GitHub)
 ├── css/
-│   └── styles.css              # Spreadsheet grid, pivot table, chord-over-lyric, focus mode & print styles
+│   └── styles.css              # Spreadsheet grid, chord-over-lyric, Slide Show, Presenter, Focus Mode & print styles
 ├── js/
 │   ├── md-parser.js            # Universal YAML frontmatter + Markdown ChordPro parser (Node & browser)
 │   ├── songs-bundle.js         # Auto-generated pre-compiled song bundle (offline & instant load)
-│   ├── transposer.js           # Chromatic 12-key, Capo, Nashville (1–7) & Proclaim plain-text exporter
-│   └── app.js                  # Interactive table/pivot UI, song sheet, Focus Mode, YouTube & local audio
+│   ├── transposer.js           # Chromatic 12-key, Capo, Nashville (1–7) & plain-lyrics exporter
+│   └── app.js                  # Interactive directory, song sheet, Slide Show, 2-Window Presenter & Focus Mode
 ├── scripts/
 │   └── build-songbook.js       # Compiles songs/*.md -> songs/manifest.json & js/songs-bundle.js
 ├── index.html                  # Single-page static web application (works offline or hosted)
@@ -55,10 +55,11 @@ poj-lyrics/
 2. **Zero-Dependency Compiler (`scripts/build-songbook.js`):** Scans `songs/*.md` using `js/md-parser.js`, validates required frontmatter (`id`, `title`, `year`), and outputs:
    - `songs/manifest.json` — lightweight JSON index for dynamic HTTP fetching.
    - `js/songs-bundle.js` — pre-bundled `window.SOJ_MD_SONGS` payload so `index.html` loads instantaneously and works offline (even when opened directly via `file://`).
-3. **Interactive Directory, Song View & Focus Mode (`js/transposer.js`, `js/app.js`):**
-   - **Browse Songs (`#/`):** Excel-style interactive song table with multi-select column AutoFilters, ascending/descending column sorting, row grouping, column visibility controls, and a 2D **Pivot Table** (`Rows × Columns`, counts or song titles with click-to-drill-down).
-   - **Song Page (`#/song/<id>`):** Places **Chords & Lyrics immediately beneath the song title**, with Transpose/Notation (`Chords`, `Nashville 1–7`, `Lyrics Only`, `Capo`), **Copy Plain Lyrics (Proclaim)** export, **Recordings** (YouTube links + local `<audio>` when running locally; Google Drive links are kept strictly in GitHub Markdown files), and **Credits & Song Details** positioned at the bottom.
-   - **Focus Mode / Raw View:** Distraction-free mobile and desktop view showing just **Title + Lyrics** with an optional **Chords: Off / On** toggle and font sizing.
+3. **Interactive Directory, Song View, Slide Show & Focus Mode (`js/transposer.js`, `js/app.js`):**
+   - **Browse Songs (`#/`):** Interactive song table showing `Year`, `Song`, and `Camp / Release` by default, with a **Show All Columns** toggle, multi-select column AutoFilters, and ascending/descending column sorting.
+   - **Song Page (`#/song/<id>`):** Places **Chords & Lyrics immediately beneath the song title**, with Transpose/Notation (`Chords`, `Nashville 1–7`, `Lyrics Only`, `Capo`), **Copy Plain Lyrics** export, **Recordings** (YouTube links + local `<audio>` when running locally; Google Drive links are kept strictly in GitHub Markdown files), and **Credits & Song Details** (`Songwriters / Credits` and `Original Key`) positioned at the bottom.
+   - **Slide Show & 2-Window Presenter (`#/display/<id>`):** PowerPoint-style **Slide Show** with `Previous` / `Next` controls, keyboard shortcuts, and Blackout (`B`), plus a **2-Window Presenter** mode that opens a clean audience **Display Window** (`#/display/<id>`) synchronized in real time with the **Presenter Control** console (`Live on Display` + `Up Next` previews and clickable slide deck).
+   - **Focus Mode:** Distraction-free mobile and desktop view showing just **Title + Lyrics** with desktop auto/manual multi-column layout, an optional **Chords: Off / On** toggle, and font sizing.
    - **Contact (`#/contact`):** Single dedicated page displaying maintainer contact details.
 
 ---
