@@ -2005,21 +2005,7 @@
     var plain = Transposer.renderPlainLyricsForSlides(song, song.sections, {
       includeSectionLabels: state.proclaimIncludeHeaders
     });
-    copyTextToClipboard(plain, 'Copied plain-text lyrics for "' + song.title + '" (Proclaim / Slides ready)');
-  }
-
-  function stepAdjacentSong(delta) {
-    var filtered = getFilteredSongs(false).filter(function (s) { return !s.isMissing; });
-    var list = filtered.length ? filtered : SONGS;
-    var idx = 0;
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].id === state.selectedSongId) {
-        idx = i;
-        break;
-      }
-    }
-    var nextIdx = (idx + delta + list.length) % list.length;
-    navigateTo('song', list[nextIdx].id, false);
+    copyTextToClipboard(plain, 'Copied plain lyrics for "' + song.title + '"');
   }
 
   function resetAllFilters() {
@@ -2190,12 +2176,6 @@
     document.getElementById('back-to-browse-btn').addEventListener('click', function () {
       navigateTo('browse');
     });
-    document.getElementById('prev-song-btn').addEventListener('click', function () {
-      stepAdjacentSong(-1);
-    });
-    document.getElementById('next-song-btn').addEventListener('click', function () {
-      stepAdjacentSong(1);
-    });
 
     document.getElementById('enter-focus-btn').addEventListener('click', function () {
       state.focusMode = true;
@@ -2349,7 +2329,6 @@
       renderSongDetailView();
     });
 
-    document.getElementById('top-copy-proclaim-btn').addEventListener('click', copyPlainLyricsForProclaim);
     document.getElementById('copy-proclaim-btn').addEventListener('click', copyPlainLyricsForProclaim);
     document.getElementById('proclaim-headers-checkbox').addEventListener('change', function (e) {
       state.proclaimIncludeHeaders = Boolean(e.target.checked);
