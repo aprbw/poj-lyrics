@@ -1793,32 +1793,14 @@
       '</div>'
     );
 
-    rows.push('<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-300">');
-    if (song.lyricists && song.composers && song.lyricists !== song.composers) {
-      rows.push('<div><strong class="text-slate-900 dark:text-white">Lyricist(s):</strong> ' + escapeHtml(song.lyricists) + '</div>');
-      rows.push('<div><strong class="text-slate-900 dark:text-white">Composer(s):</strong> ' + escapeHtml(song.composers) + '</div>');
-    } else {
-      rows.push('<div class="sm:col-span-2"><strong class="text-slate-900 dark:text-white">Songwriters / Credits:</strong> ' + escapeHtml(song.credits || song.lyricists || 'Sounds of Joy (POJ Melbourne)') + '</div>');
-    }
-
-    if (song.performers) {
-      rows.push('<div><strong class="text-slate-900 dark:text-white">Performers / Arrangement:</strong> ' + escapeHtml(song.performers) + '</div>');
-    }
+    rows.push('<div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">');
+    rows.push('<div><strong class="text-slate-900 dark:text-white">Songwriters / Credits:</strong> ' + escapeHtml(song.credits || song.lyricists || 'Sounds of Joy (POJ Melbourne)') + '</div>');
 
     var keyLine = '<strong class="text-slate-900 dark:text-white">Original Key:</strong> <span class="font-mono-chord font-semibold">' + escapeHtml(getDisplayKeyLabel(song)) + '</span>';
     if (capo > 0) {
       keyLine += ' &bull; Playing <span class="font-mono-chord font-semibold">' + escapeHtml(shapedKeyLabel) + '</span> shapes (Capo ' + capo + ' &rarr; ' + escapeHtml(concertKeyLabel) + ')';
     }
     rows.push('<div>' + keyLine + '</div>');
-
-    if (song.keyNote) {
-      var cleanKeyNote = song.keyNote.replace(/\bDrive\b/gi, 'archival');
-      rows.push('<div class="sm:col-span-2 text-slate-500 dark:text-slate-400">' + escapeHtml(cleanKeyNote) + '</div>');
-    }
-    if (song.creditNote) {
-      var cleanCreditNote = song.creditNote.replace(/\bGoogle Drive\b|\bDrive\b/gi, 'archive');
-      rows.push('<div class="sm:col-span-2 italic text-slate-500 dark:text-slate-400">' + escapeHtml(cleanCreditNote) + '</div>');
-    }
     rows.push('</div>');
 
     panel.innerHTML =
