@@ -31,8 +31,7 @@ poj-lyrics/
 │   ├── 2025-within.md
 │   ├── 2026-rooted.md
 │   └── manifest.json           # Auto-generated song index
-├── audio/                      # 9 bundled MP3/M4A recordings (<10 MB each)
-│   └── README.md               # Bundled & Google Drive-linked audio index
+├── audio/                      # Local-only MP3/M4A recordings (gitignored; not pushed to GitHub)
 ├── css/
 │   └── styles.css              # Chord-over-lyric layout, stage dark mode & print styles
 ├── js/
@@ -152,10 +151,10 @@ npx serve .
 
 ---
 
-## Audio Archive Policy (`audio/`)
+## Audio Policy (`audio/`)
 
-- Recordings **under 10 MB** are stored directly in [`audio/`](./audio/README.md) and referenced via `path: "audio/<filename>"` in the song's `audio_files` frontmatter for instant HTML5 `<audio>` playback.
-- Master/rehearsal recordings **over 10 MB** are streamed from Google Drive (`path: ""` with `drive_url` populated) to keep the Git repository fast and lightweight. See [`audio/README.md`](./audio/README.md) for the full list.
+- The local `audio/` directory is listed in [`.gitignore`](./.gitignore) and **not pushed to GitHub**.
+- Online audio playback and downloads are linked via `youtube_url` and Google Drive (`drive_url`) inside each song's YAML frontmatter (`songs/*.md`). When running locally with `audio/` present on disk, `index.html` can also play local files referenced via `path`.
 
 ---
 

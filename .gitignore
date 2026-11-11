@@ -1,11 +1,14 @@
+# Local audio recordings (do not push to GitHub)
+audio/
+
+# Local scratch notes
+2do.md
+
 # macOS & Google Drive
 .DS_Store
 .AppleDouble
 .LSOverride
 Icon?
-
-# Local scratch notes
-2do.md
 
 # Node & Vercel
 node_modules/

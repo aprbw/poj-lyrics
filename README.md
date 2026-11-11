@@ -36,7 +36,6 @@ Full song directory (with songwriter/composer credits, keys, scripture, audio & 
 ## Resources & Documentation
 
 - **Full Song Directory Table:** [`DIRECTORY.md`](./DIRECTORY.md)
-- **Bundled Audio Recordings (`audio/`):** [`audio/README.md`](./audio/README.md)
 - **Repository & Technical Documentation:** [`DOCS.md`](./DOCS.md)
 
 ## Contact & Contributions
