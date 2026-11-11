@@ -634,12 +634,6 @@
       if (state.activeView === views[i]) el.classList.remove('hidden');
       else el.classList.add('hidden');
     }
-    var navBrowse = document.getElementById('nav-browse-btn');
-    if (navBrowse) {
-      navBrowse.className = state.activeView === 'browse'
-        ? 'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-indigo-600 text-white shadow-sm transition'
-        : 'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition';
-    }
     applyFocusModeDom();
   }
 
@@ -1695,12 +1689,8 @@
      EVENT LISTENERS
      ========================================================================== */
   function bindEvents() {
-    // Logo & Browse Home links
+    // Logo Home & Contact links
     document.getElementById('logo-home-link').addEventListener('click', function (e) {
-      e.preventDefault();
-      navigateTo('browse');
-    });
-    document.getElementById('nav-browse-btn').addEventListener('click', function (e) {
       e.preventDefault();
       navigateTo('browse');
     });
