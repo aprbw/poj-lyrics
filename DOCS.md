@@ -32,13 +32,14 @@ poj-lyrics/
 │   ├── 2026-rooted.md
 │   └── manifest.json           # Auto-generated song index
 ├── audio/                      # Local-only MP3/M4A recordings (gitignored; not pushed to GitHub)
+├── video/                      # Local-only 1080p MP4 YouTube upload renders (gitignored; not pushed to GitHub)
 ├── css/
-│   └── styles.css              # Chord-over-lyric layout, stage dark mode & print styles
+│   └── styles.css              # Spreadsheet grid, pivot table, chord-over-lyric, focus mode & print styles
 ├── js/
 │   ├── md-parser.js            # Universal YAML frontmatter + Markdown ChordPro parser (Node & browser)
 │   ├── songs-bundle.js         # Auto-generated pre-compiled song bundle (offline & instant load)
-│   ├── transposer.js           # Chromatic 12-key, Capo & Nashville (1–7) transposer
-│   └── app.js                  # Search/filter/sort UI, HTML5 audio player, setlist & live .md editor
+│   ├── transposer.js           # Chromatic 12-key, Capo, Nashville (1–7) & Proclaim plain-text exporter
+│   └── app.js                  # Interactive table/pivot UI, song sheet, Focus Mode, YouTube & local audio
 ├── scripts/
 │   └── build-songbook.js       # Compiles songs/*.md -> songs/manifest.json & js/songs-bundle.js
 ├── index.html                  # Single-page static web application (works offline or hosted)
@@ -54,7 +55,11 @@ poj-lyrics/
 2. **Zero-Dependency Compiler (`scripts/build-songbook.js`):** Scans `songs/*.md` using `js/md-parser.js`, validates required frontmatter (`id`, `title`, `year`), and outputs:
    - `songs/manifest.json` — lightweight JSON index for dynamic HTTP fetching.
    - `js/songs-bundle.js` — pre-bundled `window.SOJ_MD_SONGS` payload so `index.html` loads instantaneously and works offline (even when opened directly via `file://`).
-3. **Client Transposition & Stage View (`js/transposer.js`, `js/app.js`):** Parses inline bracketed chords (`[G]`, `[D/F#]`) or Nashville numbers (`[1]`, `[6m]`, `[1/3]`) and renders interactive 12-key, Capo, and Nashville charts alongside bundled `<audio>` playback, YouTube links, setlist building, and print layouts.
+3. **Interactive Directory, Song View & Focus Mode (`js/transposer.js`, `js/app.js`):**
+   - **Browse Songs (`#/`):** Excel-style interactive song table with multi-select column AutoFilters, ascending/descending column sorting, row grouping, column visibility controls, and a 2D **Pivot Table** (`Rows × Columns`, counts or song titles with click-to-drill-down).
+   - **Song Page (`#/song/<id>`):** Places **Chords & Lyrics immediately beneath the song title**, with Transpose/Notation (`Chords`, `Nashville 1–7`, `Lyrics Only`, `Capo`), **Copy Plain Lyrics (Proclaim)** export, **Recordings** (YouTube links + local `<audio>` when running locally; Google Drive links are kept strictly in GitHub Markdown files), and **Credits & Song Details** positioned at the bottom.
+   - **Focus Mode / Raw View:** Distraction-free mobile and desktop view showing just **Title + Lyrics** with an optional **Chords: Off / On** toggle and font sizing.
+   - **Contact (`#/contact`):** Single dedicated page displaying maintainer contact details.
 
 ---
 
@@ -89,7 +94,7 @@ File naming convention: `songs/<YEAR>-<id>.md` (for example, `songs/2026-rooted.
 
 ### Markdown Body Syntax
 
-- **Section headers:** Start each section with `## <Section Name>` (e.g. `## Intro`, `## Verse 1`, `## Pre-Chorus`, `## Chorus`, `## Bridge`, `## Outro`). Sections named `Intro`, `Interlude`, `Outro`, or `Instrumental` are automatically marked instrumental (or override explicitly with `> Instrumental: true`).
+- **Section headers:** Start each section with `## <Section Name>` (e.g. `## Intro`, `## Verse 1`, `## Pre-Chorus`, `## Chorus`, `## Bridge`, `## Outro`). Sections named `Intro`, `Interlude`, or `Instrumental` — as well as chord-only `Outro` sections without sung words — are automatically marked instrumental (or override explicitly with `> Instrumental: true`).
 - **Section key modulations:** Append `(+N)` or `(-N)` semitones to a section header (e.g. `## Final Chorus (+2)` or `## Outro (+2)` in `songs/2014-let-go-let-god.md`) when a song modulates mid-arrangement; `js/transposer.js` and `js/app.js` shift that section's target key automatically in all 12 keys and Capo positions while keeping Nashville degrees (`1–7`) relative to the modulated key.
 - **Chord progressions:** Add an optional blockquote directly beneath a section header:
   ```markdown
@@ -154,10 +159,11 @@ npx serve .
 
 ---
 
-## Audio Policy (`audio/`)
+## Local Media Policy (`audio/` & `video/`)
 
-- The local `audio/` directory is listed in [`.gitignore`](./.gitignore) and **not pushed to GitHub**.
-- Online audio playback and downloads are linked via `youtube_url` and Google Drive (`drive_url`) inside each song's YAML frontmatter (`songs/*.md`). When running locally with `audio/` present on disk, `index.html` can also play local files referenced via `path`.
+- Both local `audio/` and `video/` directories are listed in [`.gitignore`](./.gitignore) and **never pushed to GitHub**.
+- On the website (`index.html`), external recording links point strictly to **YouTube** (`youtube_url`); Google Drive links (`drive_url` / `drive_links`) are kept solely inside the GitHub Markdown files (`songs/*.md` and `DIRECTORY.md`). When running locally with `audio/` present on disk, `index.html` also detects and plays local audio files referenced via `path`.
+- `video/` stores local 1080p `.mp4` renders prepared for YouTube upload from unique local audio versions not yet on YouTube.
 
 ---
 

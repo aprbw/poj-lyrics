@@ -1,5 +1,6 @@
-# Local audio recordings (do not push to GitHub)
+# Local audio & generated YouTube video files (do not push to GitHub)
 audio/
+video/
 
 # Local scratch notes
 2do.md
