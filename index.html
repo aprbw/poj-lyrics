@@ -260,7 +260,22 @@
           <button id="top-copy-proclaim-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
             <span>Copy Plain Lyrics</span>
           </button>
-          <button id="enter-focus-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 dark:bg-indigo-600 text-white hover:bg-slate-800 dark:hover:bg-indigo-500 shadow-sm transition">
+          <div class="inline-flex items-center rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50/80 dark:bg-indigo-950/50 p-0.5 shadow-sm">
+            <button id="enter-slideshow-btn" type="button" title="Full-screen slide show with Previous / Next controls" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+              </svg>
+              <span>Slide Show</span>
+            </button>
+            <button id="enter-presenter-btn" type="button" title="Open 2 windows: 1 Control window and 1 Display window" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold text-indigo-700 dark:text-sky-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2" y="4" width="13" height="10" rx="1.5"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 18h11a2 2 0 002-2V8"/>
+              </svg>
+              <span>2-Window Presenter</span>
+            </button>
+          </div>
+          <button id="enter-focus-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 shadow-sm transition">
             <span>Focus Mode</span>
           </button>
         </div>
@@ -418,7 +433,155 @@
       </div>
     </section>
 
+    <!-- ==================================================================
+         VIEW 4: SECOND-SCREEN PROJECTOR / DISPLAY WINDOW (#/display/<id>)
+         ================================================================== -->
+    <section id="view-display" class="hidden fixed inset-0 z-50 bg-[#050811] text-white select-none overflow-hidden flex flex-col justify-center items-center p-8 sm:p-14" title="Double-click anywhere to toggle Fullscreen">
+      <div id="display-window-stage" class="w-full max-w-6xl mx-auto text-center flex flex-col items-center justify-center min-h-[70vh]"></div>
+      <div id="display-window-hint" class="fixed bottom-4 right-5 text-[11px] font-medium text-slate-500/80 pointer-events-none transition-opacity duration-500">
+        Display Window &bull; Double-click for Fullscreen
+      </div>
+    </section>
+
   </main>
+
+  <!-- ====================================================================
+       SLIDE SHOW OVERLAY (1-WINDOW POWERPOINT-STYLE PRESENTATION)
+       ==================================================================== -->
+  <div id="slideshow-overlay" class="hidden fixed inset-0 z-50 bg-[#050811] text-white flex-col justify-between select-none no-print" role="dialog" aria-modal="true" aria-label="Slide Show">
+    <!-- Top HUD -->
+    <div class="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3 border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span id="slideshow-song-title" class="font-extrabold text-sm sm:text-base text-white truncate">Song Title</span>
+        <span id="slideshow-section-badge" class="px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">Title</span>
+        <span id="slideshow-counter" class="font-mono-chord text-xs text-slate-400">1 / 1</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-1.5 text-xs">
+        <button id="slideshow-dual-btn" type="button" title="Split into 2 windows: Control + Display" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg font-semibold bg-indigo-600/90 hover:bg-indigo-500 text-white transition">
+          <span>2-Window Presenter</span>
+        </button>
+        <button id="slideshow-blackout-btn" type="button" title="Blank / Blackout Screen (Key: B)" class="px-2.5 py-1.5 rounded-lg font-semibold bg-white/10 hover:bg-white/20 text-slate-200 transition">
+          Blackout (B)
+        </button>
+        <div class="inline-flex items-center rounded-lg bg-white/10">
+          <button id="slideshow-font-dec-btn" type="button" title="Decrease Slide Text Size" class="px-2 py-1.5 font-bold text-slate-200 hover:bg-white/15 rounded-l-lg">A&minus;</button>
+          <button id="slideshow-font-inc-btn" type="button" title="Increase Slide Text Size" class="px-2 py-1.5 font-bold text-slate-200 hover:bg-white/15 rounded-r-lg border-l border-white/10">A+</button>
+        </div>
+        <button id="slideshow-fullscreen-btn" type="button" title="Toggle Browser Fullscreen" class="px-2.5 py-1.5 rounded-lg font-semibold bg-white/10 hover:bg-white/20 text-slate-200 transition">
+          Fullscreen
+        </button>
+        <button id="slideshow-exit-btn" type="button" title="Exit Slide Show (Esc)" class="px-3 py-1.5 rounded-lg font-bold bg-rose-600 hover:bg-rose-500 text-white transition">
+          Exit
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Slide Stage (Click Left = Previous, Click Right = Next) -->
+    <div id="slideshow-stage-area" class="relative flex-1 flex items-center justify-center px-6 sm:px-16 py-8 overflow-hidden cursor-pointer">
+      <div id="slideshow-slide-content" class="w-full max-w-5xl mx-auto text-center"></div>
+    </div>
+
+    <!-- Bottom Previous / Next & Slide Strip -->
+    <div class="border-t border-white/10 bg-slate-950/90 backdrop-blur-md px-4 sm:px-6 py-3 space-y-2.5">
+      <div id="slideshow-strip" class="flex items-center gap-1.5 overflow-x-auto pb-1"></div>
+      <div class="flex items-center justify-between gap-3">
+        <button id="slideshow-prev-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white/10 hover:bg-white/20 disabled:opacity-35 disabled:pointer-events-none text-white transition">
+          <span aria-hidden="true">&larr;</span>
+          <span>Previous</span>
+        </button>
+        <div class="text-[11px] text-slate-400 hidden sm:block">
+          Use <kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono-chord">&larr;</kbd> / <kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono-chord">&rarr;</kbd> or <kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono-chord">Space</kbd> &bull; Click slide to advance
+        </div>
+        <button id="slideshow-next-btn" type="button" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 disabled:opacity-35 disabled:pointer-events-none text-white shadow-sm transition">
+          <span>Next</span>
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       2-WINDOW PRESENTER CONTROL CONSOLE (WINDOW 1 = CONTROL, WINDOW 2 = DISPLAY)
+       ==================================================================== -->
+  <div id="presenter-overlay" class="hidden fixed inset-0 z-50 bg-slate-950 text-slate-100 flex-col select-none no-print" role="dialog" aria-modal="true" aria-label="Presenter Control Window">
+    <!-- Top Presenter Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-[11px] font-extrabold uppercase tracking-wider bg-indigo-600 text-white">Presenter Control</span>
+        <span id="presenter-song-title" class="font-extrabold text-sm sm:text-base text-white">Song Title</span>
+        <span id="presenter-display-status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+          Display Window Ready
+        </span>
+      </div>
+      <div class="flex flex-wrap items-center gap-1.5 text-xs">
+        <button id="presenter-open-display-btn" type="button" class="px-3 py-1.5 rounded-lg font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+          Open Display Window
+        </button>
+        <button id="presenter-blackout-btn" type="button" title="Blank / Blackout Display Window (Key: B)" class="px-2.5 py-1.5 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          Blackout (B)
+        </button>
+        <div class="inline-flex items-center rounded-lg bg-slate-800 border border-slate-700">
+          <button id="presenter-font-dec-btn" type="button" title="Smaller Display Text" class="px-2 py-1.5 font-bold text-slate-200 hover:bg-slate-700 rounded-l-lg">A&minus;</button>
+          <button id="presenter-font-inc-btn" type="button" title="Larger Display Text" class="px-2 py-1.5 font-bold text-slate-200 hover:bg-slate-700 rounded-r-lg border-l border-slate-700">A+</button>
+        </div>
+        <button id="presenter-exit-btn" type="button" class="px-3 py-1.5 rounded-lg font-bold bg-rose-600 hover:bg-rose-500 text-white transition">
+          End Presentation
+        </button>
+      </div>
+    </div>
+
+    <!-- Presenter Split Workspace: Left = Current + Next Previews + Prev/Next; Right = All Slides Deck -->
+    <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 p-4 sm:p-6 overflow-y-auto">
+      <!-- Live + Next Monitors & Primary Previous / Next Controls -->
+      <div class="lg:col-span-7 flex flex-col justify-between gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Current Live Slide Card -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold uppercase tracking-wider text-emerald-400">Live on Display</span>
+              <span id="presenter-counter" class="font-mono-chord text-slate-400">Slide 1 / 1</span>
+            </div>
+            <div id="presenter-current-preview" class="aspect-video rounded-xl border-2 border-emerald-500/70 bg-[#050811] p-4 flex flex-col items-center justify-center text-center overflow-hidden shadow-lg"></div>
+          </div>
+
+          <!-- Next Slide Preview Card -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold uppercase tracking-wider text-slate-400">Up Next</span>
+              <span id="presenter-next-label" class="font-mono-chord text-slate-500">&mdash;</span>
+            </div>
+            <div id="presenter-next-preview" class="aspect-video rounded-xl border border-slate-800 bg-[#070b16] p-4 flex flex-col items-center justify-center text-center overflow-hidden opacity-85"></div>
+          </div>
+        </div>
+
+        <!-- Big Transport Buttons -->
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <button id="presenter-prev-btn" type="button" class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm sm:text-base font-extrabold bg-slate-800 hover:bg-slate-700 disabled:opacity-35 disabled:pointer-events-none text-white border border-slate-700 transition">
+              <span aria-hidden="true">&larr;</span>
+              <span>Previous Slide</span>
+            </button>
+            <button id="presenter-next-btn" type="button" class="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm sm:text-base font-extrabold bg-indigo-600 hover:bg-indigo-500 disabled:opacity-35 disabled:pointer-events-none text-white shadow-md transition">
+              <span>Next Slide</span>
+              <span aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+          <div class="text-center text-[11px] text-slate-400">
+            Drag the <strong>Display Window</strong> onto your projector or second screen and double-click it for Fullscreen. Shortcuts: <kbd class="px-1.5 py-0.5 rounded bg-slate-800 font-mono-chord">&larr;</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-800 font-mono-chord">&rarr;</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-800 font-mono-chord">Space</kbd> <kbd class="px-1.5 py-0.5 rounded bg-slate-800 font-mono-chord">B</kbd>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clickable Slide Deck Navigator -->
+      <div class="lg:col-span-5 flex flex-col rounded-2xl border border-slate-800 bg-slate-900/70 overflow-hidden min-h-[260px]">
+        <div class="px-4 py-2.5 border-b border-slate-800 text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+          <span>All Song Slides (Click to Jump)</span>
+          <span id="presenter-deck-count" class="font-mono-chord text-slate-500"></span>
+        </div>
+        <div id="presenter-slide-list" class="flex-1 overflow-y-auto p-2.5 space-y-1.5"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Floating Minimal Controls for Focus / Raw Mode (Mobile & Desktop) -->
   <div id="focus-floating-bar" class="hidden fixed bottom-4 right-4 z-50 items-center gap-1.5 rounded-full border border-slate-300/90 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-2.5 py-1.5 shadow-lg text-xs no-print">

@@ -85,7 +85,9 @@
 
   var STORAGE_KEYS = {
     theme: 'soj_theme_v2',
-    visibleCols: 'soj_visible_cols_v2'
+    visibleCols: 'soj_visible_cols_v2',
+    presentationSync: 'soj_presentation_sync_v1',
+    presentationPing: 'soj_presentation_ping_v1'
   };
 
   function safeLoad(key, fallback) {
@@ -154,6 +156,12 @@
     focusShowChords: false,
     focusColAuto: true,         // default: auto-adjust desktop columns from line width & screen width
     focusManualCols: 2,
+    slideshowActive: false,     // 1-window PowerPoint-style Slide Show
+    presenterActive: false,     // 2-window Presenter Control (Control + Display)
+    slideIndex: 0,
+    slideBlackout: false,
+    slideFontScale: 1.0,
+    displayConnected: false,
     proclaimIncludeHeaders: true,
     theme: safeLoad(STORAGE_KEYS.theme, 'light')
   };
@@ -163,6 +171,17 @@
 
   var autoScrollTimer = null;
   var toastTimeout = null;
+  var presenterDisplayWin = null;
+  var presenterMonitorTimer = null;
+  var displayHintTimer = null;
+  var presentationChannel = null;
+  try {
+    if (typeof window.BroadcastChannel === 'function') {
+      presentationChannel = new window.BroadcastChannel('soj_presentation_v1');
+    }
+  } catch (e) {
+    presentationChannel = null;
+  }
 
   function escapeHtml(str) {
     return String(str == null ? '' : str)
@@ -620,10 +639,587 @@
   }
 
   /* ==========================================================================
+     SLIDE SHOW (1-WINDOW) & 2-WINDOW PRESENTER (CONTROL + DISPLAY)
+     ========================================================================== */
+  function buildSongSlides(song) {
+    if (!song) return [];
+    var slides = [];
+
+    // 1. Title Slide
+    var metaParts = [];
+    if (song.camp) metaParts.push(song.camp);
+    else if (song.year) metaParts.push(String(song.year));
+    slides.push({
+      index: 0,
+      type: 'title',
+      sectionLabel: 'Title',
+      badgeLabel: 'Title',
+      title: song.title,
+      subtitle: metaParts.join(' • '),
+      lines: []
+    });
+
+    // 2. Lyric Stanza Slides (chunked <= 4 lines per slide like PowerPoint / Proclaim)
+    var secs = song.sections || [];
+    for (var s = 0; s < secs.length; s++) {
+      var sec = secs[s];
+      if (sec.instrumental) continue;
+
+      var cleanSecLabel = String(sec.label || 'Verse')
+        .replace(/\s*\((?:key\s+|mod(?:ulate)?\s+)?[+-]\d+\)\s*/gi, '')
+        .trim() || 'Verse';
+
+      var rawLines = sec.lines || [];
+      var subBlocks = [];
+      var curBlock = [];
+
+      for (var l = 0; l < rawLines.length; l++) {
+        var rawLine = String(rawLines[l] || '');
+        if (!rawLine.trim()) {
+          if (curBlock.length) {
+            subBlocks.push(curBlock);
+            curBlock = [];
+          }
+          continue;
+        }
+        var plain = rawLine
+          .replace(/\[[^\]]+\]/g, '')
+          .replace(/[ \t]{2,}/g, ' ')
+          .replace(/\bGoogle Drive\b|\bDrive\b/gi, 'archive')
+          .trim();
+        if (plain) {
+          curBlock.push(plain);
+        }
+      }
+      if (curBlock.length) subBlocks.push(curBlock);
+
+      var secChunks = [];
+      for (var b = 0; b < subBlocks.length; b++) {
+        var blk = subBlocks[b];
+        if (blk.length <= 4) {
+          secChunks.push(blk);
+        } else {
+          var partsCount = Math.ceil(blk.length / 4);
+          var startIdx = 0;
+          for (var p = 0; p < partsCount; p++) {
+            var remaining = blk.length - startIdx;
+            var partsLeft = partsCount - p;
+            var take = Math.ceil(remaining / partsLeft);
+            secChunks.push(blk.slice(startIdx, startIdx + take));
+            startIdx += take;
+          }
+        }
+      }
+
+      for (var c = 0; c < secChunks.length; c++) {
+        var badge = secChunks.length > 1
+          ? (cleanSecLabel + ' (' + (c + 1) + '/' + secChunks.length + ')')
+          : cleanSecLabel;
+        slides.push({
+          index: slides.length,
+          type: 'lyric',
+          sectionLabel: cleanSecLabel,
+          badgeLabel: badge,
+          title: song.title,
+          subtitle: '',
+          lines: secChunks[c]
+        });
+      }
+    }
+
+    // 3. Final Blank / End Slide
+    slides.push({
+      index: slides.length,
+      type: 'end',
+      sectionLabel: 'End',
+      badgeLabel: 'End (Blank)',
+      title: song.title,
+      subtitle: '',
+      lines: []
+    });
+
+    return slides;
+  }
+
+  function renderProjectionSlideHtml(slide, isMonitorPreview, isAudienceDisplay, blackout) {
+    if (!slide || blackout) {
+      if (isMonitorPreview) {
+        return '<div class="text-xs font-bold uppercase tracking-widest text-rose-400/90 px-3 py-1 rounded-full bg-rose-950/60 border border-rose-800/50">Screen Blacked Out</div>';
+      }
+      return '';
+    }
+
+    if (slide.type === 'title') {
+      if (isMonitorPreview) {
+        return (
+          '<div class="space-y-1.5 px-2">' +
+            '<div class="text-lg sm:text-xl font-extrabold text-white tracking-tight">' + escapeHtml(slide.title) + '</div>' +
+            (slide.subtitle ? '<div class="text-[11px] font-medium text-slate-400">' + escapeHtml(slide.subtitle) + '</div>' : '') +
+          '</div>'
+        );
+      }
+      return (
+        '<div class="space-y-4 px-4">' +
+          '<div class="slide-projection-title text-white">' + escapeHtml(slide.title) + '</div>' +
+          (slide.subtitle ? '<div class="text-sm sm:text-xl font-semibold text-slate-400 tracking-wide">' + escapeHtml(slide.subtitle) + '</div>' : '') +
+        '</div>'
+      );
+    }
+
+    if (slide.type === 'end') {
+      if (isMonitorPreview) {
+        return '<div class="text-xs font-semibold uppercase tracking-widest text-slate-500">End of Song (Blank Slide)</div>';
+      }
+      if (isAudienceDisplay) {
+        return '';
+      }
+      return '<div class="text-sm font-semibold uppercase tracking-widest text-slate-500">End of Slide Show</div>';
+    }
+
+    var linesHtml = [];
+    for (var i = 0; i < slide.lines.length; i++) {
+      linesHtml.push('<div class="mb-2 last:mb-0">' + escapeHtml(slide.lines[i]) + '</div>');
+    }
+
+    if (isMonitorPreview) {
+      return '<div class="presenter-monitor-lines text-white px-2">' + linesHtml.join('') + '</div>';
+    }
+    return '<div class="slide-projection-lines text-white">' + linesHtml.join('') + '</div>';
+  }
+
+  function sendPresentationMessage(payload) {
+    if (presentationChannel) {
+      try {
+        presentationChannel.postMessage(payload);
+      } catch (e) {}
+    }
+    if (payload.type === 'soj_display_ready' || payload.type === 'soj_display_step') {
+      safeSave(STORAGE_KEYS.presentationPing, payload);
+      if (window.opener && !window.opener.closed) {
+        try {
+          window.opener.postMessage(payload, '*');
+        } catch (e) {}
+      }
+    } else {
+      safeSave(STORAGE_KEYS.presentationSync, payload);
+      if (presenterDisplayWin && !presenterDisplayWin.closed) {
+        try {
+          presenterDisplayWin.postMessage(payload, '*');
+        } catch (e) {}
+      }
+    }
+  }
+
+  function broadcastPresentationState() {
+    var song = getBaseSongById(state.selectedSongId);
+    if (!song) return;
+    var slides = buildSongSlides(song);
+    if (state.slideIndex >= slides.length) state.slideIndex = Math.max(0, slides.length - 1);
+    if (state.slideIndex < 0) state.slideIndex = 0;
+
+    sendPresentationMessage({
+      type: 'soj_present_state',
+      songId: song.id,
+      slideIndex: state.slideIndex,
+      blackout: Boolean(state.slideBlackout),
+      fontScale: Number(state.slideFontScale) || 1.0,
+      ts: Date.now()
+    });
+  }
+
+  function isDisplayWindowAlive() {
+    if (presenterDisplayWin && !presenterDisplayWin.closed) return true;
+    return Boolean(state.displayConnected);
+  }
+
+  function openDisplayPopupWindow() {
+    var song = getBaseSongById(state.selectedSongId);
+    if (!song) return;
+    broadcastPresentationState();
+
+    var baseHref = String(window.location.href || '').split('#')[0];
+    var displayUrl = baseHref + '#/display/' + encodeURIComponent(song.id);
+
+    if (presenterDisplayWin && !presenterDisplayWin.closed) {
+      try {
+        presenterDisplayWin.location.hash = '#/display/' + encodeURIComponent(song.id);
+        presenterDisplayWin.focus();
+      } catch (e) {}
+      state.displayConnected = true;
+      broadcastPresentationState();
+      renderPresentationViews();
+      return;
+    }
+
+    var opened = null;
+    try {
+      opened = window.open(displayUrl, 'soj_presentation_display', 'popup=yes,width=1280,height=720,resizable=yes');
+    } catch (e) {
+      opened = null;
+    }
+
+    if (opened) {
+      presenterDisplayWin = opened;
+      state.displayConnected = true;
+      try { presenterDisplayWin.focus(); } catch (e) {}
+      broadcastPresentationState();
+      setTimeout(broadcastPresentationState, 150);
+      setTimeout(broadcastPresentationState, 450);
+    } else {
+      state.displayConnected = false;
+      showToast('Popup blocked — click "Open Display Window" to launch the display screen.');
+    }
+    renderPresentationViews();
+  }
+
+  function startSlideshowMode(resetSlide) {
+    stopAutoScroll();
+    state.focusMode = false;
+    state.presenterActive = false;
+    state.slideshowActive = true;
+    if (resetSlide !== false) {
+      state.slideIndex = 0;
+      state.slideBlackout = false;
+    }
+    renderAll();
+  }
+
+  function startPresenterMode(fromCurrentSlide) {
+    stopAutoScroll();
+    state.focusMode = false;
+    state.slideshowActive = false;
+    state.presenterActive = true;
+    if (!fromCurrentSlide) {
+      state.slideIndex = 0;
+      state.slideBlackout = false;
+    }
+    openDisplayPopupWindow();
+    if (presenterMonitorTimer) clearInterval(presenterMonitorTimer);
+    presenterMonitorTimer = setInterval(function () {
+      if (!state.presenterActive) {
+        clearInterval(presenterMonitorTimer);
+        presenterMonitorTimer = null;
+        return;
+      }
+      if (presenterDisplayWin && presenterDisplayWin.closed) {
+        presenterDisplayWin = null;
+        state.displayConnected = false;
+        updatePresenterStatusBadge();
+      }
+    }, 1000);
+    renderAll();
+  }
+
+  function exitPresentation() {
+    var wasPresenter = state.presenterActive;
+    state.slideshowActive = false;
+    state.presenterActive = false;
+    state.slideBlackout = false;
+    state.displayConnected = false;
+
+    if (presenterMonitorTimer) {
+      clearInterval(presenterMonitorTimer);
+      presenterMonitorTimer = null;
+    }
+
+    if (wasPresenter) {
+      sendPresentationMessage({
+        type: 'soj_present_close',
+        songId: state.selectedSongId,
+        ts: Date.now()
+      });
+      if (presenterDisplayWin && !presenterDisplayWin.closed) {
+        try { presenterDisplayWin.close(); } catch (e) {}
+      }
+      presenterDisplayWin = null;
+    }
+
+    if (document.fullscreenElement && document.exitFullscreen) {
+      try { document.exitFullscreen(); } catch (e) {}
+    }
+
+    renderAll();
+  }
+
+  function stepSlide(delta) {
+    var song = getBaseSongById(state.selectedSongId);
+    if (!song) return;
+    var slides = buildSongSlides(song);
+    if (!slides.length) return;
+    var nextIdx = Math.max(0, Math.min(slides.length - 1, state.slideIndex + delta));
+    state.slideIndex = nextIdx;
+    if (state.presenterActive) {
+      broadcastPresentationState();
+    } else if (state.activeView === 'display') {
+      sendPresentationMessage({
+        type: 'soj_display_step',
+        songId: song.id,
+        slideIndex: state.slideIndex,
+        blackout: state.slideBlackout,
+        ts: Date.now()
+      });
+    }
+    renderPresentationViews();
+  }
+
+  function goToSlide(index) {
+    var song = getBaseSongById(state.selectedSongId);
+    if (!song) return;
+    var slides = buildSongSlides(song);
+    if (!slides.length) return;
+    state.slideIndex = Math.max(0, Math.min(slides.length - 1, Number(index) || 0));
+    if (state.presenterActive) {
+      broadcastPresentationState();
+    }
+    renderPresentationViews();
+  }
+
+  function toggleSlideBlackout() {
+    state.slideBlackout = !state.slideBlackout;
+    if (state.presenterActive) {
+      broadcastPresentationState();
+    } else if (state.activeView === 'display') {
+      sendPresentationMessage({
+        type: 'soj_display_step',
+        songId: state.selectedSongId,
+        slideIndex: state.slideIndex,
+        blackout: state.slideBlackout,
+        ts: Date.now()
+      });
+    }
+    renderPresentationViews();
+  }
+
+  function adjustSlideFontScale(delta) {
+    state.slideFontScale = Math.max(0.65, Math.min(1.65, Math.round((state.slideFontScale + delta) * 100) / 100));
+    if (state.presenterActive) {
+      broadcastPresentationState();
+    }
+    renderPresentationViews();
+  }
+
+  function toggleBrowserFullscreen() {
+    var docEl = document.documentElement;
+    if (!document.fullscreenElement) {
+      if (docEl.requestFullscreen) {
+        try { docEl.requestFullscreen(); } catch (e) {}
+      }
+    } else if (document.exitFullscreen) {
+      try { document.exitFullscreen(); } catch (e) {}
+    }
+  }
+
+  function updatePresenterStatusBadge() {
+    var statusEl = document.getElementById('presenter-display-status');
+    var openBtn = document.getElementById('presenter-open-display-btn');
+    if (!statusEl) return;
+    var alive = isDisplayWindowAlive();
+    if (alive) {
+      statusEl.textContent = 'Display Window Active';
+      statusEl.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+      if (openBtn) openBtn.textContent = 'Focus / Reopen Display';
+    } else {
+      statusEl.textContent = 'Display Window Not Open';
+      statusEl.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30';
+      if (openBtn) openBtn.textContent = 'Open Display Window';
+    }
+  }
+
+  function renderPresentationViews() {
+    document.documentElement.style.setProperty('--slide-font-scale', String(state.slideFontScale || 1.0));
+
+    var song = getBaseSongById(state.selectedSongId);
+    var slides = song ? buildSongSlides(song) : [];
+    if (state.slideIndex >= slides.length) state.slideIndex = Math.max(0, slides.length - 1);
+    if (state.slideIndex < 0) state.slideIndex = 0;
+    var curSlide = slides[state.slideIndex] || null;
+    var nextSlide = (state.slideIndex + 1 < slides.length) ? slides[state.slideIndex + 1] : null;
+
+    // 1. Display Window (#/display/<id>)
+    if (state.activeView === 'display') {
+      document.body.classList.add('display-window-mode');
+      var dispStage = document.getElementById('display-window-stage');
+      if (dispStage) {
+        dispStage.innerHTML = renderProjectionSlideHtml(curSlide, false, true, state.slideBlackout);
+      }
+    } else {
+      document.body.classList.remove('display-window-mode');
+    }
+
+    // 2. Single-Window Slide Show Overlay
+    var ssOverlay = document.getElementById('slideshow-overlay');
+    if (state.activeView === 'song' && state.slideshowActive && song) {
+      document.body.classList.add('slideshow-active');
+      if (ssOverlay) {
+        ssOverlay.classList.remove('hidden');
+        ssOverlay.classList.add('flex');
+      }
+      var ssTitle = document.getElementById('slideshow-song-title');
+      if (ssTitle) ssTitle.textContent = song.title;
+      var ssBadge = document.getElementById('slideshow-section-badge');
+      if (ssBadge && curSlide) ssBadge.textContent = curSlide.badgeLabel;
+      var ssCounter = document.getElementById('slideshow-counter');
+      if (ssCounter) ssCounter.textContent = (state.slideIndex + 1) + ' / ' + slides.length;
+
+      var ssBlackout = document.getElementById('slideshow-blackout-btn');
+      if (ssBlackout) {
+        ssBlackout.textContent = state.slideBlackout ? 'Blackout: ON (B)' : 'Blackout (B)';
+        ssBlackout.className = state.slideBlackout
+          ? 'px-2.5 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 transition'
+          : 'px-2.5 py-1.5 rounded-lg font-semibold bg-white/10 hover:bg-white/20 text-slate-200 transition';
+      }
+
+      var ssContent = document.getElementById('slideshow-slide-content');
+      if (ssContent) {
+        ssContent.innerHTML = renderProjectionSlideHtml(curSlide, false, false, state.slideBlackout);
+      }
+
+      var ssPrev = document.getElementById('slideshow-prev-btn');
+      if (ssPrev) ssPrev.disabled = state.slideIndex <= 0;
+      var ssNext = document.getElementById('slideshow-next-btn');
+      if (ssNext) ssNext.disabled = state.slideIndex >= slides.length - 1;
+
+      var ssStrip = document.getElementById('slideshow-strip');
+      if (ssStrip) {
+        var pills = [];
+        for (var i = 0; i < slides.length; i++) {
+          var sl = slides[i];
+          var activePill = i === state.slideIndex;
+          pills.push(
+            '<button type="button" data-action="jump-slide" data-slide-idx="' + i + '" class="shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition ' +
+              (activePill ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white/5 hover:bg-white/15 text-slate-300') + '">' +
+              escapeHtml((i + 1) + '. ' + sl.badgeLabel) +
+            '</button>'
+          );
+        }
+        ssStrip.innerHTML = pills.join('');
+      }
+    } else {
+      document.body.classList.remove('slideshow-active');
+      if (ssOverlay) {
+        ssOverlay.classList.add('hidden');
+        ssOverlay.classList.remove('flex');
+      }
+    }
+
+    // 3. Two-Window Presenter Control Overlay
+    var prOverlay = document.getElementById('presenter-overlay');
+    if (state.activeView === 'song' && state.presenterActive && song) {
+      document.body.classList.add('presenter-active');
+      if (prOverlay) {
+        prOverlay.classList.remove('hidden');
+        prOverlay.classList.add('flex');
+      }
+      updatePresenterStatusBadge();
+
+      var prTitle = document.getElementById('presenter-song-title');
+      if (prTitle) prTitle.textContent = song.title;
+      var prCounter = document.getElementById('presenter-counter');
+      if (prCounter) prCounter.textContent = 'Slide ' + (state.slideIndex + 1) + ' / ' + slides.length + (curSlide ? ' • ' + curSlide.badgeLabel : '');
+
+      var prBlackout = document.getElementById('presenter-blackout-btn');
+      if (prBlackout) {
+        prBlackout.textContent = state.slideBlackout ? 'Blackout: ON (B)' : 'Blackout (B)';
+        prBlackout.className = state.slideBlackout
+          ? 'px-2.5 py-1.5 rounded-lg font-bold bg-amber-500 text-slate-950 transition'
+          : 'px-2.5 py-1.5 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition';
+      }
+
+      var curPrev = document.getElementById('presenter-current-preview');
+      if (curPrev) {
+        curPrev.innerHTML = renderProjectionSlideHtml(curSlide, true, false, state.slideBlackout);
+      }
+
+      var nextLbl = document.getElementById('presenter-next-label');
+      if (nextLbl) {
+        nextLbl.textContent = nextSlide ? nextSlide.badgeLabel : 'End of Deck';
+      }
+      var nextPrev = document.getElementById('presenter-next-preview');
+      if (nextPrev) {
+        nextPrev.innerHTML = nextSlide
+          ? renderProjectionSlideHtml(nextSlide, true, false, false)
+          : '<div class="text-xs font-medium text-slate-600">No further slides</div>';
+      }
+
+      var prPrev = document.getElementById('presenter-prev-btn');
+      if (prPrev) prPrev.disabled = state.slideIndex <= 0;
+      var prNext = document.getElementById('presenter-next-btn');
+      if (prNext) prNext.disabled = state.slideIndex >= slides.length - 1;
+
+      var deckCount = document.getElementById('presenter-deck-count');
+      if (deckCount) deckCount.textContent = slides.length + ' slides';
+
+      var deckList = document.getElementById('presenter-slide-list');
+      if (deckList) {
+        var cards = [];
+        for (var d = 0; d < slides.length; d++) {
+          var dSlide = slides[d];
+          var isLive = d === state.slideIndex;
+          var previewSnippet = dSlide.type === 'title'
+            ? (dSlide.title + (dSlide.subtitle ? ' — ' + dSlide.subtitle : ''))
+            : (dSlide.type === 'end' ? '(Blank end slide)' : dSlide.lines.join(' / '));
+          cards.push(
+            '<button type="button" data-action="jump-slide" data-slide-idx="' + d + '" class="w-full text-left rounded-xl p-2.5 border transition ' +
+              (isLive
+                ? 'border-indigo-500 bg-indigo-600/20 text-white shadow-sm'
+                : 'border-slate-800/90 bg-slate-950/60 hover:bg-slate-800/70 text-slate-300') + '">' +
+              '<div class="flex items-center justify-between gap-2 mb-1">' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider ' + (isLive ? 'text-indigo-300' : 'text-slate-400') + '">' +
+                  escapeHtml((d + 1) + '. ' + dSlide.badgeLabel) +
+                '</span>' +
+                (isLive ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold uppercase bg-emerald-500 text-slate-950">Live</span>' : '') +
+              '</div>' +
+              '<div class="text-xs line-clamp-2 ' + (isLive ? 'text-white font-semibold' : 'text-slate-400') + '">' +
+                escapeHtml(previewSnippet) +
+              '</div>' +
+            '</button>'
+          );
+        }
+        deckList.innerHTML = cards.join('');
+      }
+    } else {
+      document.body.classList.remove('presenter-active');
+      if (prOverlay) {
+        prOverlay.classList.add('hidden');
+        prOverlay.classList.remove('flex');
+      }
+    }
+  }
+
+  function handleIncomingPresentationPayload(msg) {
+    if (!msg || typeof msg !== 'object') return;
+    if (msg.type === 'soj_present_state' && state.activeView === 'display') {
+      if (msg.songId) {
+        var found = getBaseSongById(msg.songId);
+        if (found && found.id === msg.songId) {
+          state.selectedSongId = msg.songId;
+        }
+      }
+      if (typeof msg.slideIndex === 'number') state.slideIndex = msg.slideIndex;
+      if (typeof msg.blackout === 'boolean') state.slideBlackout = msg.blackout;
+      if (typeof msg.fontScale === 'number') state.slideFontScale = msg.fontScale;
+      renderPresentationViews();
+    } else if (msg.type === 'soj_present_close' && state.activeView === 'display') {
+      try { window.close(); } catch (e) {}
+      state.slideBlackout = true;
+      renderPresentationViews();
+    } else if (msg.type === 'soj_display_ready' && state.presenterActive) {
+      state.displayConnected = true;
+      updatePresenterStatusBadge();
+      broadcastPresentationState();
+    } else if (msg.type === 'soj_display_step' && state.presenterActive) {
+      state.displayConnected = true;
+      if (typeof msg.slideIndex === 'number') state.slideIndex = msg.slideIndex;
+      if (typeof msg.blackout === 'boolean') state.slideBlackout = msg.blackout;
+      renderPresentationViews();
+    }
+  }
+
+  /* ==========================================================================
      VIEW SWITCHING & ROUTING
      ========================================================================== */
   function renderViewVisibility() {
-    var views = ['browse', 'song', 'contact'];
+    var views = ['browse', 'song', 'contact', 'display'];
     for (var i = 0; i < views.length; i++) {
       var el = document.getElementById('view-' + views[i]);
       if (!el) continue;
@@ -631,12 +1227,17 @@
       else el.classList.add('hidden');
     }
     applyFocusModeDom();
+    renderPresentationViews();
   }
 
   function navigateTo(view, songId, skipHash) {
     if (view !== 'song') {
       stopAutoScroll();
       state.focusMode = false;
+      state.slideshowActive = false;
+      if (state.presenterActive) {
+        exitPresentation();
+      }
     }
     closeAllPopovers();
     state.activeView = view;
@@ -646,6 +1247,8 @@
       var nextHash = '#/';
       if (view === 'song') {
         nextHash = '#/song/' + encodeURIComponent(state.selectedSongId) + (state.focusMode ? '?focus=1' : '');
+      } else if (view === 'display') {
+        nextHash = '#/display/' + encodeURIComponent(state.selectedSongId);
       } else if (view === 'contact') {
         nextHash = '#/contact';
       }
@@ -664,6 +1267,47 @@
 
   function syncFromHash() {
     var rawHash = window.location.hash || '';
+    if (rawHash.indexOf('#/display/') === 0) {
+      var dispRest = rawHash.slice(10);
+      var dispQ = dispRest.indexOf('?');
+      var dispSid = decodeURIComponent(dispQ === -1 ? dispRest : dispRest.slice(0, dispQ));
+      var dispSong = getBaseSongById(dispSid);
+      if (dispSong && dispSong.id === dispSid) {
+        state.selectedSongId = dispSid;
+      }
+      state.activeView = 'display';
+      state.focusMode = false;
+      state.slideshowActive = false;
+      state.presenterActive = false;
+
+      var cached = safeLoad(STORAGE_KEYS.presentationSync, null);
+      if (cached && cached.songId === state.selectedSongId) {
+        state.slideIndex = Number(cached.slideIndex) || 0;
+        state.slideBlackout = Boolean(cached.blackout);
+        state.slideFontScale = Number(cached.fontScale) || 1.0;
+      } else {
+        state.slideIndex = 0;
+        state.slideBlackout = false;
+      }
+
+      renderAll();
+
+      var hintEl = document.getElementById('display-window-hint');
+      if (hintEl) {
+        hintEl.classList.remove('opacity-0');
+        if (displayHintTimer) clearTimeout(displayHintTimer);
+        displayHintTimer = setTimeout(function () {
+          hintEl.classList.add('opacity-0');
+        }, 3000);
+      }
+
+      sendPresentationMessage({
+        type: 'soj_display_ready',
+        songId: state.selectedSongId,
+        ts: Date.now()
+      });
+      return;
+    }
     if (rawHash.indexOf('#/song/') === 0) {
       var rest = rawHash.slice(7);
       var qIdx = rest.indexOf('?');
@@ -671,6 +1315,10 @@
       var query = qIdx === -1 ? '' : rest.slice(qIdx + 1);
       var found = getBaseSongById(sid);
       if (found && found.id === sid) {
+        if (state.selectedSongId !== sid) {
+          state.slideIndex = 0;
+          state.slideBlackout = false;
+        }
         state.selectedSongId = sid;
         state.activeView = 'song';
         state.focusMode = query.indexOf('focus=1') !== -1;
@@ -680,11 +1328,15 @@
     } else if (rawHash === '#/contact') {
       state.activeView = 'contact';
       state.focusMode = false;
+      state.slideshowActive = false;
+      state.presenterActive = false;
       renderAll();
       return;
     }
     state.activeView = 'browse';
     state.focusMode = false;
+    state.slideshowActive = false;
+    state.presenterActive = false;
     renderAll();
   }
 
@@ -1839,6 +2491,94 @@
       window.scrollTo(0, 0);
     });
 
+    // Slide Show (1-Window) & 2-Window Presenter (Control + Display) Listeners
+    var enterSlideshowBtn = document.getElementById('enter-slideshow-btn');
+    if (enterSlideshowBtn) {
+      enterSlideshowBtn.addEventListener('click', function () {
+        startSlideshowMode(true);
+      });
+    }
+
+    var enterPresenterBtn = document.getElementById('enter-presenter-btn');
+    if (enterPresenterBtn) {
+      enterPresenterBtn.addEventListener('click', function () {
+        startPresenterMode(false);
+      });
+    }
+
+    var ssDualBtn = document.getElementById('slideshow-dual-btn');
+    if (ssDualBtn) {
+      ssDualBtn.addEventListener('click', function () {
+        startPresenterMode(true);
+      });
+    }
+
+    var ssBlackoutBtn = document.getElementById('slideshow-blackout-btn');
+    if (ssBlackoutBtn) ssBlackoutBtn.addEventListener('click', toggleSlideBlackout);
+    var ssFontDecBtn = document.getElementById('slideshow-font-dec-btn');
+    if (ssFontDecBtn) ssFontDecBtn.addEventListener('click', function () { adjustSlideFontScale(-0.1); });
+    var ssFontIncBtn = document.getElementById('slideshow-font-inc-btn');
+    if (ssFontIncBtn) ssFontIncBtn.addEventListener('click', function () { adjustSlideFontScale(0.1); });
+    var ssFsBtn = document.getElementById('slideshow-fullscreen-btn');
+    if (ssFsBtn) ssFsBtn.addEventListener('click', toggleBrowserFullscreen);
+    var ssExitBtn = document.getElementById('slideshow-exit-btn');
+    if (ssExitBtn) ssExitBtn.addEventListener('click', exitPresentation);
+    var ssPrevBtn = document.getElementById('slideshow-prev-btn');
+    if (ssPrevBtn) ssPrevBtn.addEventListener('click', function () { stepSlide(-1); });
+    var ssNextBtn = document.getElementById('slideshow-next-btn');
+    if (ssNextBtn) ssNextBtn.addEventListener('click', function () { stepSlide(1); });
+
+    var ssStage = document.getElementById('slideshow-stage-area');
+    if (ssStage) {
+      ssStage.addEventListener('click', function (e) {
+        var rect = ssStage.getBoundingClientRect();
+        var relX = rect.width > 0 ? (e.clientX - rect.left) / rect.width : 0.7;
+        if (relX < 0.3) stepSlide(-1);
+        else stepSlide(1);
+      });
+    }
+
+    var prOpenDispBtn = document.getElementById('presenter-open-display-btn');
+    if (prOpenDispBtn) prOpenDispBtn.addEventListener('click', openDisplayPopupWindow);
+    var prBlackoutBtn = document.getElementById('presenter-blackout-btn');
+    if (prBlackoutBtn) prBlackoutBtn.addEventListener('click', toggleSlideBlackout);
+    var prFontDecBtn = document.getElementById('presenter-font-dec-btn');
+    if (prFontDecBtn) prFontDecBtn.addEventListener('click', function () { adjustSlideFontScale(-0.1); });
+    var prFontIncBtn = document.getElementById('presenter-font-inc-btn');
+    if (prFontIncBtn) prFontIncBtn.addEventListener('click', function () { adjustSlideFontScale(0.1); });
+    var prExitBtn = document.getElementById('presenter-exit-btn');
+    if (prExitBtn) prExitBtn.addEventListener('click', exitPresentation);
+    var prPrevBtn = document.getElementById('presenter-prev-btn');
+    if (prPrevBtn) prPrevBtn.addEventListener('click', function () { stepSlide(-1); });
+    var prNextBtn = document.getElementById('presenter-next-btn');
+    if (prNextBtn) prNextBtn.addEventListener('click', function () { stepSlide(1); });
+
+    var viewDisp = document.getElementById('view-display');
+    if (viewDisp) {
+      viewDisp.addEventListener('dblclick', toggleBrowserFullscreen);
+    }
+
+    if (presentationChannel) {
+      presentationChannel.addEventListener('message', function (ev) {
+        if (ev && ev.data) handleIncomingPresentationPayload(ev.data);
+      });
+    }
+
+    window.addEventListener('message', function (ev) {
+      if (ev && ev.data && typeof ev.data === 'object' && String(ev.data.type || '').indexOf('soj_') === 0) {
+        handleIncomingPresentationPayload(ev.data);
+      }
+    });
+
+    window.addEventListener('storage', function (ev) {
+      if (!ev || !ev.newValue) return;
+      if (ev.key === STORAGE_KEYS.presentationSync || ev.key === STORAGE_KEYS.presentationPing) {
+        try {
+          handleIncomingPresentationPayload(JSON.parse(ev.newValue));
+        } catch (err) {}
+      }
+    });
+
     document.getElementById('exit-focus-btn').addEventListener('click', function () {
       state.focusMode = false;
       renderSongDetailView();
@@ -2084,6 +2824,8 @@
           state.pivotDrill.colVal === cVal;
         state.pivotDrill = same ? null : { rowDim: rDim, rowVal: rVal, colDim: cDim, colVal: cVal };
         renderBrowseView();
+      } else if (action === 'jump-slide') {
+        goToSlide(Number(actionEl.getAttribute('data-slide-idx') || 0));
       } else if (action === 'toggle-group') {
         var gName = actionEl.getAttribute('data-group');
         state.collapsedGroups[gName] = !state.collapsedGroups[gName];
@@ -2091,8 +2833,45 @@
       }
     });
 
-    // Keyboard Accessibility: Enter on song rows, Escape to exit Focus Mode / Popovers, 'f' for Focus Mode
+    // Keyboard Accessibility: Slide Show / Presenter navigation, Enter on song rows, Escape, 'f' for Focus Mode
     document.addEventListener('keydown', function (e) {
+      var inSlideControl = (state.activeView === 'song' && (state.slideshowActive || state.presenterActive)) || state.activeView === 'display';
+      if (inSlideControl) {
+        if (e.key === 'Escape' && state.activeView === 'song') {
+          e.preventDefault();
+          exitPresentation();
+          return;
+        }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+          e.preventDefault();
+          stepSlide(1);
+          return;
+        }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          stepSlide(-1);
+          return;
+        }
+        if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(0);
+          return;
+        }
+        if (e.key === 'End') {
+          e.preventDefault();
+          var curSong = getBaseSongById(state.selectedSongId);
+          var totalSlides = curSong ? buildSongSlides(curSong).length : 1;
+          goToSlide(totalSlides - 1);
+          return;
+        }
+        if ((e.key === 'b' || e.key === 'B' || e.key === '.') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+          e.preventDefault();
+          toggleSlideBlackout();
+          return;
+        }
+        return;
+      }
+
       if (e.key === 'Escape') {
         if (state.openFilterCol) {
           closeAllPopovers();

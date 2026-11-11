@@ -340,6 +340,52 @@ body.focus-mode #focus-floating-bar {
   display: inline-flex !important;
 }
 
+/* ==========================================================================
+   Slide Show (1-Window) & 2-Window Presenter (Control + Display)
+   ========================================================================== */
+body.slideshow-active,
+body.presenter-active,
+body.display-window-mode {
+  overflow: hidden !important;
+}
+
+body.slideshow-active #site-header,
+body.slideshow-active #site-footer,
+body.presenter-active #site-header,
+body.presenter-active #site-footer,
+body.display-window-mode #site-header,
+body.display-window-mode #site-footer {
+  display: none !important;
+}
+
+body.display-window-mode main {
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.slide-projection-lines {
+  font-size: calc(clamp(1.65rem, 4.1vw, 3.5rem) * var(--slide-font-scale, 1));
+  line-height: 1.38;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+}
+
+.slide-projection-title {
+  font-size: calc(clamp(2.2rem, 5.2vw, 4.4rem) * var(--slide-font-scale, 1));
+  line-height: 1.18;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+}
+
+.presenter-monitor-lines {
+  font-size: clamp(0.95rem, 1.55vw, 1.35rem);
+  line-height: 1.42;
+  font-weight: 700;
+}
+
 /* Custom subtle scrollbars */
 ::-webkit-scrollbar {
   width: 7px;
@@ -364,7 +410,9 @@ body.focus-mode #focus-floating-bar {
   #site-footer,
   #song-top-bar,
   #song-bottom-panels,
-  #focus-floating-bar {
+  #focus-floating-bar,
+  #slideshow-overlay,
+  #presenter-overlay {
     display: none !important;
   }
   #song-sheet-card {
