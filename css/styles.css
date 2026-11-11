@@ -1,29 +1,180 @@
-/* Sounds of Joy — Worship Chord & Lyric Archive Styles */
+/* Sounds of Joy — Worship Songbook, Spreadsheet Directory & Focus Reader */
 :root {
   --chord-font-scale: 1;
+  --surface-paper: #f8fafc;
+  --surface-card: #ffffff;
+  --ink-primary: #0f172a;
+  --ink-muted: #64748b;
+  --accent-chord: #3730a3;
+  --grid-border: #e2e8f0;
+}
+
+.dark {
+  --surface-paper: #090d16;
+  --surface-card: #0f1624;
+  --ink-primary: #f1f5f9;
+  --ink-muted: #94a3b8;
+  --accent-chord: #60a5fa;
+  --grid-border: #1e293b;
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .font-mono-chord {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Chord + Lyric Stack Layout */
+/* ==========================================================================
+   Spreadsheet Data Grid & Pivot Table
+   ========================================================================== */
+.sheet-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sheet-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.84rem;
+}
+
+.sheet-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.73rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #cbd5e1;
+  border-right: 1px solid #e2e8f0;
+  padding: 0.55rem 0.7rem;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.sheet-table thead th:last-child {
+  border-right: none;
+}
+
+.dark .sheet-table thead th {
+  background: #131c2e;
+  color: #cbd5e1;
+  border-bottom-color: #334155;
+  border-right-color: #1e293b;
+}
+
+.sheet-table tbody td {
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #f1f5f9;
+  padding: 0.55rem 0.7rem;
+  vertical-align: middle;
+}
+
+.sheet-table tbody td:last-child {
+  border-right: none;
+}
+
+.dark .sheet-table tbody td {
+  border-bottom-color: #1e293b;
+  border-right-color: #151f32;
+}
+
+.sheet-table tbody tr.song-row {
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.sheet-table tbody tr.song-row:hover {
+  background-color: #eef2ff;
+}
+
+.dark .sheet-table tbody tr.song-row:hover {
+  background-color: rgba(56, 189, 248, 0.08);
+}
+
+.sheet-table tbody tr.group-header-row td {
+  background: #f8fafc;
+  font-weight: 700;
+  border-bottom: 1px solid #cbd5e1;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+}
+
+.dark .sheet-table tbody tr.group-header-row td {
+  background: #0d1424;
+  border-bottom-color: #334155;
+}
+
+.col-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 0.3rem;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.col-filter-btn:hover {
+  background: rgba(99, 102, 241, 0.14);
+}
+
+.col-filter-btn.is-filtered {
+  background: #4f46e5;
+  color: #ffffff !important;
+}
+
+.dark .col-filter-btn.is-filtered {
+  background: #38bdf8;
+  color: #090d16 !important;
+}
+
+/* Pivot Matrix cells */
+.pivot-cell-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.pivot-cell-btn:hover {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.dark .pivot-cell-btn:hover {
+  background: #38bdf8;
+  color: #090d16;
+}
+
+/* ==========================================================================
+   Chord + Lyric Stack Layout
+   ========================================================================== */
 .song-sheet-body {
-  font-size: calc(1rem * var(--chord-font-scale));
-  line-height: 1.65;
+  font-size: calc(1.04rem * var(--chord-font-scale));
+  line-height: 1.68;
 }
 
 .chord-line {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  margin-bottom: 0.55em;
-  row-gap: 0.25em;
+  margin-bottom: 0.5em;
+  row-gap: 0.22em;
 }
 
 .chord-pair {
@@ -31,45 +182,42 @@ html {
   flex-direction: column;
   align-items: flex-start;
   vertical-align: bottom;
-  min-height: 1.4em;
+  min-height: 1.35em;
 }
 
 .chord-token {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   font-weight: 700;
-  font-size: 0.88em;
-  line-height: 1.25;
+  font-size: 0.86em;
+  line-height: 1.22;
   padding-right: 0.45em;
-  margin-bottom: 0.08em;
-  color: #4f46e5;
+  margin-bottom: 0.06em;
+  color: var(--accent-chord);
   white-space: pre;
   user-select: text;
-  transition: color 0.15s ease;
-}
-
-.dark .chord-token {
-  color: #38bdf8;
 }
 
 .chord-token-empty {
-  height: 1.15em;
+  height: 1.1em;
   display: block;
 }
 
 .lyric-token {
   white-space: pre-wrap;
-  line-height: 1.45;
+  line-height: 1.46;
 }
 
-/* Lyrics-only mode cleanly hides chord row height */
+/* Lyrics-only mode cleanly hides chord row height and instrumental blocks */
 .lyrics-only-mode .chord-token,
-.lyrics-only-mode .chord-token-empty {
+.lyrics-only-mode .chord-token-empty,
+.lyrics-only-mode .progression-bar,
+.lyrics-only-mode .section-mod-badge {
   display: none !important;
 }
 
 .lyrics-only-mode .chord-line {
   display: block;
-  margin-bottom: 0.35em;
+  margin-bottom: 0.32em;
 }
 
 .lyrics-only-mode .chord-pair {
@@ -81,54 +229,91 @@ html {
   display: none !important;
 }
 
-/* Progression Pill Bar (for instrumental / section bar progressions) */
+/* Progression Pill Bar */
 .progression-bar {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.35rem;
   align-items: center;
-  padding: 0.35rem 0.65rem;
-  border-radius: 0.5rem;
-  background: rgba(79, 70, 229, 0.07);
-  border: 1px solid rgba(79, 70, 229, 0.16);
+  padding: 0.28rem 0.6rem;
+  border-radius: 0.45rem;
+  background: rgba(55, 48, 163, 0.06);
+  border: 1px solid rgba(55, 48, 163, 0.14);
   margin-bottom: 0.45rem;
 }
 
 .dark .progression-bar {
-  background: rgba(56, 189, 248, 0.1);
-  border-color: rgba(56, 189, 248, 0.22);
+  background: rgba(96, 165, 250, 0.09);
+  border-color: rgba(96, 165, 250, 0.2);
 }
 
 .progression-bar-chord {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-weight: 700;
-  font-size: 0.9em;
-  color: #4338ca;
-  padding: 0.1rem 0.35rem;
-  border-radius: 0.3rem;
-}
-
-.dark .progression-bar-chord {
-  color: #7dd3fc;
+  font-size: 0.86em;
+  color: var(--accent-chord);
+  padding: 0.06rem 0.28rem;
+  border-radius: 0.25rem;
 }
 
 .progression-bar-sep {
   color: #94a3b8;
   font-weight: 400;
-  font-size: 0.85em;
+  font-size: 0.82em;
 }
 
 /* Two-Column Desktop Stage Mode */
 @media (min-width: 900px) {
   .two-column-stage {
     column-count: 2;
-    column-gap: 2.5rem;
+    column-gap: 2.75rem;
     column-rule: 1px solid rgba(148, 163, 184, 0.25);
   }
   .two-column-stage .song-section-block {
     break-inside: avoid;
     margin-bottom: 1.5rem;
   }
+}
+
+/* ==========================================================================
+   Focus / Raw Mode (Mobile & Desktop: Just Title + Lyrics, Chords Optional)
+   ========================================================================== */
+body.focus-mode #site-header,
+body.focus-mode #site-footer,
+body.focus-mode #song-top-bar,
+body.focus-mode #song-bottom-panels {
+  display: none !important;
+}
+
+body.focus-mode main {
+  max-width: 46rem !important;
+  padding-top: 1.5rem !important;
+  padding-bottom: 5.5rem !important;
+}
+
+@media (min-width: 640px) {
+  body.focus-mode main {
+    padding-top: 2.75rem !important;
+  }
+}
+
+body.focus-mode #song-sheet-card {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+body.focus-mode .section-heading-pill {
+  background: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  color: #64748b !important;
+  letter-spacing: 0.08em;
+}
+
+body.focus-mode #focus-floating-bar {
+  display: inline-flex !important;
 }
 
 /* Custom subtle scrollbars */
@@ -144,13 +329,18 @@ html {
   border-radius: 9999px;
 }
 
-/* Clean Worship Chord Sheet Print Layout */
+/* Clean Print Layout */
 @media print {
   body {
     background: #ffffff !important;
     color: #000000 !important;
   }
-  .no-print {
+  .no-print,
+  #site-header,
+  #site-footer,
+  #song-top-bar,
+  #song-bottom-panels,
+  #focus-floating-bar {
     display: none !important;
   }
   #song-sheet-card {
