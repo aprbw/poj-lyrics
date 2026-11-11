@@ -1,7 +1,6 @@
 ---
 id: "kusadari"
 title: "Kusadari"
-alt_title: "Jalanku Bukanlah Jalan-Mu"
 year: 2015
 camp: "Sounds of Joy Release (2015)"
 language: "Bilingual"

@@ -1,7 +1,6 @@
 ---
 id: "sesuai-dengan-rencana-mu"
 title: "Sesuai Dengan Rencana-Mu"
-alt_title: ""
 year: 2021
 camp: "CCM21: Uno"
 language: "Indonesian"

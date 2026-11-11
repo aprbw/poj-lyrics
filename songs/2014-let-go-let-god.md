@@ -1,7 +1,6 @@
 ---
 id: "let-go-let-god"
 title: "Let Go, Let God"
-alt_title: ""
 year: 2014
 camp: "CCM14: Let Go, Let God"
 language: "English"

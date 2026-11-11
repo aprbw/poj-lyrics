@@ -1,7 +1,6 @@
 ---
 id: "painter"
 title: "Painter"
-alt_title: "Colour Me"
 year: 2016
 camp: "CCM16: Colour"
 language: "English"

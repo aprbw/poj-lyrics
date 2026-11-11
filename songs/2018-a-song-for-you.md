@@ -1,7 +1,6 @@
 ---
 id: "a-song-for-you"
 title: "A Song for You"
-alt_title: ""
 year: 2018
 camp: "POJ Praise & Worship (2018)"
 language: "English"

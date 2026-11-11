@@ -73,7 +73,6 @@ File naming convention: `songs/<YEAR>-<id>.md` (for example, `songs/2026-rooted.
 | :--- | :--- | :---: | :--- |
 | `id` | `string` | Yes | Unique URL-safe slug (e.g. `"rooted"`). |
 | `title` | `string` | Yes | Primary song title. |
-| `alt_title` | `string` | No | Alternate title or subtitle (`""` if none). |
 | `year` | `integer` | Yes | Release or Easter Camp (CCM) year (e.g. `2026`). |
 | `camp` | `string` | No | Camp theme or release label (e.g. `"CCM26: Rooted"`). |
 | `language` | `string` | No | `"English"`, `"Indonesian"`, or `"Bilingual"`. |
@@ -109,7 +108,6 @@ File naming convention: `songs/<YEAR>-<id>.md` (for example, `songs/2026-rooted.
 ---
 id: "rooted"
 title: "Rooted"
-alt_title: "Rooted Deep, My Hope is Found"
 year: 2026
 camp: "CCM26: Rooted"
 language: "English"

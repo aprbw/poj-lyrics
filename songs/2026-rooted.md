@@ -1,7 +1,6 @@
 ---
 id: "rooted"
 title: "Rooted"
-alt_title: "Rooted Deep, My Hope is Found"
 year: 2026
 camp: "CCM26: Rooted"
 language: "English"

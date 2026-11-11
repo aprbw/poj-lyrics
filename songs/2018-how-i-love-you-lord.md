@@ -1,7 +1,6 @@
 ---
 id: "how-i-love-you-lord"
 title: "How I love You Lord"
-alt_title: ""
 year: 2018
 camp: "POJ Praise & Worship (2018)"
 language: "English"

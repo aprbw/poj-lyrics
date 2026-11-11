@@ -1,7 +1,6 @@
 ---
 id: "made-worthy"
 title: "Made Worthy"
-alt_title: "Here is My Broken Heart"
 year: 2023
 camp: "CCM23: Nevertheless"
 language: "English"

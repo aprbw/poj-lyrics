@@ -13,7 +13,6 @@
       id: 'missing-my-faith',
       isMissing: true,
       title: 'My Faith',
-      altTitle: '',
       year: 2022,
       camp: 'CCM22: Little Things',
       language: '—',
@@ -34,7 +33,6 @@
       id: 'missing-all-you-want',
       isMissing: true,
       title: 'All You Want',
-      altTitle: '',
       year: 2022,
       camp: 'CCM22: Little Things',
       language: '—',
@@ -55,7 +53,6 @@
       id: 'missing-little-things',
       isMissing: true,
       title: 'Little Things',
-      altTitle: '',
       year: 2022,
       camp: 'CCM22: Little Things',
       language: '—',
@@ -280,7 +277,6 @@
     if (!q) return true;
     var hay = [
       song.title,
-      song.altTitle || '',
       song.camp || '',
       String(song.year),
       getDisplayKeyLabel(song),
@@ -1113,7 +1109,6 @@
               '<a href="#/song/' + encodeURIComponent(song.id) + '" class="inline-flex items-center justify-between gap-3 w-full py-0.5 focus:outline-none">' +
                 '<span class="min-w-0">' +
                   '<span class="font-bold text-indigo-700 dark:text-sky-400 underline decoration-indigo-300 dark:decoration-sky-500/60 decoration-2 underline-offset-4 group-hover:text-indigo-600 dark:group-hover:text-sky-300 group-hover:decoration-indigo-600 dark:group-hover:decoration-sky-300 transition">' + escapeHtml(song.title) + '</span>' +
-                  (song.altTitle ? '<span class="ml-1.5 text-xs text-slate-400 dark:text-slate-500">(' + escapeHtml(song.altTitle) + ')</span>' : '') +
                 '</span>' +
                 '<span class="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-sky-300 border border-indigo-200/80 dark:border-indigo-800/60 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition">' +
                   '<span>View</span><span aria-hidden="true">&rarr;</span>' +
@@ -1430,7 +1425,7 @@
 
     var titleEl = document.getElementById('song-title-heading');
     if (titleEl) {
-      titleEl.textContent = song.title + (song.altTitle ? ' (' + song.altTitle + ')' : '');
+      titleEl.textContent = song.title;
     }
 
     // Effective notation mode: in Focus Mode, respect focusShowChords toggle

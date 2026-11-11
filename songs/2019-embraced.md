@@ -1,7 +1,6 @@
 ---
 id: "embraced"
 title: "Embraced"
-alt_title: ""
 year: 2019
 camp: "CCM19: Mirror"
 language: "English"

@@ -1,7 +1,6 @@
 ---
 id: "cerminan-mu"
 title: "Cerminan-Mu"
-alt_title: "Cerminan KasihNya"
 year: 2019
 camp: "CCM19: Mirror"
 language: "Indonesian"

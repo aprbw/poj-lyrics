@@ -1,7 +1,6 @@
 ---
 id: "my-declaration"
 title: "My Declaration"
-alt_title: "I'm All Yours"
 year: 2024
 camp: "CCM24: New Wine"
 language: "English"

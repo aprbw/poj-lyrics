@@ -199,7 +199,6 @@
       mdFile: mdPath,
       rawMarkdown: text,
       title: meta.title || id,
-      altTitle: meta.alt_title || '',
       year: year,
       camp: meta.camp || '',
       language: meta.language || 'English',
@@ -226,7 +225,6 @@
     var lines = ['---'];
     lines.push('id: ' + quoteYaml(song.id || 'song'));
     lines.push('title: ' + quoteYaml(song.title || 'Untitled'));
-    lines.push('alt_title: ' + quoteYaml(song.altTitle || ''));
     lines.push('year: ' + (song.year || 2026));
     lines.push('camp: ' + quoteYaml(song.camp || ''));
     lines.push('language: ' + quoteYaml(song.language || 'English'));

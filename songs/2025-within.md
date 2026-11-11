@@ -1,7 +1,6 @@
 ---
 id: "within"
 title: "Within"
-alt_title: "Come and Move Within Us"
 year: 2025
 camp: "CCM25: Within"
 language: "English"

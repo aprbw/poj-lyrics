@@ -1,7 +1,6 @@
 ---
 id: "jesus-not-the-crowd"
 title: "Jesus, not the crowd"
-alt_title: ""
 year: 2015
 camp: "CCM15: Jesus > Crowd"
 language: "English"

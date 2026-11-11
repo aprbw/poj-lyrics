@@ -1,7 +1,6 @@
 ---
 id: "who-is-he"
 title: "Who is He"
-alt_title: ""
 year: 2013
 camp: "CCM13: Be One"
 language: "English"

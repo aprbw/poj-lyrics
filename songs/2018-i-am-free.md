@@ -1,7 +1,6 @@
 ---
 id: "i-am-free"
 title: "I am Free"
-alt_title: "His Grace is Enough"
 year: 2018
 camp: "CCM18: Prison Break"
 language: "Bilingual"
