@@ -2431,24 +2431,6 @@
 
     document.getElementById('autoscroll-btn').addEventListener('click', cycleAutoScroll);
 
-    document.getElementById('copy-sheet-btn').addEventListener('click', function () {
-      var song = getBaseSongById(state.selectedSongId);
-      if (!song) return;
-      var baseIdx = Transposer.noteNameToIndex(song.baseKey || 'G');
-      var concertIdx = Transposer.mod12(baseIdx + getSongTranspose(song.id));
-      var capo = getSongCapo(song.id);
-      var shapedIdx = Transposer.mod12(concertIdx - capo);
-      var plain = Transposer.renderPlainTextSheet(song, song.sections, {
-        baseKeyIndex: baseIdx,
-        concertKeyIndex: concertIdx,
-        targetKeyIndex: shapedIdx,
-        notationMode: state.notationMode,
-        accidentalPref: state.accidentalPref,
-        capo: capo
-      });
-      copyTextToClipboard(plain, 'Copied "' + song.title + '" chord sheet');
-    });
-
     document.getElementById('print-sheet-btn').addEventListener('click', function () {
       window.print();
     });
