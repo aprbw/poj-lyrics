@@ -2,6 +2,7 @@
 
 Original worship and Easter Camp (CCM) songs written by people in **[Place of Joy (POJ)](https://placeofjoy.org.au/)** Melbourne.
 
+- **Live Web Songbook:** [sounds-of-joy.vercel.app](https://sounds-of-joy.vercel.app/)
 - **Place of Joy Website:** [placeofjoy.org.au](https://placeofjoy.org.au/)
 - **POJ Melbourne Links & Socials:** [linktr.ee/pojmelbourne](https://linktr.ee/pojmelbourne)
 

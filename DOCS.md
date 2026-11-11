@@ -167,13 +167,12 @@ npx serve .
 
 ---
 
-## Optional Static Deployment (Vercel / GitHub Pages)
+## Live Deployment (Vercel)
 
-The web songbook (`index.html`) is not yet deployed to a live domain, but `vercel.json` is pre-configured when ready to host:
+The web songbook (`index.html`) is deployed live at **[sounds-of-joy.vercel.app](https://sounds-of-joy.vercel.app/)**:
 
 1. Push updates to the `main` branch on GitHub (`https://github.com/aprbw/poj-lyrics`).
-2. Import `aprbw/poj-lyrics` at [vercel.com/new](https://vercel.com/new).
-3. `vercel.json` automatically runs `node scripts/build-songbook.js` on every push so edits made directly to `songs/*.md` on GitHub compile automatically on deploy.
+2. `vercel.json` automatically runs `node scripts/build-songbook.js` on every push so edits made directly to `songs/*.md` on GitHub compile automatically on deploy.
 
 ---
 
