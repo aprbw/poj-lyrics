@@ -1,6 +1,6 @@
-# Sounds of Joy — POJ Original Songs
+# Sounds of Joy — Place of Joy (POJ) Melbourne Lyrics & Chords
 
-Original worship and Easter Camp (CCM) songs written by people in **[Place of Joy (POJ)](https://placeofjoy.org.au/)** Melbourne.
+Official directory of original English and Indonesian worship songs, lyrics, chords, and *lirik lagu gereja* (Easter Camp / CCM 2013–2026) written by people in **[Place of Joy (POJ)](https://placeofjoy.org.au/)** Melbourne.
 
 - **Live Web Songbook:** [sounds-of-joy.vercel.app](https://sounds-of-joy.vercel.app/)
 - **Place of Joy Website:** [placeofjoy.org.au](https://placeofjoy.org.au/)
