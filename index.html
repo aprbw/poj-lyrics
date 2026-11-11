@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sounds of Joy — POJ Original Songs, Lyrics, Chords &amp; Audio</title>
-  <meta name="description" content="Official Markdown songbook, transposable chord charts, songwriter credits, and audio archive for Sounds of Joy — Place of Joy (POJ) Melbourne original worship songs (2013–2026)." />
+  <title>Sounds of Joy — POJ Original Songs, Lyrics &amp; Chords</title>
+  <meta name="description" content="Official song directory, lyrics, and transposable chord charts for Sounds of Joy — Place of Joy (POJ) Melbourne original worship songs (2013–2026)." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script>
     tailwind.config = {
@@ -15,7 +15,7 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
           }
         }
@@ -24,36 +24,21 @@
   </script>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="min-h-screen bg-[#fafaf8] dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-500 selection:text-white flex flex-col">
+<body class="min-h-screen bg-[#f8fafc] dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-indigo-600 selection:text-white flex flex-col">
 
-  <!-- Top Navigation Header -->
-  <header class="sticky top-0 z-30 border-b border-slate-200/80 dark:border-slate-800/90 bg-white/90 dark:bg-[#0d1321]/90 backdrop-blur-md no-print">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white flex items-center justify-center font-extrabold text-sm shadow-sm">
-          SOJ
-        </div>
-        <div>
-          <span class="font-extrabold tracking-tight text-base sm:text-lg text-slate-900 dark:text-white">Sounds of Joy</span>
-          <span class="hidden sm:inline-block ml-2 text-xs font-medium text-slate-500 dark:text-slate-400">Place of Joy Melbourne • Markdown Songbook</span>
-        </div>
-      </div>
+  <!-- Top Header (Single Browse Mode — No Extra Tabs) -->
+  <header id="site-header" class="sticky top-0 z-30 border-b border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-[#0c1220]/95 backdrop-blur-md no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+      <!-- Clickable Logo -> Home / Browse Index -->
+      <a href="#/" id="logo-home-link" class="inline-flex items-center font-extrabold tracking-tight text-base sm:text-lg text-slate-900 dark:text-white hover:text-indigo-700 dark:hover:text-sky-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg px-1 py-0.5">
+        Sounds of Joy
+      </a>
 
-      <nav class="flex items-center gap-1.5 flex-wrap" aria-label="Main Navigation">
-        <button id="nav-browse-btn" type="button" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 text-white shadow-sm transition">
+      <div class="flex items-center gap-2">
+        <a href="#/" id="nav-browse-btn" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-500 shadow-sm transition">
           Browse Songs
-        </button>
-        <button id="nav-song-btn" type="button" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-          Chord Sheet
-        </button>
-        <button id="nav-setlist-btn" type="button" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition inline-flex items-center gap-1.5">
-          <span>Setlist</span>
-          <span id="setlist-count-badge" class="px-1.5 py-0.2 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300">3</span>
-        </button>
-        <button id="nav-deploy-btn" type="button" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-          GitHub &amp; Vercel
-        </button>
-        <button id="theme-toggle-btn" type="button" aria-label="Toggle Stage Dark Mode" title="Toggle Stage Dark / Paper Light Mode" class="ml-1 p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+        </a>
+        <button id="theme-toggle-btn" type="button" aria-label="Toggle Dark or Light Mode" title="Toggle Dark / Light Mode" class="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
           <svg id="theme-icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m8.66-13.66l-.7.7M4.04 19.96l-.7.7M21 12h-1M4 12H3m16.96 7.96l-.7-.7M4.74 4.74l-.7-.7M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
@@ -61,431 +46,375 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
           </svg>
         </button>
-      </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Main Content Container -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-7">
 
-    <!-- VIEW 1: BROWSE CATALOG -->
+    <!-- ==================================================================
+         VIEW 1: BROWSE SONGS (EXCEL SPREADSHEET + PIVOT TABLE DIRECTORY)
+         ================================================================== -->
     <section id="view-browse">
-      <!-- Hero Banner -->
-      <div class="rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-6 sm:p-8 mb-5 shadow-md">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div class="max-w-2xl">
-            <div class="flex flex-wrap items-center gap-2 mb-2">
-              <span class="text-xs font-bold uppercase tracking-widest text-sky-400">Place of Joy • Melbourne Worship Archive</span>
-              <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-white/10 text-indigo-200 font-mono-chord">songs/*.md + YAML</span>
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Sounds of Joy — Original Songs (2013–2026)</h1>
-            <p class="text-sm text-slate-300 mt-2 leading-relaxed">
-              Original worship and Easter Camp (CCM) songs written by people in <strong>Place of Joy (POJ)</strong> Melbourne — from <em>Who is He</em> (2013) to <em>Rooted</em> (2026). Stream original recordings, sort by year, title, composer, camp, or key, and transpose charts across all 12 keys or Nashville numbers.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-2.5 shrink-0">
-            <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition">
-              <span>placeofjoy.org.au</span>
-              <span aria-hidden="true">&#8599;</span>
-            </a>
-            <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition">
-              <span>linktr.ee/pojmelbourne</span>
-              <span aria-hidden="true">&#8599;</span>
-            </a>
-            <a href="https://www.youtube.com/playlist?list=PLnPkLnDIJOiRLSjcU7OyuhqxpxJjHz43F" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm transition">
-              <span>YouTube Playlist</span>
-              <span aria-hidden="true">&#8599;</span>
-            </a>
-          </div>
+      <!-- Compact Directory Header -->
+      <div class="mb-4 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            POJ Original Song Directory (2013–2026)
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+            Original worship &amp; Easter Camp (CCM) songs by people in
+            <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">Place of Joy Melbourne</a>
+            &bull;
+            <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">linktr.ee/pojmelbourne</a>
+            &bull;
+            <a href="https://www.youtube.com/playlist?list=PLnPkLnDIJOiRLSjcU7OyuhqxpxJjHz43F" target="_blank" rel="noopener noreferrer" class="font-semibold text-rose-700 dark:text-rose-400 hover:underline">YouTube Playlist &#8599;</a>
+          </p>
+        </div>
+        <div id="results-summary-text" class="text-xs font-mono-chord text-slate-500 dark:text-slate-400">
+          Showing 16 songs
         </div>
       </div>
 
-      <!-- Search, Filter & Prominent Sort By Bar -->
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-5 shadow-sm">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-          <div class="md:col-span-5 relative">
-            <input id="search-input" type="text" placeholder="Search title, lyrics, composer/credit, camp, or verse..." class="w-full pl-9 pr-16 py-2 rounded-xl text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <!-- Excel + Pivot Control Ribbon -->
+      <div class="rounded-t-xl border border-b-0 border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] p-3 flex flex-col gap-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-2.5">
+          <!-- Search Box -->
+          <div class="relative flex-1 min-w-[220px] max-w-md">
+            <input id="search-input" type="text" placeholder="Filter songs, lyrics, credits, camp, key, scripture..." class="w-full pl-8 pr-14 py-1.5 rounded-lg text-xs sm:text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
             </svg>
-            <button id="clear-search-btn" type="button" class="hidden absolute right-2.5 top-2 px-2 py-0.5 rounded text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+            <button id="clear-search-btn" type="button" class="hidden absolute right-2 top-1.5 px-1.5 py-0.5 rounded text-[11px] font-semibold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
               Clear
             </button>
           </div>
 
-          <div class="md:col-span-2">
-            <select id="era-filter-select" aria-label="Filter by Year Era" class="w-full px-3 py-2 rounded-xl text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="all">All Years (2013–26)</option>
-              <option value="2013-2016">2013–2016 (Early CCM)</option>
-              <option value="2018-2019">2018–2019 (PW &amp; Mirror)</option>
-              <option value="2020-2026">2020–2026 (Recent CCM)</option>
-            </select>
-          </div>
-
-          <div class="md:col-span-2">
-            <select id="lang-filter-select" aria-label="Filter by Language" class="w-full px-3 py-2 rounded-xl text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="all">All Languages</option>
-              <option value="English">English</option>
-              <option value="Indonesian">Indonesian</option>
-              <option value="Bilingual">Bilingual (ID / EN)</option>
-            </select>
-          </div>
-
-          <div class="md:col-span-3">
-            <select id="media-filter-select" aria-label="Filter by Chords, Audio or Video" class="w-full px-3 py-2 rounded-xl text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="all">All Formats</option>
-              <option value="chords">Has Chords</option>
-              <option value="audio">Has Audio Recording</option>
-              <option value="bundled-audio">Bundled MP3 / M4A in Zip</option>
-              <option value="video">Has YouTube Video</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Dedicated Prominent Sort By Strip -->
-        <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5">
+          <!-- Group By + Pivot Toggle + Column Visibility + Missing Toggle -->
           <div class="flex flex-wrap items-center gap-2">
-            <label for="sort-select" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Sort by:</label>
-            <select id="sort-select" aria-label="Sort Songs By" class="px-3 py-1.5 rounded-xl text-xs font-semibold border border-indigo-200 dark:border-slate-700 bg-indigo-50/70 dark:bg-slate-800 text-indigo-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="newest">Year: Newest First (2026 &rarr; 2013)</option>
-              <option value="oldest">Year: Oldest First (2013 &rarr; 2026)</option>
-              <option value="az">Title: A &rarr; Z</option>
-              <option value="za">Title: Z &rarr; A</option>
-              <option value="author">Credit / Composer: A &rarr; Z</option>
-              <option value="camp">Camp / Release: A &rarr; Z</option>
-              <option value="key">Original Key: C &rarr; B</option>
-              <option value="chords-first">Chords Archived First</option>
-              <option value="audio-first">Audio Available First</option>
-            </select>
-
-            <div id="quick-sort-pills" class="flex flex-wrap items-center gap-1" role="group" aria-label="Quick Sort Shortcuts">
-              <button type="button" data-action="quick-sort" data-sort="newest" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition">Newest</button>
-              <button type="button" data-action="quick-sort" data-sort="oldest" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Oldest</button>
-              <button type="button" data-action="quick-sort" data-sort="az" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Title A–Z</button>
-              <button type="button" data-action="quick-sort" data-sort="author" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Composer</button>
-              <button type="button" data-action="quick-sort" data-sort="chords-first" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Chords First</button>
-              <button type="button" data-action="quick-sort" data-sort="audio-first" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Audio First</button>
+            <div class="inline-flex items-center gap-1.5">
+              <label for="group-by-select" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Group:</label>
+              <select id="group-by-select" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="none">None (Flat List)</option>
+                <option value="year">Year</option>
+                <option value="camp">Camp / Release</option>
+                <option value="key">Concert Key</option>
+                <option value="status">Chart Status</option>
+                <option value="language">Language</option>
+                <option value="songwriter">Songwriter</option>
+              </select>
             </div>
-          </div>
 
-          <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
-            <span id="results-summary-text">Showing 16 POJ original songs</span>
-            <button id="reset-filters-btn" type="button" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">
-              Reset Filters
+            <button id="toggle-pivot-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18M14 3v18M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z"/>
+              </svg>
+              <span>Pivot Table</span>
             </button>
-          </div>
-        </div>
-      </div>
 
-      <!-- Song Grid -->
-      <div id="song-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-
-      <!-- Empty Filter State -->
-      <div id="empty-state-box" class="hidden rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
-        <p class="text-base font-semibold text-slate-700 dark:text-slate-200">No POJ original songs match your current filters.</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Try clearing your search term or switching back to All Formats.</p>
-      </div>
-
-      <!-- Contact & Archive Feedback Banner on Browse View -->
-      <div class="mt-6 rounded-2xl border border-indigo-200/80 dark:border-slate-800 bg-indigo-50/60 dark:bg-slate-900/90 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-          <span class="font-bold text-slate-900 dark:text-white">Archive Contact &amp; Corrections:</span>
-          Spotted an issue or have updates for <strong>lyrics, chords, songwriter/composer attributions, links, audio recordings, or song details</strong>? Reach out to
-          <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="font-semibold text-indigo-700 dark:text-sky-400 underline">arian.prabowo@placeofjoy.org.au</a>.
-        </div>
-        <button id="copy-browse-contact-btn" type="button" class="shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold border border-indigo-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-indigo-700 dark:text-sky-300 hover:bg-indigo-100 dark:hover:bg-slate-700 transition">
-          Copy Contact Email
-        </button>
-      </div>
-    </section>
-
-    <!-- VIEW 2: SONG DETAIL & INTERACTIVE CHORD TRANSPOSER -->
-    <section id="view-song" class="hidden">
-      <!-- Breadcrumb + Prev/Next Bar -->
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-4 no-print">
-        <button id="back-to-browse-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-          &larr; All Songs
-        </button>
-        <div class="flex items-center gap-2">
-          <button id="prev-song-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-            &larr; Prev
-          </button>
-          <button id="next-song-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-            Next &rarr;
-          </button>
-          <button id="toggle-setlist-current-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 transition">
-            ☆ Save to Setlist
-          </button>
-        </div>
-      </div>
-
-      <!-- Sticky Transposition & Stage Toolbar -->
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 mb-5 shadow-sm no-print">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <!-- Transpose & Key Controls -->
-          <div class="flex flex-wrap items-center gap-2">
-            <div class="inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-0.5">
-              <button id="transpose-down-btn" type="button" title="Transpose Down 1 Semitone" class="px-2.5 py-1 text-xs font-bold rounded-md text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 transition">
-                &minus;1
+            <!-- Columns Visibility Menu -->
+            <div class="relative">
+              <button id="columns-menu-btn" type="button" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                <span>Columns</span>
+                <span aria-hidden="true">&#9662;</span>
               </button>
-              <span class="px-2 text-xs font-semibold text-slate-500 dark:text-slate-400">Transpose</span>
-              <button id="transpose-up-btn" type="button" title="Transpose Up 1 Semitone" class="px-2.5 py-1 text-xs font-bold rounded-md text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 transition">
-                +1
-              </button>
+              <div id="columns-menu-popover" class="hidden absolute right-0 mt-1.5 w-52 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xl p-2.5 z-40 space-y-1 text-xs"></div>
             </div>
 
-            <select id="target-key-select" aria-label="Target Concert Key" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+            <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+              <input id="show-missing-checkbox" type="checkbox" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+              <span>Include Missing (3)</span>
+            </label>
 
-            <select id="accidental-select" aria-label="Sharp or Flat Preference" class="px-2 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="auto">Auto (# / b)</option>
-              <option value="sharp">Sharps (#)</option>
-              <option value="flat">Flats (b)</option>
-            </select>
-
-            <select id="capo-select" aria-label="Guitar Capo Fret" class="px-2 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="0">No Capo</option>
-              <option value="1">Capo 1</option>
-              <option value="2">Capo 2</option>
-              <option value="3">Capo 3</option>
-              <option value="4">Capo 4</option>
-              <option value="5">Capo 5</option>
-              <option value="6">Capo 6</option>
-              <option value="7">Capo 7</option>
-            </select>
-
-            <button id="transpose-reset-btn" type="button" class="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <button id="reset-filters-btn" type="button" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-indigo-700 dark:text-sky-400 hover:bg-indigo-50 dark:hover:bg-slate-800 transition">
               Reset
             </button>
           </div>
+        </div>
 
-          <!-- Notation Mode + View Utilities -->
-          <div class="flex flex-wrap items-center gap-2">
-            <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5">
-              <button id="notation-chords-btn" type="button" class="px-2.5 py-1 text-xs font-semibold rounded-md bg-indigo-600 text-white shadow-sm transition">Chords</button>
-              <button id="notation-nashville-btn" type="button" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 dark:text-slate-300 transition">Nashville 1–7</button>
-              <button id="notation-lyrics-btn" type="button" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 dark:text-slate-300 transition">Lyrics Only</button>
-            </div>
+        <!-- Active Column Filter Chips -->
+        <div id="active-filters-bar" class="hidden flex-wrap items-center gap-1.5 pt-1.5 border-t border-slate-100 dark:border-slate-800/80 text-xs"></div>
+      </div>
 
-            <div class="inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-              <button id="font-dec-btn" type="button" title="Decrease Font Size" class="px-2 py-1 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-l-lg">A&minus;</button>
-              <button id="font-inc-btn" type="button" title="Increase Font Size" class="px-2 py-1 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-r-lg border-l border-slate-200 dark:border-slate-700">A+</button>
-            </div>
-
-            <button id="two-col-btn" type="button" class="hidden md:inline-flex px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-              2 Columns
-            </button>
-
-            <button id="autoscroll-btn" type="button" class="px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-              Scroll: Off
-            </button>
+      <!-- Collapsible Interactive Pivot Table Panel -->
+      <div id="pivot-panel" class="hidden border-x border-t border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-[#0b111e] p-3.5 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2.5 text-xs">
+            <span class="font-bold uppercase tracking-wider text-indigo-700 dark:text-sky-400">Pivot Table</span>
+            <label class="inline-flex items-center gap-1">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">Rows:</span>
+              <select id="pivot-row-select" class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100">
+                <option value="year">Year</option>
+                <option value="camp">Camp / Release</option>
+                <option value="key">Concert Key</option>
+                <option value="language">Language</option>
+                <option value="status">Chart Status</option>
+                <option value="songwriter">Songwriter</option>
+              </select>
+            </label>
+            <label class="inline-flex items-center gap-1">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">Columns:</span>
+              <select id="pivot-col-select" class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100">
+                <option value="status" selected>Chart Status</option>
+                <option value="language">Language</option>
+                <option value="key">Concert Key</option>
+                <option value="youtube">YouTube Status</option>
+                <option value="none">Total Count Only</option>
+              </select>
+            </label>
+            <label class="inline-flex items-center gap-1">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">Values:</span>
+              <select id="pivot-val-select" class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100">
+                <option value="count" selected>Song Count</option>
+                <option value="titles">Song Titles</option>
+              </select>
+            </label>
           </div>
+          <span class="text-[11px] text-slate-500 dark:text-slate-400">Click any count in the Pivot Table to filter the list below.</span>
+        </div>
+        <div id="pivot-table-container" class="sheet-table-wrap rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624]"></div>
+      </div>
+
+      <!-- Main Spreadsheet Data List -->
+      <div class="relative rounded-b-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] shadow-sm overflow-hidden">
+        <div class="sheet-table-wrap">
+          <table class="sheet-table" aria-label="POJ Original Songs Directory">
+            <thead id="song-table-head"></thead>
+            <tbody id="song-table-body"></tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state-box" class="hidden p-10 text-center">
+          <p class="text-sm font-semibold text-slate-700 dark:text-slate-200">No songs match the active column filters.</p>
+          <button id="empty-reset-btn" type="button" class="mt-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition">
+            Clear All Filters
+          </button>
         </div>
       </div>
 
-      <!-- Song Sheet Card -->
-      <article id="song-sheet-card" class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-9 shadow-sm">
-        <div class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
-          <div id="song-header-badges" class="flex flex-wrap items-center gap-2 mb-3"></div>
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div>
-              <h2 id="song-title-heading" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Cerminan-Mu</h2>
-              <p id="song-meta-subtitle" class="text-sm font-medium text-slate-700 dark:text-slate-200 mt-1"></p>
-              <div id="song-credits-detail" class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 space-y-0.5"></div>
+      <!-- Floating Column AutoFilter Popover -->
+      <div id="col-filter-popover" class="hidden fixed z-50 w-64 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl p-3 text-xs"></div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 2: SONG PAGE (TITLE -> IMMEDIATELY CHORDS & LYRICS -> BOTTOM TOOLS & CREDITS)
+         ================================================================== -->
+    <section id="view-song" class="hidden max-w-4xl mx-auto">
+      <!-- Minimal Top Bar (Hidden in Focus Mode & Print) -->
+      <div id="song-top-bar" class="flex flex-wrap items-center justify-between gap-2 mb-4 no-print">
+        <div class="flex items-center gap-1.5">
+          <button id="back-to-browse-btn" type="button" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            &larr; Songs
+          </button>
+          <button id="prev-song-btn" type="button" title="Previous Song" class="px-2 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            &larr;
+          </button>
+          <button id="next-song-btn" type="button" title="Next Song" class="px-2 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            &rarr;
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="top-copy-proclaim-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            <span>Copy Plain Lyrics</span>
+          </button>
+          <button id="enter-focus-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 dark:bg-indigo-600 text-white hover:bg-slate-800 dark:hover:bg-indigo-500 shadow-sm transition">
+            <span>Focus Mode</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pure Song Sheet Card: Title -> Immediately Chords & Lyrics -->
+      <article id="song-sheet-card" class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] p-6 sm:p-9 shadow-sm">
+        <h1 id="song-title-heading" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+          Rooted
+        </h1>
+        <div id="song-sections-container" class="song-sheet-body"></div>
+      </article>
+
+      <!-- Bottom Panels: Transpose, Copy for Proclaim, Recordings, and Credits -->
+      <div id="song-bottom-panels" class="mt-6 space-y-4 no-print">
+
+        <!-- 1. Transpose, Display & Copy Tools -->
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] p-4 sm:p-5 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Transpose, Notation &amp; Export
             </div>
-            <div class="flex flex-wrap items-center gap-2 no-print">
-              <button id="open-editor-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-sky-300 hover:bg-indigo-100 transition">
-                Edit / Add Chords
+            <div id="key-status-inline" class="text-xs font-mono-chord text-slate-600 dark:text-slate-300"></div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <!-- Key / Capo / Semitone Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-0.5">
+                <button id="transpose-down-btn" type="button" title="Transpose Down 1 Semitone" class="px-2.5 py-1 text-xs font-bold rounded-md text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 transition">
+                  &minus;1
+                </button>
+                <span class="px-2 text-xs font-semibold text-slate-500 dark:text-slate-400">Key</span>
+                <button id="transpose-up-btn" type="button" title="Transpose Up 1 Semitone" class="px-2.5 py-1 text-xs font-bold rounded-md text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 transition">
+                  +1
+                </button>
+              </div>
+
+              <select id="target-key-select" aria-label="Target Concert Key" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+
+              <select id="accidental-select" aria-label="Sharp or Flat Preference" class="px-2 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="auto">Auto (# / b)</option>
+                <option value="sharp">Sharps (#)</option>
+                <option value="flat">Flats (b)</option>
+              </select>
+
+              <select id="capo-select" aria-label="Guitar Capo Fret" class="px-2 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="0">No Capo</option>
+                <option value="1">Capo 1</option>
+                <option value="2">Capo 2</option>
+                <option value="3">Capo 3</option>
+                <option value="4">Capo 4</option>
+                <option value="5">Capo 5</option>
+                <option value="6">Capo 6</option>
+                <option value="7">Capo 7</option>
+              </select>
+
+              <button id="transpose-reset-btn" type="button" class="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                Reset
               </button>
-              <button id="download-song-md-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-                Download .md
+            </div>
+
+            <!-- Notation & Reading Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5">
+                <button id="notation-chords-btn" type="button" class="px-2.5 py-1 text-xs font-semibold rounded-md bg-indigo-600 text-white shadow-sm transition">Chords</button>
+                <button id="notation-nashville-btn" type="button" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 dark:text-slate-300 transition">Nashville 1–7</button>
+                <button id="notation-lyrics-btn" type="button" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-600 dark:text-slate-300 transition">Lyrics Only</button>
+              </div>
+
+              <div class="inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                <button id="font-dec-btn" type="button" title="Decrease Font Size" class="px-2 py-1 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-l-lg">A&minus;</button>
+                <button id="font-inc-btn" type="button" title="Increase Font Size" class="px-2 py-1 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-r-lg border-l border-slate-200 dark:border-slate-700">A+</button>
+              </div>
+
+              <button id="two-col-btn" type="button" class="hidden md:inline-flex px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                2 Columns
               </button>
+
+              <button id="autoscroll-btn" type="button" class="px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                Scroll: Off
+              </button>
+            </div>
+          </div>
+
+          <!-- Proclaim / Lyrics Software Copy Strip -->
+          <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button id="copy-proclaim-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition">
+                Copy Plain Lyrics (Proclaim / Slides)
+              </button>
+              <label class="inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+                <input id="proclaim-headers-checkbox" type="checkbox" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                <span>Include section labels (Verse, Chorus)</span>
+              </label>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
               <button id="copy-sheet-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-                Copy Sheet
+                Copy Chord Sheet
               </button>
               <button id="print-sheet-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
                 Print / PDF
               </button>
             </div>
           </div>
-          <div id="song-external-links" class="flex flex-wrap items-center gap-2 mt-4 no-print"></div>
         </div>
 
-        <!-- Audio Recordings Player Panel -->
-        <div id="song-audio-panel" class="hidden mb-5 no-print"></div>
+        <!-- 2. Recordings Panel (YouTube + Local Audio Only — No Google Drive) -->
+        <div id="song-recordings-panel" class="hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] p-4 sm:p-5 shadow-sm space-y-3"></div>
 
-        <div id="key-status-banner"></div>
-        <div id="song-sections-container" class="song-sheet-body"></div>
-
-        <!-- Per-Song Contact & Attribution Issue Reporting Footer -->
-        <div id="song-contact-card" class="mt-8 pt-5 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 no-print"></div>
-      </article>
-    </section>
-
-    <!-- VIEW 3: WORSHIP SETLIST BUILDER -->
-    <section id="view-setlist" class="hidden">
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div>
-          <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Worship Setlist</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Save POJ songs in your chosen concert keys for Sunday service or camp sessions.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="copy-setlist-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
-            Copy Setlist Summary
-          </button>
-          <button id="clear-setlist-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-            Clear All
-          </button>
-        </div>
-      </div>
-
-      <div id="setlist-items-container" class="space-y-3"></div>
-
-      <div id="setlist-empty-box" class="hidden rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
-        <p class="text-base font-semibold text-slate-700 dark:text-slate-200">Your worship setlist is empty.</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Click the star icon on any song card or "Save to Setlist" inside a chord sheet to store songs and target keys.</p>
+        <!-- 3. Credits & Metadata Panel (At Bottom — No Email) -->
+        <div id="song-credits-panel" class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] p-4 sm:p-5 shadow-sm"></div>
       </div>
     </section>
 
-    <!-- VIEW 4: GITHUB + VERCEL + MARKDOWN SONGBOOK GUIDE -->
-    <section id="view-deploy" class="hidden">
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-sm space-y-6">
-        <div>
-          <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-sky-300">Markdown + YAML Songbook Repository</span>
-          <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-2">GitHub Repository (<code class="font-mono-chord text-indigo-600 dark:text-sky-400">aprbw/poj-lyrics</code>) &amp; Optional Vercel Setup</h2>
-          <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">
-            Every song lives in <code class="font-mono-chord">songs/&lt;year&gt;-&lt;slug&gt;.md</code> with a structured YAML frontmatter header and YouTube / Google Drive audio links (local <code class="font-mono-chord">audio/</code> is gitignored).
-          </p>
+    <!-- ==================================================================
+         VIEW 3: DEDICATED CONTACT PAGE (THE ONLY PAGE WITH MAINTAINER EMAIL)
+         ================================================================== -->
+    <section id="view-contact" class="hidden max-w-2xl mx-auto">
+      <div class="mb-4">
+        <a href="#/" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+          &larr; Back to Song Directory
+        </a>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624] p-6 sm:p-8 shadow-sm space-y-4">
+        <span class="inline-block px-2.5 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-sky-300">
+          Archive Contact &amp; Contributions
+        </span>
+        <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          Contact &amp; Songbook Updates
+        </h1>
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Have missing songs (including CCM22: <em>My Faith</em>, <em>All You Want</em>, and <em>Little Things</em>), chord corrections, lyric updates, songwriter/composer attributions, or recordings for <strong>Sounds of Joy</strong>?
+        </p>
+        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/70 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Maintainer</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">
+              Arian Prabowo &mdash;
+              <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="text-indigo-700 dark:text-sky-400 underline">arian.prabowo@placeofjoy.org.au</a>
+            </div>
+          </div>
+          <button id="copy-contact-page-btn" type="button" class="shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition">
+            Copy Email
+          </button>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-5">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Step 1: Sync Repository with GitHub</h3>
-              <button id="copy-git-cmds-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition">
-                Copy Commands
-              </button>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">Repository on GitHub (<a href="https://github.com/aprbw/poj-lyrics" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">github.com/aprbw/poj-lyrics</a>):</p>
-            <pre class="rounded-lg bg-slate-900 text-slate-100 p-3 text-xs font-mono-chord overflow-x-auto leading-relaxed">npm run build
-git add .
-git commit -m "Update POJ songbook"
-git push origin main</pre>
-          </div>
-
-          <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-5">
-            <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Step 2: Optional Vercel Static Hosting</h3>
-            <ol class="text-xs text-slate-600 dark:text-slate-300 space-y-2.5 list-decimal list-inside leading-relaxed">
-              <li>When ready to publish online, open <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">vercel.com/new</a> and import <code class="font-mono-chord">aprbw/poj-lyrics</code>.</li>
-              <li><code class="font-mono-chord">vercel.json</code> is pre-configured to run <code class="font-mono-chord">node scripts/build-songbook.js</code> whenever you edit or add any <code class="font-mono-chord">songs/*.md</code> file on GitHub.</li>
-              <li>Click <strong>Deploy</strong> to host the static web songbook.</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-5">
-            <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Markdown + YAML Song Format (<code class="font-mono-chord">songs/*.md</code>)</h3>
-            <pre class="rounded-lg bg-slate-900 text-slate-100 p-3 text-xs font-mono-chord overflow-x-auto leading-relaxed">---
-id: "rooted"
-title: "Rooted"
-year: 2026
-camp: "CCM26: Rooted"
-credits: "Lyrics &amp; Music: Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim"
-key: "Eb"
-key_verified: true
-contact: "arian.prabowo@placeofjoy.org.au"
----
-
-## Verse 1
-&gt; Progression: 1 | 5/7 | 6m7 | 6m7/5 || 4 | 1/3 | 2m7 | 5
-
-Through the [1]winter, through the [5/7]rain</pre>
-          </div>
-
-          <div class="rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/70 dark:bg-indigo-950/30 p-5 flex flex-col justify-between">
-            <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Contact Person &amp; Archive Feedback</h3>
-              <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                For any issues, missing transcriptions, or updates to <strong>lyrics, chords, songwriter/composer attributions, YouTube/Drive links, audio files, or camp details</strong>, please contact:
-              </p>
-              <p class="mt-3 text-sm font-bold text-indigo-700 dark:text-sky-400">
-                Arian Prabowo — <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="underline">arian.prabowo@placeofjoy.org.au</a>
-              </p>
-            </div>
-            <div class="mt-4">
-              <button id="copy-deploy-contact-btn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
-                Copy Email Address
-              </button>
-            </div>
-          </div>
+        <div class="pt-2 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap gap-3">
+          <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">placeofjoy.org.au &#8599;</a>
+          <span>&bull;</span>
+          <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">linktr.ee/pojmelbourne &#8599;</a>
+          <span>&bull;</span>
+          <a href="https://github.com/aprbw/poj-lyrics" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">GitHub Repository &#8599;</a>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- MARKDOWN + YAML LIVE EDITOR MODAL -->
-  <div id="editor-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4 no-print" role="dialog" aria-modal="true">
-    <div class="w-full max-w-2xl rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-      <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
-        <div>
-          <h3 class="text-base font-bold text-slate-900 dark:text-white">Markdown + YAML Song Editor — <span id="editor-song-title" class="text-indigo-600 dark:text-sky-400"></span></h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Edit the YAML header and Markdown sections directly, e.g. <code class="font-mono-chord">[G]Here is my [C]broken heart</code> or <code class="font-mono-chord">[1]Here is my [4]broken heart</code>.</p>
-        </div>
-        <button id="close-editor-btn" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white text-lg leading-none">&times;</button>
-      </div>
-
-      <div class="p-5 flex-1 overflow-y-auto space-y-3">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <label for="editor-base-key-select" class="text-xs font-semibold text-slate-700 dark:text-slate-200">Base Key in YAML:</label>
-            <select id="editor-base-key-select" class="px-2.5 py-1 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white"></select>
-          </div>
-          <span id="editor-md-filename" class="text-xs font-mono-chord text-slate-500 dark:text-slate-400">songs/2019-cerminan-mu.md</span>
-        </div>
-        <textarea id="editor-textarea" rows="15" spellcheck="false" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-3.5 text-xs sm:text-sm font-mono-chord text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"></textarea>
-      </div>
-
-      <div class="px-5 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80 flex flex-wrap items-center justify-between gap-2">
-        <div class="flex flex-wrap items-center gap-2">
-          <button id="reset-editor-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition">
-            Reset to Archive
-          </button>
-          <button id="copy-js-entry-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-sky-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 transition">
-            Copy .md File
-          </button>
-          <button id="download-editor-md-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-            Download .md
-          </button>
-        </div>
-        <button id="save-editor-btn" type="button" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
-          Save &amp; Enable Transpose
-        </button>
-      </div>
-    </div>
+  <!-- Floating Minimal Controls for Focus / Raw Mode (Mobile & Desktop) -->
+  <div id="focus-floating-bar" class="hidden fixed bottom-4 right-4 z-50 items-center gap-1 rounded-full border border-slate-300/90 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-2.5 py-1.5 shadow-lg text-xs no-print">
+    <button id="focus-chords-toggle-btn" type="button" class="px-2.5 py-1 rounded-full font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 transition">
+      Chords: Off
+    </button>
+    <button id="focus-font-dec-btn" type="button" title="Smaller Text" class="px-2 py-1 rounded-full font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+      A&minus;
+    </button>
+    <button id="focus-font-inc-btn" type="button" title="Larger Text" class="px-2 py-1 rounded-full font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+      A+
+    </button>
+    <button id="exit-focus-btn" type="button" class="px-2.5 py-1 rounded-full font-bold bg-slate-900 dark:bg-indigo-600 text-white hover:opacity-90 transition">
+      Exit Focus
+    </button>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-200/80 dark:border-slate-800/80 py-5 mt-10 text-xs text-slate-500 dark:text-slate-400 no-print">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col gap-2 text-center sm:text-left">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-2">
-        <div>
-          <strong>Sounds of Joy</strong> — Original songs by people in <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">Place of Joy (POJ)</a> Melbourne &bull; <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">linktr.ee/pojmelbourne</a>
-        </div>
-        <div>
-          Issues with lyrics, chords, attributions, links, or details? Contact
-          <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">arian.prabowo@placeofjoy.org.au</a>
-        </div>
+  <!-- Global Footer (No Email Here — Discreet Link to Dedicated Contact Page) -->
+  <footer id="site-footer" class="border-t border-slate-200/80 dark:border-slate-800/80 py-4 mt-10 text-xs text-slate-500 dark:text-slate-400 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <strong>Sounds of Joy</strong> &mdash; <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">Place of Joy (POJ)</a> Melbourne &bull; &copy; All rights reserved by the respective songwriters, lyricists, composers, and copyright holders.
       </div>
-      <div class="text-[11px] text-slate-400 dark:text-slate-500">
-        &copy; All rights reserved by the respective songwriters, lyricists, composers, and copyright holders.
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="hover:text-slate-800 dark:hover:text-slate-200 transition">Links</a>
+        <span>&bull;</span>
+        <a href="https://github.com/aprbw/poj-lyrics" target="_blank" rel="noopener noreferrer" class="hover:text-slate-800 dark:hover:text-slate-200 transition">GitHub</a>
+        <span>&bull;</span>
+        <a href="#/contact" id="footer-contact-link" class="font-semibold text-indigo-700 dark:text-sky-400 hover:underline">Contact</a>
       </div>
     </div>
   </footer>
 
   <!-- Toast Notification -->
-  <div id="app-toast" class="fixed bottom-5 right-5 z-50 opacity-0 pointer-events-none translate-y-3 transition-all duration-200 rounded-xl bg-slate-900 dark:bg-indigo-600 text-white px-4 py-2.5 text-xs font-semibold shadow-lg no-print" role="status" aria-live="polite">
-    <span id="app-toast-msg">Saved</span>
+  <div id="app-toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 opacity-0 pointer-events-none translate-y-3 transition-all duration-200 rounded-xl bg-slate-900 dark:bg-indigo-600 text-white px-4 py-2 text-xs font-semibold shadow-lg no-print" role="status" aria-live="polite">
+    <span id="app-toast-msg">Copied</span>
   </div>
 
   <script src="js/md-parser.js"></script>
