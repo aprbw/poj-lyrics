@@ -106,7 +106,7 @@
           </p>
         </div>
         <div id="results-summary-text" class="text-xs font-mono-chord text-slate-500 dark:text-slate-400">
-          Showing 16 songs
+          16 songs
         </div>
       </div>
 
@@ -124,28 +124,8 @@
             </button>
           </div>
 
-          <!-- Group By + Pivot Toggle + Column Visibility + Missing Toggle -->
+          <!-- Column Visibility + Missing Toggle -->
           <div class="flex flex-wrap items-center gap-2">
-            <div class="inline-flex items-center gap-1.5">
-              <label for="group-by-select" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Group:</label>
-              <select id="group-by-select" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <option value="none">None (Flat List)</option>
-                <option value="year">Year</option>
-                <option value="camp">Camp / Release</option>
-                <option value="key">Concert Key</option>
-                <option value="status">Chart Status</option>
-                <option value="language">Language</option>
-                <option value="songwriter">Songwriter</option>
-              </select>
-            </div>
-
-            <button id="toggle-pivot-btn" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18M14 3v18M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z"/>
-              </svg>
-              <span>Pivot Table</span>
-            </button>
-
             <button id="toggle-all-cols-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-sky-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/70 transition">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16M9 4v16M15 4v16"/>
@@ -175,45 +155,6 @@
 
         <!-- Active Column Filter Chips -->
         <div id="active-filters-bar" class="hidden flex-wrap items-center gap-1.5 pt-1.5 border-t border-slate-100 dark:border-slate-800/80 text-xs"></div>
-      </div>
-
-      <!-- Collapsible Interactive Pivot Table Panel -->
-      <div id="pivot-panel" class="hidden border-x border-t border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-[#0b111e] p-3.5 space-y-3">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="flex flex-wrap items-center gap-2.5 text-xs">
-            <span class="font-bold uppercase tracking-wider text-indigo-700 dark:text-sky-400">Pivot Table</span>
-            <label class="inline-flex items-center gap-1">
-              <span class="text-slate-500 dark:text-slate-400 font-medium">Rows:</span>
-              <select id="pivot-row-select" class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100">
-                <option value="year">Year</option>
-                <option value="camp">Camp / Release</option>
-                <option value="key">Concert Key</option>
-                <option value="language">Language</option>
-                <option value="status">Chart Status</option>
-                <option value="songwriter">Songwriter</option>
-              </select>
-            </label>
-            <label class="inline-flex items-center gap-1">
-              <span class="text-slate-500 dark:text-slate-400 font-medium">Columns:</span>
-              <select id="pivot-col-select" class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100">
-                <option value="status" selected>Chart Status</option>
-                <option value="language">Language</option>
-                <option value="key">Concert Key</option>
-                <option value="youtube">YouTube Status</option>
-                <option value="none">Total Count Only</option>
-              </select>
-            </label>
-            <label class="inline-flex items-center gap-1">
-              <span class="text-slate-500 dark:text-slate-400 font-medium">Values:</span>
-              <select id="pivot-val-select" class="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100">
-                <option value="count" selected>Song Count</option>
-                <option value="titles">Song Titles</option>
-              </select>
-            </label>
-          </div>
-          <span class="text-[11px] text-slate-500 dark:text-slate-400">Click any count in the Pivot Table to filter the list below.</span>
-        </div>
-        <div id="pivot-table-container" class="sheet-table-wrap rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f1624]"></div>
       </div>
 
       <!-- Main Spreadsheet Data List -->

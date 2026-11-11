@@ -133,18 +133,11 @@
     searchQuery: '',
     sortCol: 'year',
     sortDir: 'desc',            // 'asc' | 'desc'
-    groupBy: 'none',            // 'none' | 'year' | 'camp' | 'key' | 'status' | 'language' | 'songwriter'
-    collapsedGroups: {},
     colFilters: {},             // colKey -> array of allowed string values (undefined/empty = all)
     openFilterCol: null,
     filterSearchText: '',
     visibleCols: safeLoad(STORAGE_KEYS.visibleCols, getDefaultVisibleCols()),
     showMissing: false,
-    showPivot: false,
-    pivotRow: 'year',
-    pivotCol: 'status',
-    pivotVal: 'count',
-    pivotDrill: null,           // { rowDim, rowVal, colDim, colVal }
     transposeMap: {},           // songId -> semitones (-11..11)
     capoMap: {},                // songId -> fret (0..7)
     accidentalPref: 'auto',
@@ -340,20 +333,6 @@
     return true;
   }
 
-  function matchesPivotDrill(song) {
-    if (!state.pivotDrill) return true;
-    var d = state.pivotDrill;
-    if (d.rowDim && d.rowVal != null) {
-      var rVals = getDimensionValues(song, d.rowDim);
-      if (rVals.indexOf(d.rowVal) === -1) return false;
-    }
-    if (d.colDim && d.colDim !== 'none' && d.colVal != null) {
-      var cVals = getDimensionValues(song, d.colDim);
-      if (cVals.indexOf(d.colVal) === -1) return false;
-    }
-    return true;
-  }
-
   function compareSongs(a, b) {
     var dir = state.sortDir === 'asc' ? 1 : -1;
     var col = state.sortCol;
@@ -391,7 +370,7 @@
     return a.title.localeCompare(b.title);
   }
 
-  function getFilteredSongs(skipPivotDrill) {
+  function getFilteredSongs() {
     var q = state.searchQuery.trim().toLowerCase();
     var all = getCatalogDataset();
     var out = [];
@@ -399,7 +378,6 @@
       var s = all[i];
       if (!matchesSearch(s, q)) continue;
       if (!matchesColumnFilters(s, null)) continue;
-      if (!skipPivotDrill && !matchesPivotDrill(s)) continue;
       out.push(s);
     }
     out.sort(compareSongs);
@@ -1559,17 +1537,6 @@
       }
     }
 
-    if (state.pivotDrill) {
-      var pd = state.pivotDrill;
-      var desc = pd.rowDim + '=' + pd.rowVal + (pd.colDim && pd.colDim !== 'none' && pd.colVal != null ? ', ' + pd.colDim + '=' + pd.colVal : '');
-      chips.push(
-        '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">' +
-          '<strong>Pivot Drill:</strong> ' + escapeHtml(desc) +
-          '<button type="button" data-action="clear-pivot-drill" class="ml-0.5 font-bold hover:text-rose-600">&times;</button>' +
-        '</span>'
-      );
-    }
-
     if (!chips.length) {
       bar.classList.add('hidden');
       bar.classList.remove('flex');
@@ -1579,154 +1546,6 @@
       bar.classList.add('flex');
       bar.innerHTML = '<span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1">Active Filters:</span>' + chips.join('');
     }
-  }
-
-  function renderPivotTable() {
-    var panel = document.getElementById('pivot-panel');
-    var container = document.getElementById('pivot-table-container');
-    var toggleBtn = document.getElementById('toggle-pivot-btn');
-    if (!panel || !container) return;
-
-    if (toggleBtn) {
-      toggleBtn.className = state.showPivot
-        ? 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-indigo-600 bg-indigo-600 text-white shadow-sm transition'
-        : 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition';
-    }
-
-    if (!state.showPivot) {
-      panel.classList.add('hidden');
-      return;
-    }
-    panel.classList.remove('hidden');
-
-    var baseList = getFilteredSongs(true);
-    var rDim = state.pivotRow;
-    var cDim = state.pivotCol;
-    var vMode = state.pivotVal;
-
-    var rowKeysMap = {};
-    var colKeysMap = {};
-    var matrix = {}; // rowVal -> colVal -> [songs]
-
-    for (var i = 0; i < baseList.length; i++) {
-      var song = baseList[i];
-      var rVals = getDimensionValues(song, rDim);
-      var cVals = cDim === 'none' ? ['Total'] : getDimensionValues(song, cDim);
-
-      for (var r = 0; r < rVals.length; r++) {
-        var rv = rVals[r];
-        rowKeysMap[rv] = true;
-        if (!matrix[rv]) matrix[rv] = {};
-        for (var c = 0; c < cVals.length; c++) {
-          var cv = cVals[c];
-          colKeysMap[cv] = true;
-          if (!matrix[rv][cv]) matrix[rv][cv] = [];
-          if (matrix[rv][cv].indexOf(song) === -1) {
-            matrix[rv][cv].push(song);
-          }
-        }
-      }
-    }
-
-    var rowLabels = sortDimensionLabels(rDim, Object.keys(rowKeysMap));
-    var colLabels = cDim === 'none' ? ['Total'] : sortDimensionLabels(cDim, Object.keys(colKeysMap));
-
-    if (!rowLabels.length) {
-      container.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No rows match current search/filters.</div>';
-      return;
-    }
-
-    var dimNames = {
-      year: 'Year',
-      camp: 'Camp / Release',
-      key: 'Concert Key',
-      language: 'Language',
-      status: 'Chart Status',
-      songwriter: 'Songwriter',
-      youtube: 'YouTube'
-    };
-
-    var headCells = ['<th class="text-left">' + escapeHtml(dimNames[rDim] || rDim) + '</th>'];
-    for (var hc = 0; hc < colLabels.length; hc++) {
-      headCells.push('<th class="text-center">' + escapeHtml(colLabels[hc]) + '</th>');
-    }
-    if (cDim !== 'none') {
-      headCells.push('<th class="text-center">Row Total</th>');
-    }
-
-    var bodyRows = [];
-    var colTotals = {};
-    for (var ri = 0; ri < rowLabels.length; ri++) {
-      var rLabel = rowLabels[ri];
-      var cells = ['<td class="font-semibold text-slate-900 dark:text-white whitespace-nowrap">' + escapeHtml(rLabel) + '</td>'];
-      var rowUniqueSongs = [];
-
-      for (var ci = 0; ci < colLabels.length; ci++) {
-        var cLabel = colLabels[ci];
-        var bucket = (matrix[rLabel] && matrix[rLabel][cLabel]) ? matrix[rLabel][cLabel] : [];
-        for (var u = 0; u < bucket.length; u++) {
-          if (rowUniqueSongs.indexOf(bucket[u]) === -1) rowUniqueSongs.push(bucket[u]);
-          if (!colTotals[cLabel]) colTotals[cLabel] = [];
-          if (colTotals[cLabel].indexOf(bucket[u]) === -1) colTotals[cLabel].push(bucket[u]);
-        }
-
-        var isSelectedDrill = state.pivotDrill &&
-          state.pivotDrill.rowDim === rDim &&
-          state.pivotDrill.rowVal === rLabel &&
-          ((cDim === 'none' && !state.pivotDrill.colVal) || (state.pivotDrill.colDim === cDim && state.pivotDrill.colVal === cLabel));
-
-        if (!bucket.length) {
-          cells.push('<td class="text-center text-slate-300 dark:text-slate-700">&mdash;</td>');
-        } else if (vMode === 'titles') {
-          var titleLinks = bucket.map(function (bs) {
-            return bs.isMissing
-              ? '<span class="text-slate-400 italic">' + escapeHtml(bs.title) + '</span>'
-              : '<button type="button" data-action="open-song" data-song-id="' + escapeHtml(bs.id) + '" class="text-indigo-700 dark:text-sky-400 hover:underline font-medium text-left">' + escapeHtml(bs.title) + '</button>';
-          }).join(', ');
-          cells.push('<td class="text-xs leading-snug">' + titleLinks + '</td>');
-        } else {
-          var activeCls = isSelectedDrill ? ' bg-indigo-600 text-white' : ' bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200';
-          cells.push(
-            '<td class="text-center">' +
-              '<button type="button" data-action="pivot-drill" data-row-dim="' + escapeHtml(rDim) + '" data-row-val="' + escapeHtml(rLabel) + '" data-col-dim="' + escapeHtml(cDim) + '" data-col-val="' + escapeHtml(cDim === 'none' ? '' : cLabel) + '" class="pivot-cell-btn' + activeCls + '">' +
-                bucket.length +
-              '</button>' +
-            '</td>'
-          );
-        }
-      }
-
-      if (cDim !== 'none') {
-        var rowDrillSelected = state.pivotDrill && state.pivotDrill.rowDim === rDim && state.pivotDrill.rowVal === rLabel && !state.pivotDrill.colVal;
-        cells.push(
-          '<td class="text-center font-bold">' +
-            '<button type="button" data-action="pivot-drill" data-row-dim="' + escapeHtml(rDim) + '" data-row-val="' + escapeHtml(rLabel) + '" data-col-dim="none" data-col-val="" class="pivot-cell-btn ' + (rowDrillSelected ? 'bg-indigo-600 text-white' : 'text-indigo-700 dark:text-sky-400') + '">' +
-              rowUniqueSongs.length +
-            '</button>' +
-          '</td>'
-        );
-      }
-
-      bodyRows.push('<tr>' + cells.join('') + '</tr>');
-    }
-
-    // Grand Total Footer Row
-    var totalCells = ['<td class="font-extrabold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900/70">Total Unique Songs</td>'];
-    for (var ti = 0; ti < colLabels.length; ti++) {
-      var cl = colLabels[ti];
-      var cnt = colTotals[cl] ? colTotals[cl].length : 0;
-      totalCells.push('<td class="text-center font-mono-chord font-bold bg-slate-50 dark:bg-slate-900/70">' + cnt + '</td>');
-    }
-    if (cDim !== 'none') {
-      totalCells.push('<td class="text-center font-mono-chord font-extrabold text-indigo-700 dark:text-sky-400 bg-slate-50 dark:bg-slate-900/70">' + baseList.length + '</td>');
-    }
-    bodyRows.push('<tr>' + totalCells.join('') + '</tr>');
-
-    container.innerHTML =
-      '<table class="sheet-table">' +
-        '<thead><tr>' + headCells.join('') + '</tr></thead>' +
-        '<tbody>' + bodyRows.join('') + '</tbody>' +
-      '</table>';
   }
 
   function renderSongRowCells(song, activeCols) {
@@ -1813,7 +1632,6 @@
     updateToggleAllColsButton();
     renderColumnsMenu();
     renderActiveFilterChips();
-    renderPivotTable();
 
     var clearBtn = document.getElementById('clear-search-btn');
     if (clearBtn) {
@@ -1822,19 +1640,14 @@
     }
 
     var activeCols = getActiveColumns();
-    var filtered = getFilteredSongs(false);
+    var filtered = getFilteredSongs();
     var totalPool = getCatalogDataset().length;
-
-    var chordsCount = 0;
-    var ytCount = 0;
-    for (var i = 0; i < filtered.length; i++) {
-      if (hasSongChords(filtered[i])) chordsCount++;
-      if (filtered[i].youtubeUrl) ytCount++;
-    }
 
     var summaryEl = document.getElementById('results-summary-text');
     if (summaryEl) {
-      summaryEl.textContent = filtered.length + ' of ' + totalPool + ' songs • Click a song title to view lyrics & chords';
+      summaryEl.textContent = filtered.length === totalPool
+        ? (filtered.length + ' songs')
+        : (filtered.length + ' of ' + totalPool + ' songs');
     }
 
     // Render Table Header with Sort & Excel AutoFilter Buttons
@@ -1879,62 +1692,11 @@
     emptyBox.classList.add('hidden');
 
     var rowsHtml = [];
-    if (state.groupBy === 'none') {
-      for (var r = 0; r < filtered.length; r++) {
-        var s = filtered[r];
-        var trCls = s.isMissing ? 'opacity-70 bg-slate-50/40 dark:bg-slate-900/30' : 'song-row group';
-        var dataAttr = s.isMissing ? '' : ' data-action="row-open-song" data-song-id="' + escapeHtml(s.id) + '" tabindex="0"';
-        rowsHtml.push('<tr class="' + trCls + '"' + dataAttr + '>' + renderSongRowCells(s, activeCols) + '</tr>');
-      }
-    } else {
-      var groupsMap = {};
-      var groupKeys = [];
-      for (var g = 0; g < filtered.length; g++) {
-        var gs = filtered[g];
-        var gVals = getDimensionValues(gs, state.groupBy);
-        for (var gv = 0; gv < gVals.length; gv++) {
-          var gLabel = gVals[gv];
-          if (!groupsMap[gLabel]) {
-            groupsMap[gLabel] = [];
-            groupKeys.push(gLabel);
-          }
-          groupsMap[gLabel].push(gs);
-        }
-      }
-      groupKeys = sortDimensionLabels(state.groupBy, groupKeys);
-
-      for (var gi = 0; gi < groupKeys.length; gi++) {
-        var gk = groupKeys[gi];
-        var items = groupsMap[gk];
-        var collapsed = Boolean(state.collapsedGroups[gk]);
-        var gChords = 0;
-        for (var m = 0; m < items.length; m++) {
-          if (hasSongChords(items[m])) gChords++;
-        }
-        rowsHtml.push(
-          '<tr class="group-header-row cursor-pointer" data-action="toggle-group" data-group="' + escapeHtml(gk) + '">' +
-            '<td colspan="' + activeCols.length + '">' +
-              '<div class="flex items-center justify-between gap-2">' +
-                '<span class="inline-flex items-center gap-2 text-xs sm:text-sm text-slate-900 dark:text-white">' +
-                  '<span class="font-mono-chord text-indigo-600 dark:text-sky-400">' + (collapsed ? '&#9656;' : '&#9662;') + '</span>' +
-                  '<span>' + escapeHtml(gk) + '</span>' +
-                '</span>' +
-                '<span class="font-mono-chord text-xs font-normal text-slate-500 dark:text-slate-400">' +
-                  items.length + (items.length === 1 ? ' song' : ' songs') + (gChords ? ' • ' + gChords + ' w/ chords' : '') +
-                '</span>' +
-              '</div>' +
-            '</td>' +
-          '</tr>'
-        );
-        if (!collapsed) {
-          for (var si = 0; si < items.length; si++) {
-            var item = items[si];
-            var itemCls = item.isMissing ? 'opacity-70 bg-slate-50/40 dark:bg-slate-900/30' : 'song-row group';
-            var itemAttr = item.isMissing ? '' : ' data-action="row-open-song" data-song-id="' + escapeHtml(item.id) + '" tabindex="0"';
-            rowsHtml.push('<tr class="' + itemCls + '"' + itemAttr + '>' + renderSongRowCells(item, activeCols) + '</tr>');
-          }
-        }
-      }
+    for (var r = 0; r < filtered.length; r++) {
+      var s = filtered[r];
+      var trCls = s.isMissing ? 'opacity-70 bg-slate-50/40 dark:bg-slate-900/30' : 'song-row group';
+      var dataAttr = s.isMissing ? '' : ' data-action="row-open-song" data-song-id="' + escapeHtml(s.id) + '" tabindex="0"';
+      rowsHtml.push('<tr class="' + trCls + '"' + dataAttr + '>' + renderSongRowCells(s, activeCols) + '</tr>');
     }
 
     tbody.innerHTML = rowsHtml.join('');
@@ -2281,15 +2043,10 @@
   function resetAllFilters() {
     state.searchQuery = '';
     state.colFilters = {};
-    state.pivotDrill = null;
-    state.groupBy = 'none';
-    state.collapsedGroups = {};
     state.sortCol = 'year';
     state.sortDir = 'desc';
     var sIn = document.getElementById('search-input');
     if (sIn) sIn.value = '';
-    var gSel = document.getElementById('group-by-select');
-    if (gSel) gSel.value = 'none';
     closeAllPopovers();
     renderBrowseView();
   }
@@ -2365,32 +2122,6 @@
       searchInput.value = '';
       renderBrowseView();
       searchInput.focus();
-    });
-
-    document.getElementById('group-by-select').addEventListener('change', function (e) {
-      state.groupBy = e.target.value || 'none';
-      state.collapsedGroups = {};
-      renderBrowseView();
-    });
-
-    document.getElementById('toggle-pivot-btn').addEventListener('click', function () {
-      state.showPivot = !state.showPivot;
-      renderBrowseView();
-    });
-
-    document.getElementById('pivot-row-select').addEventListener('change', function (e) {
-      state.pivotRow = e.target.value;
-      state.pivotDrill = null;
-      renderBrowseView();
-    });
-    document.getElementById('pivot-col-select').addEventListener('change', function (e) {
-      state.pivotCol = e.target.value;
-      state.pivotDrill = null;
-      renderBrowseView();
-    });
-    document.getElementById('pivot-val-select').addEventListener('change', function (e) {
-      state.pivotVal = e.target.value;
-      renderBrowseView();
     });
 
     var toggleAllColsBtn = document.getElementById('toggle-all-cols-btn');
@@ -2809,27 +2540,8 @@
           delete state.colFilters[cKey];
           renderBrowseView();
         }
-      } else if (action === 'clear-pivot-drill') {
-        state.pivotDrill = null;
-        renderBrowseView();
-      } else if (action === 'pivot-drill') {
-        var rDim = actionEl.getAttribute('data-row-dim');
-        var rVal = actionEl.getAttribute('data-row-val');
-        var cDim = actionEl.getAttribute('data-col-dim');
-        var cVal = actionEl.getAttribute('data-col-val') || null;
-        var same = state.pivotDrill &&
-          state.pivotDrill.rowDim === rDim &&
-          state.pivotDrill.rowVal === rVal &&
-          state.pivotDrill.colDim === cDim &&
-          state.pivotDrill.colVal === cVal;
-        state.pivotDrill = same ? null : { rowDim: rDim, rowVal: rVal, colDim: cDim, colVal: cVal };
-        renderBrowseView();
       } else if (action === 'jump-slide') {
         goToSlide(Number(actionEl.getAttribute('data-slide-idx') || 0));
-      } else if (action === 'toggle-group') {
-        var gName = actionEl.getAttribute('data-group');
-        state.collapsedGroups[gName] = !state.collapsedGroups[gName];
-        renderBrowseView();
       }
     });
 
