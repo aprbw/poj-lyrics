@@ -164,6 +164,9 @@
     var shift = mod12(targetKeyIndex - baseKeyIndex);
     var useFlats = shouldUseFlats(targetKeyIndex, opts.accidentalPref || 'auto');
     var mode = opts.notationMode || 'chords';
+    if (mode === 'lyrics') {
+      return '';
+    }
 
     var slashParts = trimmed.split('/');
     var mainRaw = slashParts[0];
@@ -258,6 +261,10 @@
    */
   function parseChordProLine(line, opts) {
     var str = String(line || '');
+    if (opts && opts.notationMode === 'lyrics') {
+      var stripped = str.replace(/\[[^\]]+\]/g, '').replace(/[ \t]{2,}/g, ' ').trim();
+      return { hasChords: false, segments: [{ chord: '', lyric: stripped }] };
+    }
     if (str.indexOf('[') === -1) {
       return { hasChords: false, segments: [{ chord: '', lyric: str }] };
     }
@@ -417,6 +424,60 @@
     return out.join('\n').trim() + '\n';
   }
 
+  /**
+   * Renders clean plain-text lyrics without chords or instrumental bars,
+   * formatted for Faithlife Proclaim, ProPresenter, EasyWorship, and slide software.
+   */
+  function renderPlainLyricsForSlides(song, sections, opts) {
+    var options = opts || {};
+    var includeHeaders = options.includeSectionLabels !== false;
+    var blocks = [];
+
+    for (var i = 0; i < (sections || []).length; i++) {
+      var sec = sections[i];
+      if (!sec || sec.instrumental || /^archive note$/i.test(sec.label || '')) continue;
+
+      var rawLines = sec.lines || [];
+      var cleanLines = [];
+      for (var j = 0; j < rawLines.length; j++) {
+        var ln = String(rawLines[j] || '');
+        if (!ln.trim()) {
+          if (cleanLines.length && cleanLines[cleanLines.length - 1] !== '') {
+            cleanLines.push('');
+          }
+          continue;
+        }
+        var stripped = ln
+          .replace(/\[[^\]]+\]/g, '')
+          .replace(/[ \t]{2,}/g, ' ')
+          .trim();
+        if (stripped) {
+          cleanLines.push(stripped);
+        }
+      }
+
+      while (cleanLines.length && cleanLines[cleanLines.length - 1] === '') {
+        cleanLines.pop();
+      }
+      if (!cleanLines.length) continue;
+
+      var cleanLabel = String(sec.label || 'Verse')
+        .replace(/\s*\((?:key\s+|mod(?:ulate)?\s+)?[+-]\d+\)\s*/gi, '')
+        .trim();
+
+      if (includeHeaders && cleanLabel) {
+        blocks.push(cleanLabel + '\n' + cleanLines.join('\n'));
+      } else {
+        blocks.push(cleanLines.join('\n'));
+      }
+    }
+
+    if (!blocks.length) {
+      return (song && song.title ? song.title + '\n' : '');
+    }
+    return blocks.join('\n\n') + '\n';
+  }
+
   window.SOJTransposer = {
     KEY_OPTIONS: KEY_OPTIONS,
     mod12: mod12,
@@ -430,6 +491,7 @@
     chordProToSections: chordProToSections,
     getSectionModulation: getSectionModulation,
     shiftRenderOpts: shiftRenderOpts,
-    renderPlainTextSheet: renderPlainTextSheet
+    renderPlainTextSheet: renderPlainTextSheet,
+    renderPlainLyricsForSlides: renderPlainLyricsForSlides
   };
 })();

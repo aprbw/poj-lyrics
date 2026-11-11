@@ -104,6 +104,7 @@
         current = {
           label: label,
           instrumental: /^(intro|interlude|outro|instrumental)/i.test(label),
+          explicitInstrumental: false,
           progression: '',
           lines: []
         };
@@ -119,6 +120,7 @@
       var instMatch = /^>\s*Instrumental\s*:\s*(true|false)\s*$/i.exec(raw);
       if (instMatch && current) {
         current.instrumental = instMatch[1].toLowerCase() === 'true';
+        current.explicitInstrumental = true;
         continue;
       }
 
@@ -139,6 +141,21 @@
       var arr = sections[s].lines;
       while (arr.length && arr[0].trim() === '') arr.shift();
       while (arr.length && arr[arr.length - 1].trim() === '') arr.pop();
+      if (!sections[s].explicitInstrumental) {
+        var hasWords = false;
+        for (var w = 0; w < arr.length; w++) {
+          if (arr[w].replace(/\[[^\]]+\]/g, '').trim() !== '') {
+            hasWords = true;
+            break;
+          }
+        }
+        if (hasWords && sections[s].instrumental) {
+          sections[s].instrumental = false;
+        } else if (!hasWords && arr.length > 0) {
+          sections[s].instrumental = true;
+        }
+      }
+      delete sections[s].explicitInstrumental;
     }
 
     return sections;
