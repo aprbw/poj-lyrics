@@ -12,8 +12,7 @@ This document covers the technical architecture, file structure, Markdown + YAML
 poj-lyrics/
 ├── README.md                   # Master POJ Song Directory (2013–2026)
 ├── DOCS.md                     # Technical & repository documentation (this file)
-├── songs/                      # 17 individual POJ song files (.md with YAML frontmatter)
-│   ├── 2013-be-one.md
+├── songs/                      # 16 individual POJ song files (.md with YAML frontmatter)
 │   ├── 2013-who-is-he.md
 │   ├── 2014-let-go-let-god.md
 │   ├── 2015-jesus-not-the-crowd.md

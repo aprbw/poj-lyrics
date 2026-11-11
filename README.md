@@ -1,6 +1,6 @@
 # Sounds of Joy — POJ Original Song Directory (2013–2026)
 
-Digital archive of **17 original worship & Easter Camp (CCM) songs** written by the **Place of Joy (POJ)** Melbourne community, complete with lyrics, chords/Nashville charts, songwriter attributions, and audio recordings.
+Digital archive of **16 original worship & Easter Camp (CCM) songs** written by the **Place of Joy (POJ)** Melbourne community, complete with lyrics, chords/Nashville charts, songwriter attributions, and audio recordings.
 
 - **Web Songbook (12-Key & Nashville Transposer):** [soundsofjoy.vercel.app](https://soundsofjoy.vercel.app)
 - **Bundled Audio Recordings (`audio/`):** [`audio/README.md`](./audio/README.md)
@@ -14,7 +14,6 @@ Click any song title below to open its lyric/chord sheet directly in [`songs/`](
 
 | Year | Song | Camp / Release | Lang | Key & Status | Songwriters / Credits | Recordings & Sources |
 | :---: | :--- | :--- | :---: | :--- | :--- | :--- |
-| **2013** | [**Be One (Satu Tubuh)**](./songs/2013-be-one.md) | CCM13: Be One | ID | `G` *(Lyrics)* | Arian Prabowo & POJ CCM13 Songwriting Team | [Doc v04](https://drive.google.com/file/d/0B2dMoFcEHcw_Tmk1SXpBWVF5aHc/view?usp=drivesdk&resourcekey=0-AH56lUVG0asz71OebkiqzA) • [Doc v02](https://docs.google.com/document/d/1-8ocesebg2AvVkbtf_1qnDj-1tN84ejua1hiMdBa9kg/edit) |
 | **2013** | [**Who is He**](./songs/2013-who-is-he.md) | CCM13: Be One | EN | `G` *(Lyrics)* | Lyrics: Arian Prabowo • Music: Yonatan Pranata | [YouTube](https://www.youtube.com/watch?v=PyK_iTo9zXE) • [MP3](./audio/2013-who-is-he.mp3) • [Doc](https://docs.google.com/document/d/13Dg2CRjSv9SlSFnU39R5jwWfxFRsu2fAtUktxkZzzJI/edit) |
 | **2014** | [**Let Go, Let God**](./songs/2014-let-go-let-god.md) | CCM14: Let Go, Let God | EN | `G` *(Lyrics)* | Michelle Setiawan & Yonatan Pranata | [YouTube](https://www.youtube.com/watch?v=aoco0Tj75jw) • [Studio MP3](./audio/2014-let-go-let-god.mp3) • [Mix v3](./audio/2014-let-go-let-god-v3.mp3) • [Minus Vox](https://drive.google.com/file/d/1YZZegwV9aVV_rOMFQ89OnQJ7mxbcQHew/view?usp=drivesdk) • [Doc](https://docs.google.com/document/d/1nLRJE9Is6NYXycv34E4yyCgSMoyDq8bqjdmSdIR4TYs/edit) |
 | **2015** | [**Jesus Not The Crowd**](./songs/2015-jesus-not-the-crowd.md) | CCM15: Jesus Not The Crowd | EN | `G` *(Lyrics)* | Jocelyn Victoria | [Booklet PDF](https://drive.google.com/file/d/0Byshw9IUAvMqQU1uXzk3M3BMQVE/view?usp=drivesdk&resourcekey=0-Yg5R0Zry59IeyCfXCKfjrg) |
@@ -36,7 +35,7 @@ Click any song title below to open its lyric/chord sheet directly in [`songs/`](
 
 ## Archive Summary
 
-- **Total Songs:** 17 original songs (11 English, 5 Indonesian, 1 Bilingual)
+- **Total Songs:** 16 original songs (11 English, 4 Indonesian, 1 Bilingual)
 - **Full Chord / Nashville Charts Archived:** [*I am Free*](./songs/2018-i-am-free.md), [*Cerminan-Mu*](./songs/2019-cerminan-mu.md), [*Here is My Broken Heart*](./songs/2023-here-is-my-broken-heart.md)
 - **Verified Original Keys:** [*I am Free*](./songs/2018-i-am-free.md) (`C`), [*Cerminan-Mu*](./songs/2019-cerminan-mu.md) (`E` / `D`), [*Embraced*](./songs/2019-embraced.md) (`D`), [*UNO*](./songs/2021-uno.md) (`G → A`), [*Here is My Broken Heart*](./songs/2023-here-is-my-broken-heart.md) (`G`)
 - **Bundled Local Audio (`audio/`):** 9 MP3/M4A mixes + 6 Google Drive master/rehearsal streams — see [`audio/README.md`](./audio/README.md)
