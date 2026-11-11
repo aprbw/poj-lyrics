@@ -24,23 +24,23 @@ drive_links:
 ---
 
 ## Verse
-Kau turun ke dunia
-Tuk tebus segala dosa
-Menjadi Manusia
+Kau turun ke dunia  
+Tuk tebus segala dosa  
+Menjadi Manusia  
 Tuk pulihkanku
 
-Meninggalkan tahta-Mu
-Tuk dapatkan hatiku
-Menjadi Manusia
+Meninggalkan tahta-Mu  
+Tuk dapatkan hatiku  
+Menjadi Manusia  
 yang berharga di mata-Mu
 
 ## Chorus
-Inilah Hidupku
-Seutuhnya di TanganMu
-Pakailah diriku
+Inilah Hidupku  
+Seutuhnya di TanganMu  
+Pakailah diriku  
 Sesuai dengan rencanaMu
 
-Inilah Hatiku
-Seluruhnya MilikMu
-Pakailah diriku
+Inilah Hatiku  
+Seluruhnya MilikMu  
+Pakailah diriku  
 Nyatakan KemuliaanMu

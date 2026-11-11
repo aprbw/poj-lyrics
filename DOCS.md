@@ -95,6 +95,7 @@ File naming convention: `songs/<YEAR>-<id>.md` (for example, `songs/2026-rooted.
   > Progression: 1  4  6m  5
   ```
 - **Inline chords:** Place either **Nashville numbers** (`[1]`, `[2m]`, `[1/3]`, `[4]`, `[5]`, `[6m]`) or **letter chords** (`[G]`, `[Am7]`, `[D/F#]`) inline immediately before the syllable where the chord changes.
+- **Line breaks:** End each lyric line (except the last line of a stanza) with **two trailing spaces** (`  `) — standard Markdown hard line breaks — so stanzas render line-by-line on GitHub as well as in the web songbook. Use a blank line to separate sub-stanzas.
 
 ### Example Song File
 
@@ -130,7 +131,7 @@ drive_links:
 ## Verse 1
 > Progression: 1  4  6m  5
 
-[1]Through the winter, [4]through the rain
+[1]Through the winter, [4]through the rain  
 [6m]Through the joy and [5]through the pain
 ```
 

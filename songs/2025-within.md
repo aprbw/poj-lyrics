@@ -26,38 +26,38 @@ drive_links:
 ---
 
 ## Verse 1
-i was lost
-and You found me here
-when i go far
-You draw so near
-when i am weary
-You restore my soul
-I will never run on empty
+i was lost  
+and You found me here  
+when i go far  
+You draw so near  
+when i am weary  
+You restore my soul  
+I will never run on empty  
 Your mercy and love overflows
 
 ## Chorus
-Holy Spirit,
-Come and move within us
-Fill up this room with Your fire
+Holy Spirit,  
+Come and move within us  
+Fill up this room with Your fire  
 And make us whole again
 
-Pour out Your spirit
-We long for Your presence
-All we need is You
+Pour out Your spirit  
+We long for Your presence  
+All we need is You  
 So Spirit lead me through
 
 ## Bridge
-Spirit,
-pour Your anointing on us,
-Unite us in Your love
-We're your people
-We are your chosen,
+Spirit,  
+pour Your anointing on us,  
+Unite us in Your love  
+We're your people  
+We are your chosen,  
 All for Your kingdom.
 
-Come now,
-We want to lift You up high,
-We'll praise you forever as in Heaven.
-We're your beloved
+Come now,  
+We want to lift You up high,  
+We'll praise you forever as in Heaven.  
+We're your beloved  
 All for Your kingdom
 
 Oh Oh Oh

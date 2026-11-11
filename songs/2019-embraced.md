@@ -40,41 +40,41 @@ drive_links:
 ---
 
 ## Verse 1
-Grace, fill the empty void
-Lift me up to the heaven
+Grace, fill the empty void  
+Lift me up to the heaven  
 Let the spirit lead me home
 
 ## Verse 2
-Love, you have seen me through
-Constant through the seasons
+Love, you have seen me through  
+Constant through the seasons  
 Faithful through the ages
 
 ## Pre-Chorus
-My strength, my hope, and my strong foundation
+My strength, my hope, and my strong foundation  
 Let me be the vessel of Your power
 
-Saviour, Redeemer, Everlasting Father
+Saviour, Redeemer, Everlasting Father  
 Let my life be the wonder of Your works
 
 ## Chorus
-You pulled me out of the deep water
-You calmed the storm before my eyes
+You pulled me out of the deep water  
+You calmed the storm before my eyes  
 You came into my life and make me whole again
 
-Guided me through the darkest valley
-Lit up the path unto my feet
+Guided me through the darkest valley  
+Lit up the path unto my feet  
 I will not fear for I know that you are with me
 
-I'll trust and follow You wherever You send me
+I'll trust and follow You wherever You send me  
 All of my days, I long to be with you my Lord
 
 ## Bridge
-As I brace for the waters
-As I walk through the fire
-As I face against the darkness
+As I brace for the waters  
+As I walk through the fire  
+As I face against the darkness  
 You embraced me through it all
 
-Neither waves nor flames
-Neither height nor depth
-Neither death nor life
+Neither waves nor flames  
+Neither height nor depth  
+Neither death nor life  
 Will cast away Your love from me

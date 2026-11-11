@@ -316,7 +316,7 @@
         if (!current) {
           current = { label: 'Verse 1', instrumental: false, lines: [] };
         }
-        current.lines.push(raw);
+        current.lines.push(raw.replace(/(?: {2,}|\\|<br\s*\/?>)\s*$/i, ''));
       }
     }
     if (current) sections.push(current);

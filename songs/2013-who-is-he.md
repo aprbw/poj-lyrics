@@ -27,36 +27,36 @@ drive_links:
 ---
 
 ## Verse 1
-Who is he
-That rain bread from heaven
-and draw a river from a stone
+Who is he  
+That rain bread from heaven  
+and draw a river from a stone  
 In the midst of the desert
 
 ## Verse 2
-Who is he
-Who said take my body
-And pour out his blood
+Who is he  
+Who said take my body  
+And pour out his blood  
 unto remission of sins
 
 ## Pre-Chorus
-He is the mighty
-Who fell on his knees
+He is the mighty  
+Who fell on his knees  
 For the lame and the chained
 
-He is the holy
-Who was crucified
+He is the holy  
+Who was crucified  
 To redeem the dead
 
 ## Chorus
-Immanuel, The Messiah
-Jesus The Christ, The Lamb of God
-Who takes away, the sin of the world
+Immanuel, The Messiah  
+Jesus The Christ, The Lamb of God  
+Who takes away, the sin of the world  
 Immanuel, the Messiah
 
 ## Bridge
-The shepherd who guides us
-to living water
-wiping away every tears
-The father who founds us
-And call us his own
+The shepherd who guides us  
+to living water  
+wiping away every tears  
+The father who founds us  
+And call us his own  
 I wanna know, Who he is

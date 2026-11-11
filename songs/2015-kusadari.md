@@ -22,5 +22,5 @@ drive_links: []
 ---
 
 ## Archive Note
-Audio recording preserved on the official POJ Sounds of Joy YouTube playlist.
+Audio recording preserved on the official POJ Sounds of Joy YouTube playlist.  
 Written lyric & chord sheet was not archived in the CCM Drive folders — listen via YouTube above and click 'Edit / Add Chords' or email arian.prabowo@placeofjoy.org.au to contribute the transcription.

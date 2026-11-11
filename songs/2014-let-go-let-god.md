@@ -33,28 +33,28 @@ drive_links:
 ---
 
 ## Verse 1
-There are nights when all I can do is cry
-when tomorrow seems so far away
-and as I rise up my hands to you
+There are nights when all I can do is cry  
+when tomorrow seems so far away  
+and as I rise up my hands to you  
 I see your helping hand on the way
 
 ## Verse 2
-There are days where I call upon your name
-But I cant hear your voice
-And as I lay my crown at your feet
+There are days where I call upon your name  
+But I cant hear your voice  
+And as I lay my crown at your feet  
 I patiently await for you
 
 ## Chorus
-Let go and let God, I surrender my life
-At the foot of the cross, I lay it all down
+Let go and let God, I surrender my life  
+At the foot of the cross, I lay it all down  
 Let you change my heart, from the inside out
 
-What no eye has seen, and no ear has heard
-and no human mind has conceived
+What no eye has seen, and no ear has heard  
+and no human mind has conceived  
 Good are all His plans, for those whose heart are set on Him
 
 ## Bridge
-I trust in your unfailing love
-in You I find my strength
-And I will sing your praises forever
+I trust in your unfailing love  
+in You I find my strength  
+And I will sing your praises forever  
 For you have been good to me

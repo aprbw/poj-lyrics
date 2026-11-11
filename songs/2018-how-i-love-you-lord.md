@@ -22,13 +22,13 @@ drive_links: []
 ---
 
 ## Verse
-God is the Greatest
-Sitting on His Mighty Throne
-He sent His Son from Heaven to Earth
+God is the Greatest  
+Sitting on His Mighty Throne  
+He sent His Son from Heaven to Earth  
 Our life will always rise
 
 ## Chorus
-God is my strength, my hope and everything I need in life
-God in my heart, my soul and in every place I need to go
-I put my trust in You Lord
+God is my strength, my hope and everything I need in life  
+God in my heart, my soul and in every place I need to go  
+I put my trust in You Lord  
 Oh how I love You Lord

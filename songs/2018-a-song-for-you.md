@@ -22,28 +22,28 @@ drive_links: []
 ---
 
 ## Verse
-We come to your presence Lord
-As we bring the best we have in our life
+We come to your presence Lord  
+As we bring the best we have in our life  
 Forever We'll declare Your Name
 
-We come to your presence Lord
-As we bring the best we have in our life
+We come to your presence Lord  
+As we bring the best we have in our life  
 Forever We'll declare Your Name
 
 ## Pre-Chorus
-From the deepest of our hearts
-We'll say
+From the deepest of our hearts  
+We'll say  
 Oooooo
 
 ## Chorus
-You are our King, You are our God Almighty
-Singing Dancing, together we praise You always
-You are our King, You are our God Almighty
+You are our King, You are our God Almighty  
+Singing Dancing, together we praise You always  
+You are our King, You are our God Almighty  
 We shout our voice, in the Name of Jesus
 
 ## Bridge
-Let Your Name, Be Lifted High
-Let Our King, Be Glorified
-Victory, is all we Got
-In Your Name
+Let Your Name, Be Lifted High  
+Let Our King, Be Glorified  
+Victory, is all we Got  
+In Your Name  
 Forevermore

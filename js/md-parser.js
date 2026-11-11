@@ -131,7 +131,7 @@
           lines: []
         };
       }
-      current.lines.push(raw);
+      current.lines.push(raw.replace(/(?: {2,}|\\|<br\s*\/?>)\s*$/i, ''));
     }
     if (current) sections.push(current);
 
@@ -262,7 +262,9 @@
       }
       var sLines = sec.lines || [];
       for (var l = 0; l < sLines.length; l++) {
-        lines.push(sLines[l]);
+        var cleanLine = String(sLines[l] || '').replace(/(?: {2,}|\\|<br\s*\/?>)\s*$/i, '');
+        var nextHasText = l + 1 < sLines.length && String(sLines[l + 1] || '').trim() !== '';
+        lines.push(cleanLine.trim() !== '' && nextHasText ? cleanLine + '  ' : cleanLine);
       }
       lines.push('');
     }

@@ -24,38 +24,38 @@ drive_links:
 ---
 
 ## Verse 1
-All the time You picked me up when I'm lost
-For the time You saved my life, despite all the cost
-For all my sins You washed away on the cross
-Your grace has made a way
+All the time You picked me up when I'm lost  
+For the time You saved my life, despite all the cost  
+For all my sins You washed away on the cross  
+Your grace has made a way  
 And He will make a way
 
 ## Verse 2
-Forever I will hold unto Your right hand
-And I will always run unto Your unending Love
-Though the seasons change, You're still the same
+Forever I will hold unto Your right hand  
+And I will always run unto Your unending Love  
+Though the seasons change, You're still the same  
 Oh Lord, I trust in You
 
 ## Chorus
-The world could give all its presents
-Nothing compares to Your presence
-To Your arms I'll run
-Like the prodigal son
-I'm all Yours
-All my life is Yours
-You are the Savior of my soul
-With you I'm finally whole
-By your grace alone
-None of my own
-I'm all Yours
+The world could give all its presents  
+Nothing compares to Your presence  
+To Your arms I'll run  
+Like the prodigal son  
+I'm all Yours  
+All my life is Yours  
+You are the Savior of my soul  
+With you I'm finally whole  
+By your grace alone  
+None of my own  
+I'm all Yours  
 All my life is Yours
 
 ## Bridge
-with everything i am
-and everything i have
-i will give You praise
-i'm all Yours
-let my every step
-and my every breath
-lift Your name on high
+with everything i am  
+and everything i have  
+i will give You praise  
+i'm all Yours  
+let my every step  
+and my every breath  
+lift Your name on high  
 i'm all Yours

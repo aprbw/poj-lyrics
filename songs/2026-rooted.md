@@ -30,31 +30,31 @@ drive_links:
 ---
 
 ## Verse 1
-Through the winter, through the rain
-Through the joy and through the pain
-Storms may come and shake my ground
+Through the winter, through the rain  
+Through the joy and through the pain  
+Storms may come and shake my ground  
 Rooted deep, my hope is found
 
 ## Verse 2
-Seasons change and leaves may fall
-When I feel I’ve lost it all
-Still You are my faithful ground
+Seasons change and leaves may fall  
+When I feel I’ve lost it all  
+Still You are my faithful ground  
 Where my restless heart is found
 
 ## Chorus
-For there’s no love as wide as Yours
-That all my heart can ever know
-Open my eyes and help me see
-How deep Your love
+For there’s no love as wide as Yours  
+That all my heart can ever know  
+Open my eyes and help me see  
+How deep Your love  
 That runs through me
 
 ## Bridge
-I lift my hands to you alone
-Lead me to you, where I belong
-I will not doubt what comes my way
+I lift my hands to you alone  
+Lead me to you, where I belong  
+I will not doubt what comes my way  
 For by your grace I have been changed
 
-I will obey, I will choose love
-I wanna praise the name above
-I will not doubt what comes my way
+I will obey, I will choose love  
+I wanna praise the name above  
+I will not doubt what comes my way  
 For by your grace I have been saved

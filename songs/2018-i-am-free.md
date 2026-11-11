@@ -35,26 +35,26 @@ drive_links:
 ## Verse 1
 > Progression: 1 | 1/3 | 6m | 5 | 4 | 2m | 5
 
-[1]Semua ku jalani sen[1/3]diri
-Tanpa [6m]sadar, ku s’makin ter[5]jatuh
-Menaruh [4]harap pada dunia
+[1]Semua ku jalani sen[1/3]diri  
+Tanpa [6m]sadar, ku s’makin ter[5]jatuh  
+Menaruh [4]harap pada dunia  
 Ter[2m]sesat tanpa arah tuju[5]an
 
 ## Pre-Chorus
 > Progression: 6m | 3m | 4 | 5 | 1 || 6m | 3m | 4 | 5
 
-Namun se[6m]lalu [3m]ada, [4]Kasih yang a[5]badi, [1]
+Namun se[6m]lalu [3m]ada, [4]Kasih yang a[5]badi, [1]  
 Se[6m]lalu meng[3m]ingatku [4]sampai akhir hidup[5]ku
 
 ## Chorus
 > Progression: 1 3M | 4 2m | 1/3 4 | 5 || 1/3 3M | 6m 5 4#dim | 2m 1/3 | 4 5
 
-[1]His Grace is e[3M]nough for me
-His [4]Power made me [2m]perfect in [1/3]all my [4]weaknesses [5]
-[1/3]His Grace washed a[3M]way my sin
-My [6m]soul has [5]been re[4#dim]deemed now
-(My [2m]sins have been for[1/3]given)
-(My [4]life has been re[5]newed, For)
+[1]His Grace is e[3M]nough for me  
+His [4]Power made me [2m]perfect in [1/3]all my [4]weaknesses [5]  
+[1/3]His Grace washed a[3M]way my sin  
+My [6m]soul has [5]been re[4#dim]deemed now  
+(My [2m]sins have been for[1/3]given)  
+(My [4]life has been re[5]newed, For)  
 His [2m]endless [1/3]love has [4]set me [5]free [1]
 
 ## Interlude
@@ -63,11 +63,11 @@ His [2m]endless [1/3]love has [4]set me [5]free [1]
 ## Bridge
 > Progression: 4 1/3 6m 5 | 4 1/3 5 1/3 | 4 1/3 6m 2m | 1/3 b7 5
 
-My [4]chains are [1/3]broken
-Your [6m]light shines with[5]in me
-When I’m [4]weak, then [1/3]I am strong
-I’ll [5]trust in You a[1/3]lone
-And [4]now that [1/3]I am freed
-I will [6m]use my life to [2m]worship You
-Through [1/3]every season
+My [4]chains are [1/3]broken  
+Your [6m]light shines with[5]in me  
+When I’m [4]weak, then [1/3]I am strong  
+I’ll [5]trust in You a[1/3]lone  
+And [4]now that [1/3]I am freed  
+I will [6m]use my life to [2m]worship You  
+Through [1/3]every season  
 Un[b7]til the end of [5]time

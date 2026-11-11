@@ -24,23 +24,23 @@ drive_links:
 ---
 
 ## Verse
-Jesus, Thy Love beyond compare
-Speak to me, pierce my heart
-And make it whole
+Jesus, Thy Love beyond compare  
+Speak to me, pierce my heart  
+And make it whole  
 Thy river, runs wild and never dry
 
 ## Chorus
-Lord here I am
-I surrender to Your arm
-Use me for Your glory
-So take control now
-Oh I am changed
-Full of colours through Your works
-I used to be nothing
+Lord here I am  
+I surrender to Your arm  
+Use me for Your glory  
+So take control now  
+Oh I am changed  
+Full of colours through Your works  
+I used to be nothing  
 But You turned me into light
 
 ## Bridge
-Colour me, Colour me
-I will use what You’ve given me
-All honour and all glory
+Colour me, Colour me  
+I will use what You’ve given me  
+All honour and all glory  
 To Your Name forever
