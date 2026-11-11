@@ -11,50 +11,74 @@ lyricists: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Hal
 composers: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim"
 performers: "POJ Praise & Worship (CCM26 Rooted • Liaison PIC: Gerald Wiranata)"
 credit_note: "Verified verbatim in Rooted Lyrics ('Credit: Alicia, Farrel, Tiffany, Rere') & Rooted 26 roster."
-key: "G"
-key_verified: false
-key_note: ""
-chord_status: "lyrics-archived"
+key: "Eb"
+key_verified: true
+key_note: "Concert Key Eb major on CCM26 Live Multitrack & Congregation recordings (~68.5 BPM, 4/4; Capo 3 play C); also performed in D major in live worship set"
+chord_status: "chords-archived"
 youtube_url: ""
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
-  - label: "Rooted — Congregation Mix (16.6 MB Drive Stream)"
-    path: ""
+  - label: "Rooted — CCM26 Congregation Mix, Key Eb (M4A)"
+    path: "audio/Rooted Congression.m4a"
     drive_url: "https://drive.google.com/file/d/1fGgBaFQJWAWTTiSrAoRZolJZiJPoavCE/view?usp=drivesdk"
-  - label: "Rooted — Raw Studio Take (16.2 MB Drive Stream)"
-    path: ""
+  - label: "Rooted — CCM26 Raw Direct Board Mix, Key Eb (M4A)"
+    path: "audio/Rooted Raw.m4a"
     drive_url: "https://drive.google.com/file/d/1O6Cgx3EemmGV7G9Dcq70gjcc3lNV5OTD/view?usp=drivesdk"
 drive_links:
   - label: "CCM26 Rooted Lyrics Doc"
     url: "https://docs.google.com/document/d/1UZ1ZenVJLwZ9TKamYHStz7Xw7QFixWk9zKlmXZcLutI/edit"
 ---
 
+## Intro
+> Progression: 1  |  5/7  |  6m7  |  4  ||  1  |  5/7  |  6m7  |  4
+
+[1]   [5/7]   [6m7]   [4]  
+[1]   [5/7]   [6m7]   [4]
+
 ## Verse 1
-Through the winter, through the rain  
-Through the joy and through the pain  
-Storms may come and shake my ground  
-Rooted deep, my hope is found
+> Progression: 1  |  5/7  |  6m7  |  6m7/5  ||  4  |  1/3  |  2m7  |  5
+
+Through the [1]winter, through the [5/7]rain  
+Through the [6m7]joy and through the [6m7/5]pain  
+Storms may [4]come and shake my [1/3]ground  
+Rooted [2m7]deep, my hope is [5]found
 
 ## Verse 2
-Seasons change and leaves may fall  
-When I feel I’ve lost it all  
-Still You are my faithful ground  
-Where my restless heart is found
+> Progression: 1  |  5/7  |  6m7  |  6m7/5  ||  4  |  1/3  |  2m7  |  5
+
+Seasons [1]change and leaves may [5/7]fall  
+When I [6m7]feel I’ve lost it [6m7/5]all  
+Still You [4]are my faithful [1/3]ground  
+Where my [2m7]restless heart is [5]found
 
 ## Chorus
-For there’s no love as wide as Yours  
-That all my heart can ever know  
-Open my eyes and help me see  
-How deep Your love  
-That runs through me
+> Progression: 4  |  5  |  3m7  |  6m7  6M  ||  2m7  |  1/3  |  4  |  5
+
+For there’s no [4]love as wide as [5]Yours  
+That all my [3m7]heart can ever [6m7]know [6M]  
+Open my [2m7]eyes and help me [1/3]see  
+How deep Your [4]love  
+That runs through [5]me
+
+## Interlude
+> Progression: 1  |  5/7  |  6m7  |  4
+
+[1]   [5/7]   [6m7]   [4]
 
 ## Bridge
-I lift my hands to you alone  
-Lead me to you, where I belong  
-I will not doubt what comes my way  
-For by your grace I have been changed
+> Progression: 4  |  4m6  |  3m7  |  6m7  ||  2m7  |  1/3  |  4  |  5  (x2)
 
-I will obey, I will choose love  
-I wanna praise the name above  
-I will not doubt what comes my way  
-For by your grace I have been saved
+I lift my [4]hands to You a[4m6]lone  
+Lead me to [3m7]You, where I be[6m7]long  
+I will not [2m7]doubt what comes my [1/3]way  
+For by Your [4]grace I have been [5]changed
+
+I will o[4]bey, I will choose [4m6]love  
+I wanna [3m7]praise the name a[6m7]bove  
+I will not [2m7]doubt what comes my [1/3]way  
+For by Your [4]grace I have been [5]saved
+
+## Outro
+> Progression: 1  |  5/7  |  6m7  |  4  |  1
+
+[1]   [5/7]   [6m7]   [4]   [1]

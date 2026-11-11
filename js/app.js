@@ -543,59 +543,60 @@
     listWrap.className = 'grid grid-cols-1 md:grid-cols-2 gap-3';
 
     for (var i = 0; i < tracks.length; i++) {
-      var tr = tracks[i];
-      var card = document.createElement('div');
-      card.className = 'rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 flex flex-col justify-between gap-2';
+      (function (tr) {
+        var card = document.createElement('div');
+        card.className = 'rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 flex flex-col justify-between gap-2';
 
-      var topRow = document.createElement('div');
-      topRow.className = 'flex items-start justify-between gap-2';
+        var topRow = document.createElement('div');
+        topRow.className = 'flex items-start justify-between gap-2';
 
-      var labelSpan = document.createElement('div');
-      labelSpan.className = 'text-xs font-semibold text-slate-800 dark:text-slate-100';
-      labelSpan.textContent = tr.label || 'Audio Track';
-      topRow.appendChild(labelSpan);
+        var labelSpan = document.createElement('div');
+        labelSpan.className = 'text-xs font-semibold text-slate-800 dark:text-slate-100';
+        labelSpan.textContent = tr.label || 'Audio Track';
+        topRow.appendChild(labelSpan);
 
-      if (tr.driveUrl) {
-        var dLink = document.createElement('a');
-        dLink.href = tr.driveUrl;
-        dLink.target = '_blank';
-        dLink.rel = 'noopener noreferrer';
-        dLink.className = 'shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-sky-50 text-sky-700 hover:bg-sky-100 dark:bg-sky-950/60 dark:text-sky-300 border border-sky-200/70 dark:border-sky-800/60 transition';
-        dLink.innerHTML = '<span>Drive Stream</span><span aria-hidden="true">&#8599;</span>';
-        topRow.appendChild(dLink);
-      }
-      card.appendChild(topRow);
+        if (tr.driveUrl) {
+          var dLink = document.createElement('a');
+          dLink.href = tr.driveUrl;
+          dLink.target = '_blank';
+          dLink.rel = 'noopener noreferrer';
+          dLink.className = 'shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-sky-50 text-sky-700 hover:bg-sky-100 dark:bg-sky-950/60 dark:text-sky-300 border border-sky-200/70 dark:border-sky-800/60 transition';
+          dLink.innerHTML = '<span>Drive Stream</span><span aria-hidden="true">&#8599;</span>';
+          topRow.appendChild(dLink);
+        }
+        card.appendChild(topRow);
 
-      if (tr.path && !IS_CANVAS) {
-        var audioEl = document.createElement('audio');
-        audioEl.controls = true;
-        audioEl.preload = 'metadata';
-        audioEl.className = 'w-full h-9 mt-1';
-        audioEl.addEventListener('error', function () {
-          var fallback = document.createElement('div');
-          fallback.className = 'text-[11px] text-slate-500 dark:text-slate-400';
-          fallback.textContent = tr.driveUrl
-            ? 'Local audio/ not present — stream directly from POJ Google Drive above.'
-            : 'Local audio file not present.';
-          if (audioEl.parentNode) {
-            audioEl.parentNode.replaceChild(fallback, audioEl);
-          }
-        });
-        audioEl.setAttribute('src', tr.path);
-        card.appendChild(audioEl);
-      } else if (tr.path && IS_CANVAS) {
-        var pathBadge = document.createElement('div');
-        pathBadge.className = 'text-[11px] text-emerald-700 dark:text-emerald-400 font-mono-chord bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded';
-        pathBadge.textContent = 'Bundled in zip: ' + tr.path;
-        card.appendChild(pathBadge);
-      } else {
-        var streamInfo = document.createElement('div');
-        streamInfo.className = 'text-[11px] text-slate-500 dark:text-slate-400';
-        streamInfo.textContent = 'Stream high-bitrate recording directly from POJ Google Drive above.';
-        card.appendChild(streamInfo);
-      }
+        if (tr.path && !IS_CANVAS) {
+          var audioEl = document.createElement('audio');
+          audioEl.controls = true;
+          audioEl.preload = 'metadata';
+          audioEl.className = 'w-full h-9 mt-1';
+          audioEl.addEventListener('error', function () {
+            var fallback = document.createElement('div');
+            fallback.className = 'text-[11px] text-slate-500 dark:text-slate-400';
+            fallback.textContent = tr.driveUrl
+              ? 'Local audio/ not present — stream directly from POJ Google Drive above.'
+              : 'Local audio file not present.';
+            if (audioEl.parentNode) {
+              audioEl.parentNode.replaceChild(fallback, audioEl);
+            }
+          });
+          audioEl.setAttribute('src', tr.path);
+          card.appendChild(audioEl);
+        } else if (tr.path && IS_CANVAS) {
+          var pathBadge = document.createElement('div');
+          pathBadge.className = 'text-[11px] text-emerald-700 dark:text-emerald-400 font-mono-chord bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded';
+          pathBadge.textContent = 'Bundled in zip: ' + tr.path;
+          card.appendChild(pathBadge);
+        } else {
+          var streamInfo = document.createElement('div');
+          streamInfo.className = 'text-[11px] text-slate-500 dark:text-slate-400';
+          streamInfo.textContent = 'Stream high-bitrate recording directly from POJ Google Drive above.';
+          card.appendChild(streamInfo);
+        }
 
-      listWrap.appendChild(card);
+        listWrap.appendChild(card);
+      })(tracks[i]);
     }
 
     panel.appendChild(listWrap);
@@ -777,6 +778,16 @@
     var secHtml = [];
     for (var s = 0; s < eff.sections.length; s++) {
       var sec = eff.sections[s];
+      var secMod = Transposer.getSectionModulation ? Transposer.getSectionModulation(sec.label) : 0;
+      var secOpts = Transposer.shiftRenderOpts ? Transposer.shiftRenderOpts(renderOpts, secMod) : renderOpts;
+      var modBadge = '';
+      if (secMod !== 0 && state.notationMode === 'chords') {
+        var modConcertName = Transposer.indexToNoteName(secOpts.concertKeyIndex, Transposer.shouldUseFlats(secOpts.concertKeyIndex, state.accidentalPref));
+        var modShapeName = Transposer.indexToNoteName(secOpts.targetKeyIndex, Transposer.shouldUseFlats(secOpts.targetKeyIndex, state.accidentalPref));
+        modBadge = '<span class="text-xs font-mono-chord font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-sky-300">' +
+          'Key: ' + escapeHtml(modConcertName) + (capo > 0 ? ' (Play ' + escapeHtml(modShapeName) + ')' : '') +
+        '</span>';
+      }
       var blockCls = 'song-section-block mb-7 last:mb-0' + (sec.instrumental ? ' instrumental-section' : '');
       var inner = [];
 
@@ -785,11 +796,12 @@
           '<h4 class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">' +
             escapeHtml(sec.label) +
           '</h4>' +
+          modBadge +
         '</div>'
       );
 
       if (sec.progression && state.notationMode !== 'lyrics') {
-        var progTokens = Transposer.formatProgressionBar(sec.progression, renderOpts);
+        var progTokens = Transposer.formatProgressionBar(sec.progression, secOpts);
         if (progTokens.length) {
           var pSpans = [];
           for (var p = 0; p < progTokens.length; p++) {
@@ -810,7 +822,7 @@
           inner.push('<div class="h-3"></div>');
           continue;
         }
-        var parsedLine = Transposer.parseChordProLine(rawLine, renderOpts);
+        var parsedLine = Transposer.parseChordProLine(rawLine, secOpts);
         if (!parsedLine.hasChords) {
           inner.push('<div class="mb-1.5 text-slate-800 dark:text-slate-100">' + escapeHtml(rawLine) + '</div>');
         } else {

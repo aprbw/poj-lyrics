@@ -90,11 +90,12 @@ File naming convention: `songs/<YEAR>-<id>.md` (for example, `songs/2026-rooted.
 ### Markdown Body Syntax
 
 - **Section headers:** Start each section with `## <Section Name>` (e.g. `## Intro`, `## Verse 1`, `## Pre-Chorus`, `## Chorus`, `## Bridge`, `## Outro`). Sections named `Intro`, `Interlude`, `Outro`, or `Instrumental` are automatically marked instrumental (or override explicitly with `> Instrumental: true`).
+- **Section key modulations:** Append `(+N)` or `(-N)` semitones to a section header (e.g. `## Final Chorus (+2)` or `## Outro (+2)` in `songs/2014-let-go-let-god.md`) when a song modulates mid-arrangement; `js/transposer.js` and `js/app.js` shift that section's target key automatically in all 12 keys and Capo positions while keeping Nashville degrees (`1–7`) relative to the modulated key.
 - **Chord progressions:** Add an optional blockquote directly beneath a section header:
   ```markdown
-  > Progression: 1  4  6m  5
+  > Progression: 1  |  5/7  |  6m7  |  4
   ```
-- **Inline chords:** Place either **Nashville numbers** (`[1]`, `[2m]`, `[1/3]`, `[4]`, `[5]`, `[6m]`) or **letter chords** (`[G]`, `[Am7]`, `[D/F#]`) inline immediately before the syllable where the chord changes.
+- **Inline chords:** Place either **Nashville numbers** (`[1]`, `[2m7]`, `[1/3]`, `[4]`, `[5]`, `[6m7]`, `[6M]`) or **letter chords** (`[Eb]`, `[Cm7]`, `[Bb/D]`) inline immediately before the syllable where the chord changes.
 - **Line breaks:** End each lyric line (except the last line of a stanza) with **two trailing spaces** (`  `) — standard Markdown hard line breaks — so stanzas render line-by-line on GitHub as well as in the web songbook. Use a blank line to separate sub-stanzas.
 
 ### Example Song File
@@ -113,15 +114,15 @@ lyricists: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Hal
 composers: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim"
 performers: "POJ Praise & Worship"
 credit_note: "Verified in CCM26 Rooted Lyrics Doc."
-key: "G"
-key_verified: false
-key_note: ""
-chord_status: "lyrics-archived"
+key: "Eb"
+key_verified: true
+key_note: "Concert Key Eb major on CCM26 Live Multitrack & Congregation recordings; also performed in D major in live worship set"
+chord_status: "chords-archived"
 youtube_url: ""
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
-  - label: "Rooted — Congregation Mix"
-    path: ""
+  - label: "Rooted — CCM26 Congregation Mix, Key Eb (M4A)"
+    path: "audio/Rooted Congression.m4a"
     drive_url: "https://drive.google.com/file/d/1fGgBaFQJWAWTTiSrAoRZolJZiJPoavCE/view?usp=drivesdk"
 drive_links:
   - label: "CCM26 Rooted Lyrics Doc"
@@ -129,10 +130,12 @@ drive_links:
 ---
 
 ## Verse 1
-> Progression: 1  4  6m  5
+> Progression: 1  |  5/7  |  6m7  |  6m7/5  ||  4  |  1/3  |  2m7  |  5
 
-[1]Through the winter, [4]through the rain  
-[6m]Through the joy and [5]through the pain
+Through the [1]winter, through the [5/7]rain  
+Through the [6m7]joy and through the [6m7/5]pain  
+Storms may [4]come and shake my [1/3]ground  
+Rooted [2m7]deep, my hope is [5]found
 ```
 
 ---

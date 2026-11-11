@@ -330,6 +330,24 @@
     return sections;
   }
 
+  function getSectionModulation(label) {
+    if (!label) return 0;
+    var m = /\((?:key\s+|mod(?:ulate)?\s+)?([+-]\d+)\)/i.exec(String(label));
+    return m ? parseInt(m[1], 10) || 0 : 0;
+  }
+
+  function shiftRenderOpts(opts, semitoneDelta) {
+    if (!semitoneDelta) return opts;
+    var copy = {};
+    for (var k in opts) {
+      if (Object.prototype.hasOwnProperty.call(opts, k)) copy[k] = opts[k];
+    }
+    copy.baseKeyIndex = mod12((opts.baseKeyIndex || 0) + semitoneDelta);
+    copy.concertKeyIndex = mod12((opts.concertKeyIndex || 0) + semitoneDelta);
+    copy.targetKeyIndex = mod12((opts.targetKeyIndex || 0) + semitoneDelta);
+    return copy;
+  }
+
   /**
    * Renders a plain-text aligned chord + lyric sheet for clipboard copying
    */
@@ -356,9 +374,16 @@
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
       if (opts.notationMode === 'lyrics' && sec.instrumental) continue;
-      out.push('[' + sec.label + ']');
+      var secMod = getSectionModulation(sec.label);
+      var secOpts = shiftRenderOpts(opts, secMod);
+      var secHeader = '[' + sec.label + ']';
+      if (secMod !== 0 && opts.notationMode === 'chords') {
+        var modShapeName = indexToNoteName(secOpts.targetKeyIndex, shouldUseFlats(secOpts.targetKeyIndex, secOpts.accidentalPref));
+        secHeader += ' (Key: ' + modShapeName + ')';
+      }
+      out.push(secHeader);
       if (sec.progression && opts.notationMode !== 'lyrics') {
-        var pTokens = formatProgressionBar(sec.progression, opts).map(function (t) { return t.text; }).join(' ');
+        var pTokens = formatProgressionBar(sec.progression, secOpts).map(function (t) { return t.text; }).join(' ');
         out.push('Progression: ' + pTokens);
       }
       var secLines = sec.lines || [];
@@ -368,7 +393,7 @@
           out.push('');
           continue;
         }
-        var parsed = parseChordProLine(ln, opts);
+        var parsed = parseChordProLine(ln, secOpts);
         if (!parsed.hasChords || opts.notationMode === 'lyrics') {
           var lyricOnly = parsed.segments.map(function (seg) { return seg.lyric; }).join('');
           if (lyricOnly.trim()) out.push(lyricOnly);
@@ -403,6 +428,8 @@
     parseChordProLine: parseChordProLine,
     sectionsToChordPro: sectionsToChordPro,
     chordProToSections: chordProToSections,
+    getSectionModulation: getSectionModulation,
+    shiftRenderOpts: shiftRenderOpts,
     renderPlainTextSheet: renderPlainTextSheet
   };
 })();
