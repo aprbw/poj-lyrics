@@ -88,7 +88,7 @@
 
   var STORAGE_KEYS = {
     theme: 'soj_theme_v2',
-    visibleCols: 'soj_visible_cols_v1'
+    visibleCols: 'soj_visible_cols_v2'
   };
 
   function safeLoad(key, fallback) {
@@ -112,12 +112,12 @@
     { key: 'year',      label: 'Year',                  filterable: true,  sortable: true, defaultVisible: true },
     { key: 'title',     label: 'Song',                  filterable: false, sortable: true, defaultVisible: true, locked: true },
     { key: 'camp',      label: 'Camp / Release',        filterable: true,  sortable: true, defaultVisible: true },
-    { key: 'key',       label: 'Key',                   filterable: true,  sortable: true, defaultVisible: true },
-    { key: 'status',    label: 'Status',                filterable: true,  sortable: true, defaultVisible: true },
-    { key: 'language',  label: 'Language',              filterable: true,  sortable: true, defaultVisible: true },
-    { key: 'credits',   label: 'Songwriters / Credits', filterable: true,  sortable: true, defaultVisible: true },
+    { key: 'key',       label: 'Key',                   filterable: true,  sortable: true, defaultVisible: false },
+    { key: 'status',    label: 'Status',                filterable: true,  sortable: true, defaultVisible: false },
+    { key: 'language',  label: 'Language',              filterable: true,  sortable: true, defaultVisible: false },
+    { key: 'credits',   label: 'Songwriters / Credits', filterable: true,  sortable: true, defaultVisible: false },
     { key: 'scripture', label: 'Scripture',             filterable: true,  sortable: true, defaultVisible: false },
-    { key: 'youtube',   label: 'YouTube',               filterable: true,  sortable: true, defaultVisible: true }
+    { key: 'youtube',   label: 'YouTube',               filterable: true,  sortable: true, defaultVisible: false }
   ];
 
   function getDefaultVisibleCols() {
@@ -620,10 +620,54 @@
     return cols;
   }
 
+  function areAllColumnsVisible() {
+    for (var i = 0; i < COLUMNS.length; i++) {
+      if (!state.visibleCols[COLUMNS[i].key]) return false;
+    }
+    return true;
+  }
+
+  function setAllColumnsVisible(showAll) {
+    if (showAll) {
+      for (var i = 0; i < COLUMNS.length; i++) {
+        state.visibleCols[COLUMNS[i].key] = true;
+      }
+    } else {
+      state.visibleCols = getDefaultVisibleCols();
+    }
+    state.visibleCols.title = true;
+    safeSave(STORAGE_KEYS.visibleCols, state.visibleCols);
+    renderBrowseView();
+  }
+
+  function updateToggleAllColsButton() {
+    var btn = document.getElementById('toggle-all-cols-btn');
+    var lbl = document.getElementById('toggle-all-cols-label');
+    if (!btn) return;
+    var allOpen = areAllColumnsVisible();
+    if (lbl) {
+      lbl.textContent = allOpen ? 'Compact View (3 Cols)' : 'Show All Columns';
+    } else {
+      btn.textContent = allOpen ? 'Compact View (3 Cols)' : 'Show All Columns';
+    }
+    btn.className = allOpen
+      ? 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-indigo-600 bg-indigo-600 text-white shadow-sm hover:bg-indigo-500 transition'
+      : 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-sky-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/70 transition';
+  }
+
   function renderColumnsMenu() {
     var pop = document.getElementById('columns-menu-popover');
     if (!pop) return;
-    var html = ['<div class="font-bold text-[11px] uppercase tracking-wider text-slate-400 px-1.5 pb-1">Visible Columns</div>'];
+    var html = [
+      '<div class="flex items-center justify-between gap-2 px-1.5 pb-1.5 border-b border-slate-100 dark:border-slate-800">',
+        '<span class="font-bold text-[11px] uppercase tracking-wider text-slate-400">Columns</span>',
+        '<span class="inline-flex items-center gap-2 text-[11px]">',
+          '<button type="button" data-action="cols-show-all" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">All</button>',
+          '<span class="text-slate-300 dark:text-slate-700">&bull;</span>',
+          '<button type="button" data-action="cols-default" class="font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:underline">Default (3)</button>',
+        '</span>',
+      '</div>'
+    ];
     for (var i = 0; i < COLUMNS.length; i++) {
       var c = COLUMNS[i];
       var checked = Boolean(state.visibleCols[c.key]);
@@ -982,9 +1026,16 @@
           );
         } else {
           tds.push(
-            '<td class="min-w-[170px]">' +
-              '<span class="font-bold text-slate-900 dark:text-white group-hover:text-indigo-700 dark:group-hover:text-sky-400 transition">' + escapeHtml(song.title) + '</span>' +
-              (song.altTitle ? '<span class="ml-1.5 text-xs text-slate-400 dark:text-slate-500">(' + escapeHtml(song.altTitle) + ')</span>' : '') +
+            '<td class="min-w-[200px]">' +
+              '<a href="#/song/' + encodeURIComponent(song.id) + '" class="inline-flex items-center justify-between gap-3 w-full py-0.5 focus:outline-none">' +
+                '<span class="min-w-0">' +
+                  '<span class="font-bold text-indigo-700 dark:text-sky-400 underline decoration-indigo-300 dark:decoration-sky-500/60 decoration-2 underline-offset-4 group-hover:text-indigo-600 dark:group-hover:text-sky-300 group-hover:decoration-indigo-600 dark:group-hover:decoration-sky-300 transition">' + escapeHtml(song.title) + '</span>' +
+                  (song.altTitle ? '<span class="ml-1.5 text-xs text-slate-400 dark:text-slate-500">(' + escapeHtml(song.altTitle) + ')</span>' : '') +
+                '</span>' +
+                '<span class="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-sky-300 border border-indigo-200/80 dark:border-indigo-800/60 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition">' +
+                  '<span>View</span><span aria-hidden="true">&rarr;</span>' +
+                '</span>' +
+              '</a>' +
             '</td>'
           );
         }
@@ -1029,6 +1080,7 @@
   }
 
   function renderBrowseView() {
+    updateToggleAllColsButton();
     renderColumnsMenu();
     renderActiveFilterChips();
     renderPivotTable();
@@ -1052,7 +1104,7 @@
 
     var summaryEl = document.getElementById('results-summary-text');
     if (summaryEl) {
-      summaryEl.textContent = filtered.length + ' of ' + totalPool + ' songs • ' + chordsCount + ' chords • ' + ytCount + ' YouTube';
+      summaryEl.textContent = filtered.length + ' of ' + totalPool + ' songs • Click a song title to view lyrics & chords';
     }
 
     // Render Table Header with Sort & Excel AutoFilter Buttons
@@ -1615,6 +1667,13 @@
       renderBrowseView();
     });
 
+    var toggleAllColsBtn = document.getElementById('toggle-all-cols-btn');
+    if (toggleAllColsBtn) {
+      toggleAllColsBtn.addEventListener('click', function () {
+        setAllColumnsVisible(!areAllColumnsVisible());
+      });
+    }
+
     document.getElementById('columns-menu-btn').addEventListener('click', function (e) {
       e.stopPropagation();
       var pop = document.getElementById('columns-menu-popover');
@@ -1860,8 +1919,14 @@
       var action = actionEl.getAttribute('data-action');
 
       if (action === 'row-open-song' || action === 'open-song') {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
         var sid = actionEl.getAttribute('data-song-id');
         if (sid) navigateTo('song', sid, false);
+      } else if (action === 'cols-show-all') {
+        setAllColumnsVisible(true);
+      } else if (action === 'cols-default') {
+        setAllColumnsVisible(false);
       } else if (action === 'sort-col') {
         var col = actionEl.getAttribute('data-col');
         if (state.sortCol === col) {
