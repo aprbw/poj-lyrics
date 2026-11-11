@@ -286,14 +286,38 @@ body.focus-mode #song-bottom-panels {
 }
 
 body.focus-mode main {
-  max-width: 46rem !important;
+  max-width: 48rem !important;
   padding-top: 1.5rem !important;
   padding-bottom: 5.5rem !important;
 }
 
 @media (min-width: 640px) {
   body.focus-mode main {
-    padding-top: 2.75rem !important;
+    padding-top: 2.5rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  body.focus-mode.focus-multicol main,
+  body.focus-mode.focus-multicol #view-song {
+    max-width: min(96vw, 1800px) !important;
+    width: 100% !important;
+  }
+
+  body.focus-mode .focus-columns-active {
+    column-count: var(--focus-col-count, 1);
+    column-gap: 2.75rem;
+    column-rule: 1px solid rgba(148, 163, 184, 0.22);
+  }
+
+  .dark body.focus-mode .focus-columns-active {
+    column-rule-color: rgba(51, 65, 85, 0.65);
+  }
+
+  body.focus-mode .focus-columns-active .song-section-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 1.5rem;
   }
 }
 

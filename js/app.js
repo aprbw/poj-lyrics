@@ -155,6 +155,8 @@
     autoScrollSpeed: 0,
     focusMode: false,
     focusShowChords: false,
+    focusColAuto: true,         // default: auto-adjust desktop columns from line width & screen width
+    focusManualCols: 2,
     proclaimIncludeHeaders: true,
     theme: safeLoad(STORAGE_KEYS.theme, 'light')
   };
@@ -455,17 +457,105 @@
     }
   }
 
+  function computeAutoFocusColumns(song) {
+    var screenW = Number(window.innerWidth) || 1280;
+    if (screenW < 768 || !song) return 1;
+
+    var songHasChords = hasSongChords(song);
+    var showChords = Boolean(state.focusShowChords && songHasChords);
+    var secs = song.sections || [];
+    var visibleSections = 0;
+    var lengths = [];
+
+    for (var s = 0; s < secs.length; s++) {
+      var sec = secs[s];
+      if (sec.instrumental && !showChords) continue;
+      visibleSections++;
+
+      if (showChords && sec.progression) {
+        lengths.push(String(sec.progression).replace(/\s+/g, ' ').trim().length + 4);
+      }
+
+      var lines = sec.lines || [];
+      for (var l = 0; l < lines.length; l++) {
+        var raw = String(lines[l] || '');
+        if (!raw.trim()) continue;
+        var clean = raw.replace(/\[[^\]]+\]/g, '').replace(/[ \t]{2,}/g, ' ').trim();
+        var chordMatches = raw.match(/\[[^\]]+\]/g);
+        var chordCount = chordMatches ? chordMatches.length : 0;
+        var effChars = clean.length + (showChords ? Math.round(chordCount * 1.6) : 0);
+        if (effChars > 0) lengths.push(effChars);
+      }
+    }
+
+    if (!visibleSections) return 1;
+
+    var lineChars = 36;
+    if (lengths.length) {
+      lengths.sort(function (a, b) { return a - b; });
+      var p90 = lengths[Math.floor((lengths.length - 1) * 0.9)];
+      var maxLen = lengths[lengths.length - 1];
+      lineChars = Math.max(22, Math.round(p90 * 0.7 + maxLen * 0.3));
+    }
+
+    var fontPx = 16.64 * (state.fontScale || 1.0);
+    var neededColPx = Math.max(230 * (state.fontScale || 1.0), (lineChars * fontPx * 0.53) + 38);
+    var availW = Math.min(screenW * 0.96, 1800) - 64;
+    var gapPx = 44;
+    var fitCols = Math.floor((availW + gapPx) / (neededColPx + gapPx));
+    fitCols = Math.min(fitCols, visibleSections);
+    return Math.max(1, Math.min(6, fitCols));
+  }
+
+  function getEffectiveFocusColumns(song) {
+    var screenW = Number(window.innerWidth) || 1280;
+    if (screenW < 768) return 1;
+    if (state.focusColAuto) {
+      return computeAutoFocusColumns(song);
+    }
+    return Math.max(1, Math.min(6, Number(state.focusManualCols) || 1));
+  }
+
   function applyFocusModeDom() {
     var isFocus = state.activeView === 'song' && state.focusMode;
     var focusBar = document.getElementById('focus-floating-bar');
+    var baseSong = getBaseSongById(state.selectedSongId);
+    var container = document.getElementById('song-sections-container');
+
     if (isFocus) {
       document.body.classList.add('focus-mode');
       if (focusBar) {
         focusBar.classList.remove('hidden');
         focusBar.classList.add('flex');
       }
+      var cols = getEffectiveFocusColumns(baseSong);
+      document.documentElement.style.setProperty('--focus-col-count', String(cols));
+      if (cols > 1) {
+        document.body.classList.add('focus-multicol');
+        if (container) container.classList.add('focus-columns-active');
+      } else {
+        document.body.classList.remove('focus-multicol');
+        if (container) container.classList.remove('focus-columns-active');
+      }
+
+      var autoBtn = document.getElementById('focus-col-auto-btn');
+      if (autoBtn) {
+        autoBtn.textContent = 'Auto';
+        autoBtn.className = state.focusColAuto
+          ? 'px-2.5 py-1 rounded-full font-bold bg-indigo-600 text-white shadow-sm transition'
+          : 'px-2.5 py-1 rounded-full font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition';
+      }
+      var countLbl = document.getElementById('focus-col-count-label');
+      if (countLbl) {
+        countLbl.textContent = cols === 1 ? '1 Col' : (cols + ' Cols');
+      }
+      var decBtn = document.getElementById('focus-col-dec-btn');
+      if (decBtn) decBtn.disabled = cols <= 1;
+      var incBtn = document.getElementById('focus-col-inc-btn');
+      if (incBtn) incBtn.disabled = cols >= 6;
     } else {
-      document.body.classList.remove('focus-mode');
+      document.body.classList.remove('focus-mode', 'focus-multicol');
+      if (container) container.classList.remove('focus-columns-active');
       if (focusBar) {
         focusBar.classList.add('hidden');
         focusBar.classList.remove('flex');
@@ -473,7 +563,6 @@
     }
     var chordBtn = document.getElementById('focus-chords-toggle-btn');
     if (chordBtn) {
-      var baseSong = getBaseSongById(state.selectedSongId);
       var songHasChords = hasSongChords(baseSong);
       if (!songHasChords) {
         chordBtn.textContent = 'Lyrics Only';
@@ -1777,6 +1866,42 @@
       renderSongDetailView();
     });
 
+    var focusAutoBtn = document.getElementById('focus-col-auto-btn');
+    if (focusAutoBtn) {
+      focusAutoBtn.addEventListener('click', function () {
+        var song = getBaseSongById(state.selectedSongId);
+        if (state.focusColAuto) {
+          state.focusManualCols = getEffectiveFocusColumns(song);
+          state.focusColAuto = false;
+        } else {
+          state.focusColAuto = true;
+        }
+        applyFocusModeDom();
+      });
+    }
+
+    var focusDecBtn = document.getElementById('focus-col-dec-btn');
+    if (focusDecBtn) {
+      focusDecBtn.addEventListener('click', function () {
+        var song = getBaseSongById(state.selectedSongId);
+        var cur = getEffectiveFocusColumns(song);
+        state.focusColAuto = false;
+        state.focusManualCols = Math.max(1, cur - 1);
+        applyFocusModeDom();
+      });
+    }
+
+    var focusIncBtn = document.getElementById('focus-col-inc-btn');
+    if (focusIncBtn) {
+      focusIncBtn.addEventListener('click', function () {
+        var song = getBaseSongById(state.selectedSongId);
+        var cur = getEffectiveFocusColumns(song);
+        state.focusColAuto = false;
+        state.focusManualCols = Math.min(6, cur + 1);
+        applyFocusModeDom();
+      });
+    }
+
     document.getElementById('focus-font-dec-btn').addEventListener('click', function () {
       state.fontScale = Math.max(0.85, Math.round((state.fontScale - 0.1) * 100) / 100);
       renderSongDetailView();
@@ -2005,6 +2130,12 @@
         state.focusMode = !state.focusMode;
         if (state.focusMode) state.focusShowChords = false;
         renderSongDetailView();
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (state.activeView === 'song' && state.focusMode) {
+        applyFocusModeDom();
       }
     });
 
