@@ -15,13 +15,20 @@ key_verified: true
 key_note: "Verified in Concert Key C across both POJ Live Demo (~64 BPM, 4/4) and CCM18 Camp Record (no modulation)"
 chord_status: "chords-archived"
 youtube_url: "https://www.youtube.com/watch?v=nCuBvGx0lNE"
+youtube_links:
+  - label: "I am Free — POJ Praise & Worship Live Demo (Key C)"
+    url: "https://www.youtube.com/watch?v=nCuBvGx0lNE"
+  - label: "I am Free — CCM18 Camp Songwriting Demo (Key C)"
+    url: "https://www.youtube.com/watch?v=OxhyV6OW98g"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "I am Free — POJ Praise & Worship Live Demo, Key C (MP3)"
     path: "audio/2018-i-am-free-live-demo.mp3"
+    youtube_url: "https://www.youtube.com/watch?v=nCuBvGx0lNE"
     drive_url: "https://drive.google.com/file/d/1XffYQJRucFKJqbk2CHmbBvhoLI4AlfJy/view?usp=drivesdk"
   - label: "I am Free — CCM18 Camp Song Record, Key C (M4A)"
     path: "audio/2018-i-am-free-camp-record.m4a"
+    youtube_url: "https://www.youtube.com/watch?v=OxhyV6OW98g"
     drive_url: "https://drive.google.com/file/d/1gWntjfm3ADucyjXDNn2pIkb8irzjcJ01/view?usp=drivesdk"
 drive_links:
   - label: "CCM18 Chords & Lyrics (Camp Song v1)"

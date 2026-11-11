@@ -1612,11 +1612,15 @@
       } else if (key === 'scripture') {
         tds.push('<td class="text-xs text-slate-600 dark:text-slate-400 whitespace-nowrap">' + escapeHtml(song.scripture || '—') + '</td>');
       } else if (key === 'youtube') {
-        if (song.youtubeUrl) {
+        var ytLinks = (song.youtubeLinks && song.youtubeLinks.length)
+          ? song.youtubeLinks
+          : (song.youtubeUrl ? [{ label: 'YouTube', url: song.youtubeUrl }] : []);
+        if (ytLinks.length) {
+          var ytBtnLabel = ytLinks.length > 1 ? ('YouTube (' + ytLinks.length + ')') : 'YouTube';
           tds.push(
             '<td class="whitespace-nowrap" data-stop-row-click="1">' +
-              '<a href="' + escapeHtml(song.youtubeUrl) + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-950/50 dark:text-rose-300 border border-rose-200/70 dark:border-rose-800/60 transition">' +
-                '<span>YouTube</span><span aria-hidden="true">&#8599;</span>' +
+              '<a href="' + escapeHtml(ytLinks[0].url) + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-950/50 dark:text-rose-300 border border-rose-200/70 dark:border-rose-800/60 transition">' +
+                '<span>' + escapeHtml(ytBtnLabel) + '</span><span aria-hidden="true">&#8599;</span>' +
               '</a>' +
             '</td>'
           );
@@ -1710,7 +1714,10 @@
     if (!panel) return;
     panel.innerHTML = '';
 
-    var hasYoutube = Boolean(song.youtubeUrl);
+    var ytLinks = (song.youtubeLinks && song.youtubeLinks.length)
+      ? song.youtubeLinks
+      : (song.youtubeUrl ? [{ label: song.title + ' — YouTube', url: song.youtubeUrl }] : []);
+    var hasYoutube = ytLinks.length > 0;
     var localTracks = [];
     var rawAudio = song.audioFiles || [];
     for (var i = 0; i < rawAudio.length; i++) {
@@ -1729,7 +1736,7 @@
     header.innerHTML = '<span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Recordings</span>';
     if (hasYoutube) {
       var ytLink = document.createElement('a');
-      ytLink.href = song.youtubeUrl;
+      ytLink.href = song.youtubeUrl || ytLinks[0].url;
       ytLink.target = '_blank';
       ytLink.rel = 'noopener noreferrer';
       ytLink.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm transition';
@@ -1737,6 +1744,24 @@
       header.appendChild(ytLink);
     }
     panel.appendChild(header);
+
+    if (ytLinks.length > 1) {
+      var ytGrid = document.createElement('div');
+      ytGrid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1';
+      for (var y = 0; y < ytLinks.length; y++) {
+        var yl = ytLinks[y];
+        var aEl = document.createElement('a');
+        aEl.href = yl.url;
+        aEl.target = '_blank';
+        aEl.rel = 'noopener noreferrer';
+        aEl.className = 'flex items-center justify-between gap-2 rounded-xl border border-rose-200/80 dark:border-rose-900/60 bg-rose-50/60 dark:bg-rose-950/30 hover:bg-rose-100/80 dark:hover:bg-rose-950/60 px-3 py-2 text-xs font-semibold text-rose-800 dark:text-rose-200 transition';
+        aEl.innerHTML =
+          '<span class="truncate">' + escapeHtml(yl.label || ('YouTube Recording ' + (y + 1))) + '</span>' +
+          '<span class="shrink-0 text-[11px] font-bold text-rose-600 dark:text-rose-400">YouTube &#8599;</span>';
+        ytGrid.appendChild(aEl);
+      }
+      panel.appendChild(ytGrid);
+    }
 
     if (localTracks.length) {
       var grid = document.createElement('div');

@@ -14,14 +14,19 @@ key: "Eb"
 key_verified: true
 key_note: "Concert Key Eb major on CCM26 Live Multitrack & Congregation recordings (~68.5 BPM, 4/4; Capo 3 play C); also performed in D major in live worship set"
 chord_status: "chords-archived"
-youtube_url: ""
+youtube_url: "https://www.youtube.com/watch?v=dGc-Jk-Y2_U"
+youtube_links:
+  - label: "Rooted — CCM26 Live Congregation (Key Eb)"
+    url: "https://www.youtube.com/watch?v=dGc-Jk-Y2_U"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "Rooted — CCM26 Congregation Mix, Key Eb (M4A)"
     path: "audio/Rooted Congression.m4a"
+    youtube_url: "https://www.youtube.com/watch?v=dGc-Jk-Y2_U"
     drive_url: "https://drive.google.com/file/d/1fGgBaFQJWAWTTiSrAoRZolJZiJPoavCE/view?usp=drivesdk"
   - label: "Rooted — CCM26 Raw Direct Board Mix, Key Eb (M4A)"
     path: "audio/Rooted Raw.m4a"
+    youtube_url: ""
     drive_url: "https://drive.google.com/file/d/1O6Cgx3EemmGV7G9Dcq70gjcc3lNV5OTD/view?usp=drivesdk"
 drive_links:
   - label: "CCM26 Rooted Lyrics Doc"

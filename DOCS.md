@@ -87,9 +87,10 @@ File naming convention: `songs/<YEAR>-<id>.md` (for example, `songs/2026-rooted.
 | `key_verified` | `boolean` | No | `true` if original key is verified from archival charts/schedules. |
 | `key_note` | `string` | No | Key/modulation notes (e.g. `"Original Key G modulating to A"`). |
 | `chord_status` | `string` | No | `"chords-archived"`, `"key-archived"`, `"lyrics-archived"`, or `"audio-archived"`. |
-| `youtube_url` | `string` | No | Official YouTube URL (`""` if none). |
+| `youtube_url` | `string` | No | Primary YouTube URL (`""` if none). |
+| `youtube_links` | `list` | No | Optional list of `{ label, url }` YouTube recordings when multiple versions exist. |
 | `contact` | `string` | No | Maintainer email for corrections. |
-| `audio_files` | `list` | No | List of `{ label, path, drive_url }` items (`[]` if none). Leave `path: ""` for Drive-only streams. |
+| `audio_files` | `list` | No | List of `{ label, path, youtube_url, drive_url }` items (`[]` if none). Leave `path: ""` for Drive-only streams. |
 | `drive_links` | `list` | No | List of `{ label, url }` source documents (`[]` if none). |
 
 ### Markdown Body Syntax
@@ -122,11 +123,12 @@ key: "Eb"
 key_verified: true
 key_note: "Concert Key Eb major on CCM26 Live Multitrack & Congregation recordings; also performed in D major in live worship set"
 chord_status: "chords-archived"
-youtube_url: ""
+youtube_url: "https://www.youtube.com/watch?v=dGc-Jk-Y2_U"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "Rooted — CCM26 Congregation Mix, Key Eb (M4A)"
     path: "audio/Rooted Congression.m4a"
+    youtube_url: "https://www.youtube.com/watch?v=dGc-Jk-Y2_U"
     drive_url: "https://drive.google.com/file/d/1fGgBaFQJWAWTTiSrAoRZolJZiJPoavCE/view?usp=drivesdk"
 drive_links:
   - label: "CCM26 Rooted Lyrics Doc"

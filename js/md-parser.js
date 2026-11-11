@@ -31,6 +31,7 @@
 
   function parseYamlFrontmatter(yamlText) {
     var meta = {
+      youtube_links: [],
       audio_files: [],
       drive_links: []
     };
@@ -179,9 +180,42 @@
       return {
         label: a.label || 'Audio Recording',
         path: a.path || '',
+        youtubeUrl: a.youtube_url || a.youtubeUrl || '',
         driveUrl: a.drive_url || a.driveUrl || ''
       };
     }) : [];
+
+    var youtubeLinks = Array.isArray(meta.youtube_links) ? meta.youtube_links.map(function (y) {
+      return {
+        label: y.label || (meta.title ? (meta.title + ' — YouTube') : 'YouTube Recording'),
+        url: y.url || ''
+      };
+    }).filter(function (y) { return Boolean(y.url); }) : [];
+
+    var primaryYoutubeUrl = meta.youtube_url || (youtubeLinks[0] ? youtubeLinks[0].url : '');
+    if (!youtubeLinks.length && primaryYoutubeUrl) {
+      youtubeLinks.push({
+        label: (meta.title || meta.id || 'Song') + ' — YouTube',
+        url: primaryYoutubeUrl
+      });
+    }
+    for (var ai = 0; ai < audioFiles.length; ai++) {
+      var ayUrl = audioFiles[ai].youtubeUrl;
+      if (!ayUrl) continue;
+      var exists = false;
+      for (var yi = 0; yi < youtubeLinks.length; yi++) {
+        if (youtubeLinks[yi].url === ayUrl) {
+          exists = true;
+          break;
+        }
+      }
+      if (!exists) {
+        youtubeLinks.push({
+          label: audioFiles[ai].label || 'YouTube Recording',
+          url: ayUrl
+        });
+      }
+    }
 
     var driveLinks = Array.isArray(meta.drive_links) ? meta.drive_links.map(function (d) {
       return {
@@ -213,7 +247,8 @@
       keyVerified: Boolean(meta.key_verified),
       keyNote: meta.key_note || '',
       chordStatus: meta.chord_status || 'lyrics-archived',
-      youtubeUrl: meta.youtube_url || '',
+      youtubeUrl: primaryYoutubeUrl,
+      youtubeLinks: youtubeLinks,
       contact: meta.contact || 'arian.prabowo@placeofjoy.org.au',
       audioFiles: audioFiles,
       driveLinks: driveLinks,
@@ -239,6 +274,14 @@
     lines.push('key_note: ' + quoteYaml(song.keyNote || ''));
     lines.push('chord_status: ' + quoteYaml(song.chordStatus || 'lyrics-archived'));
     lines.push('youtube_url: ' + quoteYaml(song.youtubeUrl || ''));
+    var yl = song.youtubeLinks || [];
+    if (yl.length > 1) {
+      lines.push('youtube_links:');
+      for (var y = 0; y < yl.length; y++) {
+        lines.push('  - label: ' + quoteYaml(yl[y].label || ''));
+        lines.push('    url: ' + quoteYaml(yl[y].url || ''));
+      }
+    }
     lines.push('contact: ' + quoteYaml(song.contact || 'arian.prabowo@placeofjoy.org.au'));
 
     var af = song.audioFiles || [];
@@ -247,6 +290,9 @@
       for (var i = 0; i < af.length; i++) {
         lines.push('  - label: ' + quoteYaml(af[i].label || ''));
         lines.push('    path: ' + quoteYaml(af[i].path || ''));
+        if (af[i].youtubeUrl || af[i].youtube_url) {
+          lines.push('    youtube_url: ' + quoteYaml(af[i].youtubeUrl || af[i].youtube_url || ''));
+        }
         lines.push('    drive_url: ' + quoteYaml(af[i].driveUrl || af[i].drive_url || ''));
       }
     } else {

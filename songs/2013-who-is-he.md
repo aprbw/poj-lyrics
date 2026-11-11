@@ -15,10 +15,16 @@ key_verified: true
 key_note: "Original Key D major (~69 BPM, 4/4; verified from CCM13 studio recording)"
 chord_status: "chords-archived"
 youtube_url: "https://www.youtube.com/watch?v=PyK_iTo9zXE"
+youtube_links:
+  - label: "Who is He — Live @ CCM13 PW Night"
+    url: "https://www.youtube.com/watch?v=PyK_iTo9zXE"
+  - label: "Who is He — CCM13 Studio Mix"
+    url: "https://www.youtube.com/watch?v=MHFSk4eCCVU"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "Who is He — CCM13 Studio Recording (MP3)"
     path: "audio/2013-who-is-he.mp3"
+    youtube_url: "https://www.youtube.com/watch?v=MHFSk4eCCVU"
     drive_url: "https://drive.google.com/file/d/0B2dMoFcEHcw_dUxNQ2FLRHZNaGs/view?usp=drivesdk&resourcekey=0-JUefN95V-LVrMK03SZPRzA"
 drive_links:
   - label: "CCM13 Lyrics Doc (v08)"
