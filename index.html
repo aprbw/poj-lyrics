@@ -80,16 +80,21 @@
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Sounds of Joy — Original Songs (2013–2026)</h1>
             <p class="text-sm text-slate-300 mt-2 leading-relaxed">
-              Explore the POJ Easter Camp (CCM) original songs — from <em>Who is He</em> (2013) to <em>Rooted</em> (2026). Stream original recordings, sort by year, title, composer, camp, or key, and transpose charts across all 12 keys or Nashville numbers.
+              Original worship and Easter Camp (CCM) songs written by people in <strong>Place of Joy (POJ)</strong> Melbourne — from <em>Who is He</em> (2013) to <em>Rooted</em> (2026). Stream original recordings, sort by year, title, composer, camp, or key, and transpose charts across all 12 keys or Nashville numbers.
             </p>
           </div>
           <div class="flex flex-wrap gap-2.5 shrink-0">
-            <a href="https://www.youtube.com/playlist?list=PLnPkLnDIJOiRLSjcU7OyuhqxpxJjHz43F" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm transition">
-              <span>YouTube Originals Playlist</span>
+            <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition">
+              <span>placeofjoy.org.au</span>
               <span aria-hidden="true">&#8599;</span>
             </a>
-            <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition">
-              <span>Contact Maintainer</span>
+            <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition">
+              <span>linktr.ee/pojmelbourne</span>
+              <span aria-hidden="true">&#8599;</span>
+            </a>
+            <a href="https://www.youtube.com/playlist?list=PLnPkLnDIJOiRLSjcU7OyuhqxpxJjHz43F" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm transition">
+              <span>YouTube Playlist</span>
+              <span aria-hidden="true">&#8599;</span>
             </a>
           </div>
         </div>
@@ -164,7 +169,7 @@
           </div>
 
           <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
-            <span id="results-summary-text">Showing 13 POJ original songs</span>
+            <span id="results-summary-text">Showing 16 POJ original songs</span>
             <button id="reset-filters-btn" type="button" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">
               Reset Filters
             </button>
@@ -346,7 +351,7 @@
       <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-sm space-y-6">
         <div>
           <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-sky-300">Markdown + YAML Songbook Repository</span>
-          <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-2">Deploy to GitHub &amp; <code class="font-mono-chord text-indigo-600 dark:text-sky-400">soundsofjoy.vercel.app</code></h2>
+          <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-2">GitHub Repository (<code class="font-mono-chord text-indigo-600 dark:text-sky-400">aprbw/poj-lyrics</code>) &amp; Optional Vercel Setup</h2>
           <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">
             Every song lives in <code class="font-mono-chord">songs/&lt;year&gt;-&lt;slug&gt;.md</code> with a structured YAML frontmatter header, alongside bundled original recordings in <code class="font-mono-chord">audio/</code>.
           </p>
@@ -355,27 +360,24 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-5">
             <div class="flex items-center justify-between mb-2">
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Step 1: Push Unzipped Repo to GitHub</h3>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Step 1: Sync Repository with GitHub</h3>
               <button id="copy-git-cmds-btn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition">
                 Copy Commands
               </button>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">Create or update your <code class="font-mono-chord">sounds-of-joy</code> repository on GitHub, then run inside the unzipped folder:</p>
-            <pre class="rounded-lg bg-slate-900 text-slate-100 p-3 text-xs font-mono-chord overflow-x-auto leading-relaxed">git init
+            <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">Repository on GitHub (<a href="https://github.com/aprbw/poj-lyrics" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">github.com/aprbw/poj-lyrics</a>):</p>
+            <pre class="rounded-lg bg-slate-900 text-slate-100 p-3 text-xs font-mono-chord overflow-x-auto leading-relaxed">npm run build
 git add .
-git commit -m "Sounds of Joy: Markdown + YAML songbook, credits &amp; audio"
-git branch -M main
-git remote add origin https://github.com/&lt;YOUR_USER&gt;/sounds-of-joy.git
-git push -u origin main</pre>
+git commit -m "Update POJ songbook"
+git push origin main</pre>
           </div>
 
           <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-5">
-            <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Step 2: Import into Vercel</h3>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Step 2: Optional Vercel Static Hosting</h3>
             <ol class="text-xs text-slate-600 dark:text-slate-300 space-y-2.5 list-decimal list-inside leading-relaxed">
-              <li>Open <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">vercel.com/new</a> and select your <code class="font-mono-chord">sounds-of-joy</code> GitHub repository.</li>
-              <li>Set <strong>Project Name</strong> to <code class="font-mono-chord font-bold">soundsofjoy</code>.</li>
-              <li><code class="font-mono-chord">vercel.json</code> automatically runs <code class="font-mono-chord">node scripts/build-songbook.js</code> whenever you edit or add any <code class="font-mono-chord">songs/*.md</code> file on GitHub.</li>
-              <li>Click <strong>Deploy</strong> — your site publishes at <strong>https://soundsofjoy.vercel.app</strong>.</li>
+              <li>When ready to publish online, open <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">vercel.com/new</a> and import <code class="font-mono-chord">aprbw/poj-lyrics</code>.</li>
+              <li><code class="font-mono-chord">vercel.json</code> is pre-configured to run <code class="font-mono-chord">node scripts/build-songbook.js</code> whenever you edit or add any <code class="font-mono-chord">songs/*.md</code> file on GitHub.</li>
+              <li>Click <strong>Deploy</strong> to host the static web songbook.</li>
             </ol>
           </div>
         </div>
@@ -464,13 +466,18 @@ contact: "arian.prabowo@placeofjoy.org.au"
 
   <!-- Footer -->
   <footer class="border-t border-slate-200/80 dark:border-slate-800/80 py-5 mt-10 text-xs text-slate-500 dark:text-slate-400 no-print">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-      <div>
-        <strong>Sounds of Joy</strong> — Place of Joy (POJ) Melbourne Original Song Archive (<code class="font-mono-chord">songs/*.md</code>)
+    <div class="max-w-6xl mx-auto px-4 flex flex-col gap-2 text-center sm:text-left">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div>
+          <strong>Sounds of Joy</strong> — Original songs by people in <a href="https://placeofjoy.org.au/" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">Place of Joy (POJ)</a> Melbourne &bull; <a href="https://linktr.ee/pojmelbourne" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">linktr.ee/pojmelbourne</a>
+        </div>
+        <div>
+          Issues with lyrics, chords, attributions, links, or details? Contact
+          <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">arian.prabowo@placeofjoy.org.au</a>
+        </div>
       </div>
-      <div>
-        Issues with lyrics, chords, attributions, links, or details? Contact
-        <a href="mailto:arian.prabowo@placeofjoy.org.au?subject=Sounds%20of%20Joy%20Songbook%20Update" class="font-semibold text-indigo-600 dark:text-sky-400 hover:underline">arian.prabowo@placeofjoy.org.au</a>
+      <div class="text-[11px] text-slate-400 dark:text-slate-500">
+        &copy; All rights reserved by the respective songwriters, lyricists, composers, and copyright holders.
       </div>
     </div>
   </footer>

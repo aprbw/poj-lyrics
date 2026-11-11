@@ -1,6 +1,6 @@
 /**
  * Sounds of Joy — Interactive Markdown + YAML Worship Songbook Controller
- * Place of Joy (POJ) Melbourne — soundsofjoy.vercel.app
+ * Place of Joy (POJ) Melbourne — https://placeofjoy.org.au/
  * Maintainer & Contact: arian.prabowo@placeofjoy.org.au
  */
 
@@ -1310,14 +1310,12 @@
     // Deploy commands copy
     document.getElementById('copy-git-cmds-btn').addEventListener('click', function () {
       var cmds = [
-        'git init',
+        'npm run build',
         'git add .',
-        'git commit -m "Sounds of Joy: Markdown + YAML songbook, credits & audio archive"',
-        'git branch -M main',
-        'git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/sounds-of-joy.git',
-        'git push -u origin main'
+        'git commit -m "Update POJ songbook"',
+        'git push origin main'
       ].join('\n');
-      copyTextToClipboard(cmds, 'Copied GitHub push commands!');
+      copyTextToClipboard(cmds, 'Copied GitHub sync commands!');
     });
 
     // Delegated click handling for dynamic cards, quick-sort pills, banners, and setlist rows

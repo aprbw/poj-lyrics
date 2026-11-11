@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-11T06:08:45.672Z",
-  "count": 13,
+  "generatedAt": "2026-11-11T06:24:23.366Z",
+  "count": 16,
   "songs": [
     {
       "id": "who-is-he",
@@ -21,10 +21,28 @@
       "file": "songs/2015-jesus-not-the-crowd.md"
     },
     {
+      "id": "kusadari",
+      "title": "Kusadari",
+      "year": 2015,
+      "file": "songs/2015-kusadari.md"
+    },
+    {
       "id": "painter",
       "title": "Painter",
       "year": 2016,
       "file": "songs/2016-painter.md"
+    },
+    {
+      "id": "a-song-for-you",
+      "title": "A Song for You",
+      "year": 2018,
+      "file": "songs/2018-a-song-for-you.md"
+    },
+    {
+      "id": "how-i-love-you-lord",
+      "title": "How I love You Lord",
+      "year": 2018,
+      "file": "songs/2018-how-i-love-you-lord.md"
     },
     {
       "id": "i-am-free",

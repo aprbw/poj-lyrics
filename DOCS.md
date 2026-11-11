@@ -1,8 +1,8 @@
 # Repository Documentation — Sounds of Joy (`poj-lyrics`)
 
-> Looking for the song list, lyrics, chords, and recordings? See **[`README.md`](./README.md)** (compact index) or **[`DIRECTORY.md`](./DIRECTORY.md)** (full metadata table).
+> Looking for the song list, lyrics, chords, and recordings? See **[`README.md`](./README.md)** (compact song index) or **[`DIRECTORY.md`](./DIRECTORY.md)** (full metadata table).
 
-This document covers the technical architecture, file structure, Markdown + YAML song format, build pipeline, and deployment setup for the **Place of Joy (POJ) Melbourne Original Songbook** (`soundsofjoy.vercel.app`).
+This document covers the technical architecture, file structure, Markdown + YAML song format, local build pipeline, and static deployment setup for the **[Place of Joy (POJ)](https://placeofjoy.org.au/)** Melbourne Original Songbook repository (`aprbw/poj-lyrics`).
 
 ---
 
@@ -13,11 +13,14 @@ poj-lyrics/
 ├── README.md                   # Compact POJ Song Index (Year, Song, Camp/Release)
 ├── DIRECTORY.md                # Full Song Directory Table (keys, credits, audio & sources)
 ├── DOCS.md                     # Technical & repository documentation (this file)
-├── songs/                      # 13 archived POJ song files (.md with YAML frontmatter)
+├── songs/                      # 16 archived POJ song files (.md with YAML frontmatter)
 │   ├── 2013-who-is-he.md
 │   ├── 2014-let-go-let-god.md
 │   ├── 2015-jesus-not-the-crowd.md
+│   ├── 2015-kusadari.md
 │   ├── 2016-painter.md
+│   ├── 2018-a-song-for-you.md
+│   ├── 2018-how-i-love-you-lord.md
 │   ├── 2018-i-am-free.md
 │   ├── 2019-cerminan-mu.md
 │   ├── 2019-embraced.md
@@ -39,9 +42,9 @@ poj-lyrics/
 │   └── app.js                  # Search/filter/sort UI, HTML5 audio player, setlist & live .md editor
 ├── scripts/
 │   └── build-songbook.js       # Compiles songs/*.md -> songs/manifest.json & js/songs-bundle.js
-├── index.html                  # Single-page static web application
+├── index.html                  # Single-page static web application (works offline or hosted)
 ├── package.json                # Zero-dependency Node build script ("npm run build")
-└── vercel.json                 # Vercel build & static routing config
+└── vercel.json                 # Pre-configured static hosting build config (for future Vercel deploy)
 ```
 
 ---
@@ -52,7 +55,7 @@ poj-lyrics/
 2. **Zero-Dependency Compiler (`scripts/build-songbook.js`):** Scans `songs/*.md` using `js/md-parser.js`, validates required frontmatter (`id`, `title`, `year`), and outputs:
    - `songs/manifest.json` — lightweight JSON index for dynamic HTTP fetching.
    - `js/songs-bundle.js` — pre-bundled `window.SOJ_MD_SONGS` payload so `index.html` loads instantaneously and works offline (even when opened directly via `file://`).
-3. **Client Transposition & Stage View (`js/transposer.js`, `js/app.js`):** Parses inline bracketed chords (`[G]`, `[D/F#]`) or Nashville numbers (`[1]`, `[6m]`, `[1/3]`) and renders interactive 12-key, Capo, and Nashville charts alongside bundled `<audio>` playback, YouTube embeds, setlist building, and print layouts.
+3. **Client Transposition & Stage View (`js/transposer.js`, `js/app.js`):** Parses inline bracketed chords (`[G]`, `[D/F#]`) or Nashville numbers (`[1]`, `[6m]`, `[1/3]`) and renders interactive 12-key, Capo, and Nashville charts alongside bundled `<audio>` playback, YouTube links, setlist building, and print layouts.
 
 ---
 
@@ -143,7 +146,7 @@ No external `npm` packages are required — only **Node.js** (v16+):
 # Rebuild songs/manifest.json and js/songs-bundle.js after editing songs/*.md
 npm run build
 
-# Preview locally with any static server (or open index.html directly)
+# Preview index.html locally with any static server (or open index.html directly)
 npx serve .
 ```
 
@@ -156,8 +159,16 @@ npx serve .
 
 ---
 
-## Deployment (GitHub + Vercel)
+## Optional Static Deployment (Vercel / GitHub Pages)
 
-1. Push updates to the `main` branch on GitHub (`aprbw/poj-lyrics`).
-2. Connect the repository to [Vercel](https://vercel.com/new) (project name: `soundsofjoy`).
-3. `vercel.json` automatically runs `node scripts/build-songbook.js` on every push so edits made directly to `songs/*.md` on GitHub compile and deploy automatically to `https://soundsofjoy.vercel.app`.
+The web songbook (`index.html`) is not yet deployed to a live domain, but `vercel.json` is pre-configured when ready to host:
+
+1. Push updates to the `main` branch on GitHub (`https://github.com/aprbw/poj-lyrics`).
+2. Import `aprbw/poj-lyrics` at [vercel.com/new](https://vercel.com/new).
+3. `vercel.json` automatically runs `node scripts/build-songbook.js` on every push so edits made directly to `songs/*.md` on GitHub compile automatically on deploy.
+
+---
+
+## Copyright
+
+© All rights reserved by the respective songwriters, lyricists, composers, and copyright holders.

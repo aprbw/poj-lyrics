@@ -4,6 +4,9 @@
 .LSOverride
 Icon?
 
+# Local scratch notes
+2do.md
+
 # Node & Vercel
 node_modules/
 .vercel/
