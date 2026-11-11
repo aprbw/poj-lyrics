@@ -1,0 +1,14 @@
+# macOS & Google Drive
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Node & Vercel
+node_modules/
+.vercel/
+npm-debug.log*
+
+# Environment
+.env
+.env.*

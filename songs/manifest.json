@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-11-11T05:15:14.337Z",
+  "count": 17,
+  "songs": [
+    {
+      "id": "be-one",
+      "title": "Be One (Satu Tubuh)",
+      "year": 2013,
+      "file": "songs/2013-be-one.md"
+    },
+    {
+      "id": "who-is-he",
+      "title": "Who is He",
+      "year": 2013,
+      "file": "songs/2013-who-is-he.md"
+    },
+    {
+      "id": "let-go-let-god",
+      "title": "Let Go, Let God",
+      "year": 2014,
+      "file": "songs/2014-let-go-let-god.md"
+    },
+    {
+      "id": "jesus-not-the-crowd",
+      "title": "Jesus Not The Crowd",
+      "year": 2015,
+      "file": "songs/2015-jesus-not-the-crowd.md"
+    },
+    {
+      "id": "kusadari",
+      "title": "Kusadari",
+      "year": 2015,
+      "file": "songs/2015-kusadari.md"
+    },
+    {
+      "id": "painter",
+      "title": "Painter",
+      "year": 2016,
+      "file": "songs/2016-painter.md"
+    },
+    {
+      "id": "a-song-for-you",
+      "title": "A Song for You",
+      "year": 2018,
+      "file": "songs/2018-a-song-for-you.md"
+    },
+    {
+      "id": "how-i-love-you-lord",
+      "title": "How I love You Lord",
+      "year": 2018,
+      "file": "songs/2018-how-i-love-you-lord.md"
+    },
+    {
+      "id": "i-am-free",
+      "title": "I am Free",
+      "year": 2018,
+      "file": "songs/2018-i-am-free.md"
+    },
+    {
+      "id": "cerminan-mu",
+      "title": "Cerminan-Mu",
+      "year": 2019,
+      "file": "songs/2019-cerminan-mu.md"
+    },
+    {
+      "id": "embraced",
+      "title": "Embraced",
+      "year": 2019,
+      "file": "songs/2019-embraced.md"
+    },
+    {
+      "id": "sesuai-dengan-rencanamu",
+      "title": "Sesuai Dengan RencanaMu",
+      "year": 2020,
+      "file": "songs/2020-sesuai-dengan-rencanamu.md"
+    },
+    {
+      "id": "uno",
+      "title": "UNO",
+      "year": 2021,
+      "file": "songs/2021-uno.md"
+    },
+    {
+      "id": "here-is-my-broken-heart",
+      "title": "Here is My Broken Heart",
+      "year": 2023,
+      "file": "songs/2023-here-is-my-broken-heart.md"
+    },
+    {
+      "id": "my-declaration",
+      "title": "My Declaration",
+      "year": 2024,
+      "file": "songs/2024-my-declaration.md"
+    },
+    {
+      "id": "within",
+      "title": "Within",
+      "year": 2025,
+      "file": "songs/2025-within.md"
+    },
+    {
+      "id": "rooted",
+      "title": "Rooted",
+      "year": 2026,
+      "file": "songs/2026-rooted.md"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "buildCommand": "node scripts/build-songbook.js",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "trailingSlash": false
+}
