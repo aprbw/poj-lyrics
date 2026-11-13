@@ -14,12 +14,15 @@ key: "Db"
 key_verified: true
 key_note: "Original Concert Key Db major (~70 BPM, 4/4; Capo 1 play C shapes on acoustic vocal demo)"
 chord_status: "chords-archived"
-youtube_url: ""
+youtube_url: "https://www.youtube.com/watch?v=LxArzvxL26Q"
+youtube_links:
+  - label: "Within — CCM25 Acoustic Guitar & Vocal Demo (Key Db)"
+    url: "https://www.youtube.com/watch?v=LxArzvxL26Q"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "Within — CCM25 Acoustic Guitar & Vocal Demo, Key Db (M4A)"
     path: "audio/AUD-20250326-WA0004.m4a"
-    youtube_url: ""
+    youtube_url: "https://www.youtube.com/watch?v=LxArzvxL26Q"
     drive_url: ""
 drive_links:
   - label: "CCM Easter Camp 2025 Handbook"

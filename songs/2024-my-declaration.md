@@ -14,12 +14,15 @@ key: "D"
 key_verified: true
 key_note: "Original Key D major (~72 BPM, 4/4; verified from CCM24 acoustic duet demo)"
 chord_status: "chords-archived"
-youtube_url: ""
+youtube_url: "https://www.youtube.com/watch?v=YyvTkcAXyBo"
+youtube_links:
+  - label: "My Declaration — CCM24 Acoustic Duet Demo (Key D)"
+    url: "https://www.youtube.com/watch?v=YyvTkcAXyBo"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "My Declaration — CCM24 Acoustic Duet Demo, Key D (M4A)"
     path: "audio/AUD-20261112-WA0023.m4a"
-    youtube_url: ""
+    youtube_url: "https://www.youtube.com/watch?v=YyvTkcAXyBo"
     drive_url: ""
 drive_links:
   - label: "CCM Easter Camp 2024 Handbook"
