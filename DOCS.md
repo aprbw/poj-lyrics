@@ -57,8 +57,8 @@ poj-lyrics/
    - `js/songs-bundle.js` — pre-bundled `window.SOJ_MD_SONGS` payload so `index.html` loads instantaneously and works offline (even when opened directly via `file://`).
 3. **Interactive Directory, Song View, Slide Show & Focus Mode (`js/transposer.js`, `js/app.js`):**
    - **Browse Songs (`#/`):** Interactive song table showing `Year`, `Song`, and `Camp / Release` by default, with a **Show All Columns** toggle, multi-select column AutoFilters, and ascending/descending column sorting.
-   - **Song Page (`#/song/<id>`):** Places **Chords & Lyrics immediately beneath the song title**, with Transpose/Notation (`Chords`, `Nashville 1–7`, `Lyrics Only`, `Capo`), **Copy Plain Lyrics** export, **Recordings** (YouTube links + local `<audio>` when running locally; Google Drive links are kept strictly in GitHub Markdown files), and **Credits & Song Details** (`Songwriters / Credits` and `Original Key`) positioned at the bottom.
-   - **Slide Show & 2-Window Presenter (`#/display/<id>`):** PowerPoint-style **Slide Show** with `Previous` / `Next` controls, keyboard shortcuts, and Blackout (`B`), plus a **2-Window Presenter** mode that opens a clean audience **Display Window** (`#/display/<id>`) synchronized in real time with the **Presenter Control** console (`Live on Display` + `Up Next` previews and clickable slide deck).
+   - **Song Page (`#/song/<id>`):** Places **Chords & Lyrics immediately beneath the song title**, with Transpose/Notation (`Chords`, `Nashville 1–7`, `Lyrics Only`, `Capo`), **3 bottom export buttons** (`Copy Plain Lyrics`, `Copy Proclaim Format`, `Print PDF`), **Recordings** (YouTube links including unlisted videos + local `<audio>` when running locally; zero Google Drive links appear on the website), and **Credits & Song Details** (`Songwriters / Credits` and `Original Key`) positioned at the bottom.
+   - **Slide Show & 2-Window Presenter (`#/display/<id>`):** PowerPoint-style **Slide Show** and **2-Window Presenter** mode with a multiline bottom slide list, numbered slides bound to keyboard jump hotkeys (`1–9`, `0`, `Q–P`, `A–L`), `Previous` / `Next` controls, and Blackout (`B`), synchronizing the audience **Display Window** (`#/display/<id>`) in real time with **Presenter Control**.
    - **Focus Mode:** Distraction-free mobile and desktop view showing just **Title + Lyrics** with desktop auto/manual multi-column layout, an optional **Chords: Off / On** toggle, and font sizing.
    - **Contact (`#/contact`):** Single dedicated page displaying maintainer contact details.
 
@@ -114,14 +114,14 @@ year: 2026
 camp: "CCM26: Rooted"
 language: "English"
 scripture: "Ephesians 3:17–19"
-credits: "Lyrics & Music: Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim"
-lyricists: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim"
-composers: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim"
+credits: "Lyrics & Music: Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim, Mich"
+lyricists: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim, Mich"
+composers: "Alicia Jeanelly, Farrel Sihite, Tiffany Lindsay, Rachel \"Rere\" Halim, Mich"
 performers: "POJ Praise & Worship"
 credit_note: "Verified in CCM26 Rooted Lyrics Doc."
-key: "Eb"
+key: "D"
 key_verified: true
-key_note: "Concert Key Eb major on CCM26 Live Multitrack & Congregation recordings; also performed in D major in live worship set"
+key_note: "Original Key D major on CCM26 songwriting/piano demos & live worship set; also performed in Eb major on CCM26 Live Congregation recording"
 chord_status: "chords-archived"
 youtube_url: "https://www.youtube.com/watch?v=dGc-Jk-Y2_U"
 contact: "arian.prabowo@placeofjoy.org.au"

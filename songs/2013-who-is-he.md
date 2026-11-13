@@ -20,6 +20,8 @@ youtube_links:
     url: "https://www.youtube.com/watch?v=PyK_iTo9zXE"
   - label: "Who is He — CCM13 Studio Mix"
     url: "https://www.youtube.com/watch?v=MHFSk4eCCVU"
+  - label: "Who is He — CCM Endorsement Video"
+    url: "https://www.youtube.com/watch?v=61jPEJgbWRk"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "Who is He — CCM13 Studio Recording (MP3)"

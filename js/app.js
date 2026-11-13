@@ -155,9 +155,15 @@
     slideBlackout: false,
     slideFontScale: 1.0,
     displayConnected: false,
-    proclaimIncludeHeaders: true,
     theme: safeLoad(STORAGE_KEYS.theme, 'light')
   };
+
+  var SLIDE_HOTKEYS = '1234567890qwertyuiopasdfghjkl';
+
+  function getSlideHotkey(index) {
+    if (index < 0 || index >= SLIDE_HOTKEYS.length) return '';
+    return SLIDE_HOTKEYS.charAt(index).toUpperCase();
+  }
 
   // Ensure locked columns stay visible
   state.visibleCols.title = true;
@@ -948,6 +954,14 @@
     state.slideIndex = Math.max(0, Math.min(slides.length - 1, Number(index) || 0));
     if (state.presenterActive) {
       broadcastPresentationState();
+    } else if (state.activeView === 'display') {
+      sendPresentationMessage({
+        type: 'soj_display_step',
+        songId: song.id,
+        slideIndex: state.slideIndex,
+        blackout: state.slideBlackout,
+        ts: Date.now()
+      });
     }
     renderPresentationViews();
   }
@@ -1001,6 +1015,31 @@
       statusEl.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30';
       if (openBtn) openBtn.textContent = 'Open Display Window';
     }
+  }
+
+  function renderSlideHotkeyStripHtml(slides, activeIndex, isPresenterTheme) {
+    var pills = [];
+    for (var i = 0; i < slides.length; i++) {
+      var sl = slides[i];
+      var activePill = i === activeIndex;
+      var hk = getSlideHotkey(i);
+      var baseCls = isPresenterTheme
+        ? (activePill ? 'bg-indigo-600 text-white border border-indigo-400 shadow-sm' : 'bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700/80')
+        : (activePill ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white/5 hover:bg-white/15 text-slate-300');
+      var kbdCls = activePill
+        ? 'bg-white/25 text-white'
+        : (isPresenterTheme ? 'bg-slate-950/90 text-indigo-300' : 'bg-white/15 text-indigo-200');
+      var hkHtml = hk
+        ? '<kbd class="inline-flex items-center justify-center min-w-[1.25rem] px-1 py-0.2 rounded text-[10px] font-mono-chord font-extrabold ' + kbdCls + '">' + escapeHtml(hk) + '</kbd>'
+        : '';
+      pills.push(
+        '<button type="button" data-action="jump-slide" data-slide-idx="' + i + '" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition ' + baseCls + '">' +
+          hkHtml +
+          '<span>' + escapeHtml((i + 1) + '. ' + sl.badgeLabel) + '</span>' +
+        '</button>'
+      );
+    }
+    return pills.join('');
   }
 
   function renderPresentationViews() {
@@ -1059,18 +1098,7 @@
 
       var ssStrip = document.getElementById('slideshow-strip');
       if (ssStrip) {
-        var pills = [];
-        for (var i = 0; i < slides.length; i++) {
-          var sl = slides[i];
-          var activePill = i === state.slideIndex;
-          pills.push(
-            '<button type="button" data-action="jump-slide" data-slide-idx="' + i + '" class="shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition ' +
-              (activePill ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white/5 hover:bg-white/15 text-slate-300') + '">' +
-              escapeHtml((i + 1) + '. ' + sl.badgeLabel) +
-            '</button>'
-          );
-        }
-        ssStrip.innerHTML = pills.join('');
+        ssStrip.innerHTML = renderSlideHotkeyStripHtml(slides, state.slideIndex, false);
       }
     } else {
       document.body.classList.remove('slideshow-active');
@@ -1133,6 +1161,10 @@
         for (var d = 0; d < slides.length; d++) {
           var dSlide = slides[d];
           var isLive = d === state.slideIndex;
+          var dHk = getSlideHotkey(d);
+          var dHkBadge = dHk
+            ? '<kbd class="inline-flex items-center justify-center min-w-[1.35rem] px-1.5 py-0.5 rounded text-[10px] font-mono-chord font-extrabold ' + (isLive ? 'bg-indigo-500 text-white' : 'bg-slate-800 text-indigo-300 border border-slate-700') + '">' + escapeHtml(dHk) + '</kbd>'
+            : '';
           var previewSnippet = dSlide.type === 'title'
             ? (dSlide.title + (dSlide.subtitle ? ' — ' + dSlide.subtitle : ''))
             : (dSlide.type === 'end' ? '(Blank end slide)' : dSlide.lines.join(' / '));
@@ -1142,8 +1174,9 @@
                 ? 'border-indigo-500 bg-indigo-600/20 text-white shadow-sm'
                 : 'border-slate-800/90 bg-slate-950/60 hover:bg-slate-800/70 text-slate-300') + '">' +
               '<div class="flex items-center justify-between gap-2 mb-1">' +
-                '<span class="text-[11px] font-bold uppercase tracking-wider ' + (isLive ? 'text-indigo-300' : 'text-slate-400') + '">' +
-                  escapeHtml((d + 1) + '. ' + dSlide.badgeLabel) +
+                '<span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider ' + (isLive ? 'text-indigo-300' : 'text-slate-400') + '">' +
+                  dHkBadge +
+                  '<span>' + escapeHtml((d + 1) + '. ' + dSlide.badgeLabel) + '</span>' +
                 '</span>' +
                 (isLive ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold uppercase bg-emerald-500 text-slate-950">Live</span>' : '') +
               '</div>' +
@@ -1154,6 +1187,11 @@
           );
         }
         deckList.innerHTML = cards.join('');
+      }
+
+      var prStrip = document.getElementById('presenter-strip');
+      if (prStrip) {
+        prStrip.innerHTML = renderSlideHotkeyStripHtml(slides, state.slideIndex, true);
       }
     } else {
       document.body.classList.remove('presenter-active');
@@ -1709,14 +1747,41 @@
   /* ==========================================================================
      SONG DETAIL VIEW (TITLE -> IMMEDIATELY CHORDS & LYRICS -> BOTTOM PANELS)
      ========================================================================== */
+  function collectSongYoutubeLinks(song) {
+    var seen = {};
+    var out = [];
+    function add(url, label) {
+      var cleanUrl = String(url || '').trim();
+      if (!cleanUrl || /drive\.google\.com|docs\.google\.com/i.test(cleanUrl)) return;
+      if (seen[cleanUrl]) return;
+      seen[cleanUrl] = true;
+      out.push({
+        label: String(label || (song.title + ' — YouTube')).trim(),
+        url: cleanUrl
+      });
+    }
+    var list = song.youtubeLinks || [];
+    for (var i = 0; i < list.length; i++) {
+      add(list[i] && list[i].url, list[i] && list[i].label);
+    }
+    if (song.youtubeUrl) {
+      add(song.youtubeUrl, song.title + ' — YouTube');
+    }
+    var rawAudio = song.audioFiles || [];
+    for (var j = 0; j < rawAudio.length; j++) {
+      if (rawAudio[j] && rawAudio[j].youtubeUrl) {
+        add(rawAudio[j].youtubeUrl, rawAudio[j].label || (song.title + ' — YouTube'));
+      }
+    }
+    return out;
+  }
+
   function renderRecordingsBottomPanel(song) {
     var panel = document.getElementById('song-recordings-panel');
     if (!panel) return;
     panel.innerHTML = '';
 
-    var ytLinks = (song.youtubeLinks && song.youtubeLinks.length)
-      ? song.youtubeLinks
-      : (song.youtubeUrl ? [{ label: song.title + ' — YouTube', url: song.youtubeUrl }] : []);
+    var ytLinks = collectSongYoutubeLinks(song);
     var hasYoutube = ytLinks.length > 0;
     var localTracks = [];
     var rawAudio = song.audioFiles || [];
@@ -1745,7 +1810,7 @@
     }
     panel.appendChild(header);
 
-    if (ytLinks.length > 1) {
+    if (ytLinks.length >= 1) {
       var ytGrid = document.createElement('div');
       ytGrid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1';
       for (var y = 0; y < ytLinks.length; y++) {
@@ -2024,13 +2089,22 @@
     applyFocusModeDom();
   }
 
+  function copyPlainLyrics() {
+    var song = getBaseSongById(state.selectedSongId);
+    if (!song) return;
+    var plain = Transposer.renderPlainLyricsForSlides(song, song.sections, {
+      includeSectionLabels: false
+    });
+    copyTextToClipboard(plain, 'Copied plain lyrics for "' + song.title + '"');
+  }
+
   function copyPlainLyricsForProclaim() {
     var song = getBaseSongById(state.selectedSongId);
     if (!song) return;
     var plain = Transposer.renderPlainLyricsForSlides(song, song.sections, {
-      includeSectionLabels: state.proclaimIncludeHeaders
+      includeSectionLabels: true
     });
-    copyTextToClipboard(plain, 'Copied plain lyrics for "' + song.title + '"');
+    copyTextToClipboard(plain, 'Copied Proclaim format for "' + song.title + '"');
   }
 
   function resetAllFilters() {
@@ -2354,10 +2428,10 @@
       renderSongDetailView();
     });
 
-    document.getElementById('copy-proclaim-btn').addEventListener('click', copyPlainLyricsForProclaim);
-    document.getElementById('proclaim-headers-checkbox').addEventListener('change', function (e) {
-      state.proclaimIncludeHeaders = Boolean(e.target.checked);
-    });
+    var copyPlainBtn = document.getElementById('copy-plain-lyrics-btn');
+    if (copyPlainBtn) copyPlainBtn.addEventListener('click', copyPlainLyrics);
+    var copyProclaimBtn = document.getElementById('copy-proclaim-btn');
+    if (copyProclaimBtn) copyProclaimBtn.addEventListener('click', copyPlainLyricsForProclaim);
 
     document.getElementById('transpose-down-btn').addEventListener('click', function () {
       var cur = getSongTranspose(state.selectedSongId) - 1;
@@ -2548,6 +2622,18 @@
           e.preventDefault();
           toggleSlideBlackout();
           return;
+        }
+        if (!e.metaKey && !e.ctrlKey && !e.altKey && e.key && e.key.length === 1) {
+          var hkIdx = SLIDE_HOTKEYS.indexOf(e.key.toLowerCase());
+          if (hkIdx !== -1) {
+            var hkSong = getBaseSongById(state.selectedSongId);
+            var hkSlides = hkSong ? buildSongSlides(hkSong) : [];
+            if (hkIdx < hkSlides.length) {
+              e.preventDefault();
+              goToSlide(hkIdx);
+            }
+            return;
+          }
         }
         return;
       }
