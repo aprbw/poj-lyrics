@@ -4,15 +4,15 @@ title: "Made Worthy"
 year: 2023
 camp: "CCM23: Nevertheless"
 language: "English"
-scripture: "Psalm 51:16–17"
-credits: "Lyrics & Music: Abraham Wiraguna, Clarissa Tedy Angelita, Hans Anastasius Kurniawan & POJ CCM23 Songwriting Team"
-lyricists: "Abraham Wiraguna (Verse), Clarissa Tedy Angelita (Chorus), Hans Anastasius Kurniawan (Bridge)"
-composers: "Abraham Wiraguna, Clarissa Tedy Angelita, Hans Anastasius Kurniawan & POJ CCM23 Songwriting Team"
+scripture: "Psalm 51:16–17 (NLT)"
+credits: "Lyrics & Music: Hans Anastasius, Abraham Wiraguna, Alice Aurelia, Samantha Sarah, Steven Harjapramana"
+lyricists: "Hans Anastasius, Abraham Wiraguna, Alice Aurelia, Samantha Sarah, Steven Harjapramana"
+composers: "Hans Anastasius, Abraham Wiraguna, Alice Aurelia, Samantha Sarah, Steven Harjapramana"
 performers: "POJ Praise & Worship"
-credit_note: "Section songwriter leads (Bram, Sasa, Hans) verified in Camp Song 2023 Google Doc."
+credit_note: "Written by Hans Anastasius, Abraham Wiraguna, Alice Aurelia, Samantha Sarah, and Steven Harjapramana (CCM23: Nevertheless)."
 key: "G"
 key_verified: true
-key_note: "Nashville chart archived in Drive (transpose to any key)"
+key_note: "Original Key G major (Do = G, 4/4)"
 chord_status: "chords-archived"
 youtube_url: ""
 contact: "arian.prabowo@placeofjoy.org.au"
@@ -36,6 +36,19 @@ I’m [1]not enough
 But your [2m]arms are open [1/3]wide  
 I am [4]welcomed in this [5]place
 
+## Chorus
+> Progression: 1  |  4  |  6m  5  |  4  5  ||  1  |  4  |  6m  5  4  |  2m  5  1
+
+[1]Here is my broken heart  
+[4]Take me as who I am  
+You [6m]loved me deeply be[5]yond compare  
+I’ve been [4]made worthy in [5]Your embrace
+
+[1]I lay my life in Your House  
+[4]Drawing near by Your side  
+Your [6m]love, Your [5]mercy has [4]made me new  
+You [2m]made me [5]worthy and called me Your [1]own
+
 ## Verse 2
 > Progression: 1  4  1  |  1  4  1  |  2m  4  |  1
 
@@ -43,18 +56,6 @@ I am [4]welcomed in this [5]place
 [1]Hold my heart, let your [4]spirit work with[1]in me  
 Your [2m]grace is greater than [4]all of my sin  
 And [1]that is enough
-
-## Chorus
-> Progression: 1 | 4 | 6m 5 | 4 5 || 1 | 4 | 6m 5 4 | 2m 5 1
-
-[1]Here is my broken heart  
-[4]Take me as who I am  
-You [6m]loved me deeply be[5]yond compare  
-I’ve been [4]made worthy in [5]Your embrace  
-[1]I lay my life in Your House  
-[4]Drawing near by Your side  
-Your [6m]love, Your [5]mercy has [4]made me new  
-You [2m]made me [5]worthy and called me Your [1]own
 
 ## Bridge
 > Progression: 4  6m  1  5  (x2)
