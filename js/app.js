@@ -1237,6 +1237,7 @@
       if (typeof msg.slideIndex === 'number') state.slideIndex = msg.slideIndex;
       if (typeof msg.blackout === 'boolean') state.slideBlackout = msg.blackout;
       if (typeof msg.fontScale === 'number') state.slideFontScale = msg.fontScale;
+      updateDocumentTitle();
       renderPresentationViews();
     } else if (msg.type === 'soj_present_close' && state.activeView === 'display') {
       try { window.close(); } catch (e) {}
@@ -1257,6 +1258,21 @@
   /* ==========================================================================
      VIEW SWITCHING & ROUTING
      ========================================================================== */
+  function updateDocumentTitle() {
+    var baseTitle = 'POJ Lyrics';
+    if (state.activeView === 'song') {
+      var song = getBaseSongById(state.selectedSongId);
+      document.title = (song && song.title) ? (song.title + ' — ' + baseTitle) : baseTitle;
+    } else if (state.activeView === 'display') {
+      var dSong = getBaseSongById(state.selectedSongId);
+      document.title = (dSong && dSong.title) ? ('Display: ' + dSong.title + ' — ' + baseTitle) : ('Display — ' + baseTitle);
+    } else if (state.activeView === 'contact') {
+      document.title = 'Contact — ' + baseTitle;
+    } else {
+      document.title = baseTitle;
+    }
+  }
+
   function renderViewVisibility() {
     var views = ['browse', 'song', 'contact', 'display'];
     for (var i = 0; i < views.length; i++) {
@@ -1265,6 +1281,7 @@
       if (state.activeView === views[i]) el.classList.remove('hidden');
       else el.classList.add('hidden');
     }
+    updateDocumentTitle();
     applyFocusModeDom();
     renderPresentationViews();
   }
