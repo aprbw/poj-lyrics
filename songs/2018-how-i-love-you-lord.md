@@ -5,29 +5,43 @@ year: 2018
 camp: "POJ Praise & Worship (2018)"
 language: "English"
 scripture: ""
-credits: "POJ Praise & Worship Team • Sounds of Joy"
-lyricists: "POJ Praise & Worship Team"
-composers: "POJ Praise & Worship Team"
-performers: "Sounds of Joy (Published Oct 9, 2018)"
-credit_note: "Individual songwriter names were not itemized on YouTube; contact arian.prabowo@placeofjoy.org.au to add."
+credits: "Lyrics & Music: Ivan Santoso, Steven Harjapramana, Clarissa Tedy, Timothy Noah"
+lyricists: "Ivan Santoso, Steven Harjapramana, Clarissa Tedy, Timothy Noah"
+composers: "Ivan Santoso, Steven Harjapramana, Clarissa Tedy, Timothy Noah"
+performers: "Steven Harjapramana (Vocal), Clarissa Tedy (AG), Timothy Noah (Cajon)"
+credit_note: "Verified on official Sounds of Joy YouTube release (Published Oct 9, 2018)."
 key: "G"
-key_verified: false
-key_note: ""
-chord_status: "lyrics-archived"
+key_verified: true
+key_note: "Original Key G major (~74 BPM, 4/4 acoustic worship session)"
+chord_status: "chords-archived"
 youtube_url: "https://www.youtube.com/watch?v=43dYD23FADQ"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files: []
 drive_links: []
 ---
 
+## Intro
+> Progression: 1  |  4  |  1  |  4
+
+[1]   [4]   [1]   [4]
+
 ## Verse
-God is the Greatest  
-Sitting on His Mighty Throne  
-He sent His Son from Heaven to Earth  
-Our life will always rise
+> Progression: 1  |  4  |  1  |  4  ||  6m7  5  |  4  |  2m7  1/3  |  4  5
+
+[1]God is the [4]Greatest  
+[1]Sitting on His Mighty [4]Throne  
+He sent His [6m7]Son from [5]Heaven to [4]Earth  
+Our [2m7]life will [1/3]always [4]rise [5]
 
 ## Chorus
-God is my strength, my hope and everything I need in life  
-God in my heart, my soul and in every place I need to go  
-I put my trust in You Lord  
-Oh how I love You Lord
+> Progression: 1  5/7  |  6m7  |  4  |  5  ||  1  5/7  |  6m7  |  4  |  5  ||  6m7  5  |  4  |  6m7  5  |  1
+
+[1]God is my strength, my [5/7]hope and [6m7]everything I [4]need in [5]life  
+[1]God in my heart, my [5/7]soul and in [6m7]every place I [4]need to [5]go  
+I [6m7]put my [5]trust in [4]You Lord  
+Oh [6m7]how I [5]love You [1]Lord
+
+## Outro
+> Progression: 4  |  1
+
+[4]   [1]
