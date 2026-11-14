@@ -8,7 +8,27 @@
   var Transposer = window.SOJTransposer;
   var CONTACT_EMAIL = 'arian.prabowo@placeofjoy.org.au';
 
-  var MISSING_CCM22_SONGS = [
+  var MISSING_SONGS = [
+    {
+      id: 'missing-ccm17-inside-out',
+      isMissing: true,
+      title: 'Unknown',
+      year: 2017,
+      camp: 'CCM17: Inside Out',
+      language: '—',
+      scripture: '',
+      credits: 'Missing — CCM17: Inside Out',
+      lyricists: '',
+      composers: '',
+      performers: '',
+      baseKey: '',
+      keyVerified: false,
+      keyNote: '',
+      chordStatus: 'missing',
+      youtubeUrl: '',
+      audioFiles: [],
+      sections: []
+    },
     {
       id: 'missing-my-faith',
       isMissing: true,
@@ -246,7 +266,10 @@
   }
 
   function extractSongwriters(song) {
-    if (song.isMissing) return ['Missing (CCM22)'];
+    if (song.isMissing) {
+      var campCode = (song.camp || '').split(':')[0].trim() || String(song.year || '');
+      return [campCode ? ('Missing (' + campCode + ')') : 'Missing'];
+    }
     var rawParts = [];
     if (song.lyricists) rawParts.push(song.lyricists);
     if (song.composers && song.composers !== song.lyricists) rawParts.push(song.composers);
@@ -288,7 +311,7 @@
 
   function getCatalogDataset() {
     if (!state.showMissing) return SONGS.slice();
-    return SONGS.concat(MISSING_CCM22_SONGS);
+    return SONGS.concat(MISSING_SONGS);
   }
 
   function matchesSearch(song, q) {

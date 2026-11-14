@@ -3,7 +3,7 @@
 > Back to **[Song Index (`README.md`)](./README.md)** • **[Repository Docs (`DOCS.md`)](./DOCS.md)**  
 > **Place of Joy Melbourne:** [placeofjoy.org.au](https://placeofjoy.org.au/) • [linktr.ee/pojmelbourne](https://linktr.ee/pojmelbourne)
 
-Complete metadata, keys, songwriter/composer attributions, scripture references, audio links, and archival source documents for **19 POJ original songs** (16 archived in [`songs/`](./songs), 3 missing from CCM22).
+Complete metadata, keys, songwriter/composer attributions, scripture references, audio links, and archival source documents for **20 POJ original songs** (16 archived in [`songs/`](./songs), 1 missing from CCM17, and 3 missing from CCM22).
 
 ---
 
@@ -16,6 +16,7 @@ Complete metadata, keys, songwriter/composer attributions, scripture references,
 | **2015** | [**Jesus, not the crowd**](./songs/2015-jesus-not-the-crowd.md) | CCM15: Jesus > Crowd | EN | `G` *(Lyrics)* | Jeremiah 23:16 | Jocelyn Victoria | [Booklet PDF](https://drive.google.com/file/d/0Byshw9IUAvMqQU1uXzk3M3BMQVE/view?usp=drivesdk&resourcekey=0-Yg5R0Zry59IeyCfXCKfjrg) |
 | **2015** | [**Kusadari**](./songs/2015-kusadari.md) | Sounds of Joy Release (2015) | EN/ID | **`D → E`** *(Chords)* | Isaiah 55:8–9 | Sounds of Joy • JoyMedia Melbourne | [YouTube](https://www.youtube.com/watch?v=HNlfVv8q5hE) |
 | **2016** | [**Painter**](./songs/2016-painter.md) | CCM16: Colour | EN | **`D`** *(Chords)* | Eph 5:13 • Matt 5:14–16 | Kevin Tedy & Ingrid Kurniawan | [YouTube](https://www.youtube.com/watch?v=ocNymHXZzdI) • [Handbook](https://docs.google.com/document/d/1dF5cnlD6oMT3vDYypNtlJdRQldFUQjcykiAO9Wuf_9o/edit) |
+| **2017** | **Unknown** *(Missing)* | CCM17: Inside Out | — | *Missing* | — | — | *Missing — contact to contribute* |
 | **2018** | [**A Song for You**](./songs/2018-a-song-for-you.md) | POJ Praise & Worship (2018) | EN | **`G → A`** *(Chords)* | — | Hans Anastasius, Ridwan Nugraha, Dany Gunawan, Jorryn Nathaniel | [YouTube](https://www.youtube.com/watch?v=6DKcT2Jvif4) |
 | **2018** | [**How I love You Lord**](./songs/2018-how-i-love-you-lord.md) | POJ Praise & Worship (2018) | EN | **`G`** *(Chords)* | — | Ivan Santoso, Steven Harjapramana, Clarissa Tedy, Timothy Noah | [YouTube](https://www.youtube.com/watch?v=43dYD23FADQ) |
 | **2018** | [**I am Free**](./songs/2018-i-am-free.md) | CCM18: Prison Break | EN/ID | **`C`** *(Chords)* | 2 Cor 6:7 • 2 Cor 12:9 | Hans Anastasius Kurniawan, Claudia Lee, Nathan Prajogo Djuanda, Claresta Wijaya | [YouTube Live](https://www.youtube.com/watch?v=nCuBvGx0lNE) • [YouTube Camp Demo](https://www.youtube.com/watch?v=OxhyV6OW98g) • [Live Demo](https://drive.google.com/file/d/1XffYQJRucFKJqbk2CHmbBvhoLI4AlfJy/view?usp=drivesdk) • [Camp Record](https://drive.google.com/file/d/1gWntjfm3ADucyjXDNn2pIkb8irzjcJ01/view?usp=drivesdk) • [Chart](https://docs.google.com/document/d/10fOl9EGy3npnNboeaHBjfU6WZMr7vfBHErKPtTmTBTA/edit) |
@@ -35,18 +36,18 @@ Complete metadata, keys, songwriter/composer attributions, scripture references,
 
 ## Archive Summary
 
-- **Total Songs Listed:** 19 POJ original songs (16 archived in [`songs/`](./songs), 3 missing from `CCM22: Little Things`)
+- **Total Songs Listed:** 20 POJ original songs (16 archived in [`songs/`](./songs), 1 missing from `CCM17: Inside Out`, 3 missing from `CCM22: Little Things`)
 - **Archived Languages:** 11 English, 3 Indonesian, 2 Bilingual
 - **Full Chord / Nashville Charts Archived (14):** [*Who is He*](./songs/2013-who-is-he.md), [*Let Go, Let God*](./songs/2014-let-go-let-god.md), [*Kusadari*](./songs/2015-kusadari.md), [*Painter*](./songs/2016-painter.md), [*A Song for You*](./songs/2018-a-song-for-you.md), [*How I love You Lord*](./songs/2018-how-i-love-you-lord.md), [*I am Free*](./songs/2018-i-am-free.md), [*Cerminan-Mu*](./songs/2019-cerminan-mu.md), [*Embraced*](./songs/2019-embraced.md), [*Sesuai Dengan Rencana-Mu*](./songs/2021-sesuai-dengan-rencana-mu.md), [*Made Worthy*](./songs/2023-made-worthy.md), [*My Declaration*](./songs/2024-my-declaration.md), [*Within*](./songs/2025-within.md), [*Rooted*](./songs/2026-rooted.md)
 - **Verified Original Keys (15):** [*Who is He*](./songs/2013-who-is-he.md) (`D`), [*Let Go, Let God*](./songs/2014-let-go-let-god.md) (`A → B`), [*Kusadari*](./songs/2015-kusadari.md) (`D → E`), [*Painter*](./songs/2016-painter.md) (`D`), [*A Song for You*](./songs/2018-a-song-for-you.md) (`G → A`), [*How I love You Lord*](./songs/2018-how-i-love-you-lord.md) (`G`), [*I am Free*](./songs/2018-i-am-free.md) (`C`), [*Cerminan-Mu*](./songs/2019-cerminan-mu.md) (`E` / `D` / `C`), [*Embraced*](./songs/2019-embraced.md) (`D` / `G`), [*Sesuai Dengan Rencana-Mu*](./songs/2021-sesuai-dengan-rencana-mu.md) (`D`), [*Uno*](./songs/2021-uno.md) (`G → A`), [*Made Worthy*](./songs/2023-made-worthy.md) (`G`), [*My Declaration*](./songs/2024-my-declaration.md) (`D`), [*Within*](./songs/2025-within.md) (`Db`), [*Rooted*](./songs/2026-rooted.md) (`D` / `Eb`)
-- **Missing Songs Needed:** *My Faith*, *All You Want*, *Little Things* (`CCM22: Little Things`, 2022)
+- **Missing Songs Needed:** *Unknown* (`CCM17: Inside Out`, 2017) • *My Faith*, *All You Want*, *Little Things* (`CCM22: Little Things`, 2022)
 - **Audio Recordings:** Linked to YouTube and POJ Google Drive (`audio/` is kept local-only via `.gitignore`)
 
 ---
 
 ## Corrections & Contributions
 
-For missing CCM22 songs, songwriter credits, chords, keys, lyrics, or recordings, edit or add the song's Markdown file in [`songs/`](./songs) (see [`DOCS.md`](./DOCS.md)) or contact **Arian Prabowo** at [arian.prabowo@placeofjoy.org.au](mailto:arian.prabowo@placeofjoy.org.au).
+For missing CCM17 or CCM22 songs, songwriter credits, chords, keys, lyrics, or recordings, edit or add the song's Markdown file in [`songs/`](./songs) (see [`DOCS.md`](./DOCS.md)) or contact **Arian Prabowo** at [arian.prabowo@placeofjoy.org.au](mailto:arian.prabowo@placeofjoy.org.au).
 
 ## Copyright
 

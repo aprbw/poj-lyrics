@@ -15,6 +15,7 @@ Official directory of original English and Indonesian worship songs, lyrics, cho
 | **2015** | [**Jesus, not the crowd**](./songs/2015-jesus-not-the-crowd.md) | CCM15: Jesus > Crowd |
 | **2015** | [**Kusadari**](./songs/2015-kusadari.md) | Sounds of Joy Release (2015) |
 | **2016** | [**Painter**](./songs/2016-painter.md) | CCM16: Colour |
+| **2017** | Unknown *(Missing)* | CCM17: Inside Out |
 | **2018** | [**A Song for You**](./songs/2018-a-song-for-you.md) | POJ Praise & Worship (2018) |
 | **2018** | [**How I love You Lord**](./songs/2018-how-i-love-you-lord.md) | POJ Praise & Worship (2018) |
 | **2018** | [**I am Free**](./songs/2018-i-am-free.md) | CCM18: Prison Break |
@@ -41,7 +42,7 @@ Full song directory (with songwriter/composer credits, keys, scripture, audio & 
 
 ## Contact & Contributions
 
-- **Missing songs, chords, credits, or recordings** (including CCM22 *My Faith*, *All You Want*, and *Little Things*): contact **Arian Prabowo** at [arian.prabowo@placeofjoy.org.au](mailto:arian.prabowo@placeofjoy.org.au).
+- **Missing songs, chords, credits, or recordings** (including CCM17 *Inside Out* and CCM22 *My Faith*, *All You Want*, and *Little Things*): contact **Arian Prabowo** at [arian.prabowo@placeofjoy.org.au](mailto:arian.prabowo@placeofjoy.org.au).
 - **Add or edit song sheets:** edit any Markdown file in [`songs/`](./songs) — see [`DOCS.md`](./DOCS.md) for format and build details.
 
 ## Copyright
