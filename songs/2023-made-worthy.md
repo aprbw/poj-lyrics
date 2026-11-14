@@ -12,11 +12,15 @@ performers: "POJ Praise & Worship"
 credit_note: "Written by Hans Anastasius, Abraham Wiraguna, Alice Aurelia, Samantha Sarah, and Steven Harjapramana (CCM23: Nevertheless)."
 key: "G"
 key_verified: true
-key_note: "Original Key G major (Do = G, 4/4)"
+key_note: "Original Key G major (Do = G, 4/4, ~69 BPM; verified from official chart & CCM23 acoustic/piano demo)"
 chord_status: "chords-archived"
 youtube_url: ""
 contact: "arian.prabowo@placeofjoy.org.au"
-audio_files: []
+audio_files:
+  - label: "Made Worthy — CCM23 Acoustic Guitar, Piano & Vocal Demo, Key G (M4A)"
+    path: "audio/AUD-20261114-WA0016.m4a"
+    youtube_url: ""
+    drive_url: ""
 drive_links:
   - label: "Camp Song 2023 Chords & Lyrics"
     url: "https://docs.google.com/document/d/17s4VJ5lm7-0AfwDU7rx77UL0bWHSRRl7hsaBFRi50kg/edit"
