@@ -14,12 +14,15 @@ key: "G"
 key_verified: true
 key_note: "Original Key G major (Do = G, 4/4, ~69 BPM; verified from official chart & CCM23 acoustic/piano demo)"
 chord_status: "chords-archived"
-youtube_url: ""
+youtube_url: "https://www.youtube.com/watch?v=864yzBoUS4g"
+youtube_links:
+  - label: "Made Worthy — CCM23 Acoustic Guitar, Piano & Vocal Demo (Key G)"
+    url: "https://www.youtube.com/watch?v=864yzBoUS4g"
 contact: "arian.prabowo@placeofjoy.org.au"
 audio_files:
   - label: "Made Worthy — CCM23 Acoustic Guitar, Piano & Vocal Demo, Key G (M4A)"
     path: "audio/AUD-20261114-WA0016.m4a"
-    youtube_url: ""
+    youtube_url: "https://www.youtube.com/watch?v=864yzBoUS4g"
     drive_url: ""
 drive_links:
   - label: "Camp Song 2023 Chords & Lyrics"
